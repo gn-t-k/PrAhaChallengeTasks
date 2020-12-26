@@ -50,6 +50,27 @@ Content-Type: <type>/<subtype>; charaset=<charaset>
 
 ### User-agent
 
+リクエストを行うユーザーエージェントソフトウェア（ウェブブラウザなどのこと）のOS、ベンダー、バージョンを識別するためのヘッダのことです。
+
+```
+User-Agent: <product>/<product-version><comment>
+```
+
+- `<product>` … 製品の識別子。（例）Mozilla
+- `<product-version>` … 製品のバージョン情報。
+- `<comment>` … 製品のより詳細な情報
+
+例えばFirefoxのUser-agentは下記のようになります
+
+```
+Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0
+```
+
+- `Mozilla/5.0`は、Mozillaと互換性があるブラウザであることを示しています（現在はほぼすべてのブラウザで共通）
+- `Windows NT 6.1; Win64; x64; rv:47.0`は、Windows7で動いていることを示しています。`rv`はGecko（後述）のバージョンです。
+- `Gecko/20100101`は、HTMLレンダリングエンジンGeckoを搭載したブラウザであることを示しています（`20100101`は固定文字列）
+- `Firefox/47.0`は、ブラウザーがFirefox47.0であることを示しています。
+
 ### Accept
 
 ### Referer
