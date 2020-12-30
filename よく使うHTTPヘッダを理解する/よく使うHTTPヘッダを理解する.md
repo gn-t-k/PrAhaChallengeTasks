@@ -175,15 +175,23 @@ Referrer-Policy: <policy>
 
 #### オリジンの定義
 
+オリジンは、URLのスキーム（`http://`, `https://`）、ホスト（`example.com`）、ポート（`:80`, `:443`）によって定義されます。ある2つのウェブコンテンツにおいて、スキーム、ホスト、ポートがすべて一致した場合、その2つのウェブコンテンツは同一オリジンであるといえます。
+
 ### `Authorization`ヘッダによる認証について
 
 リソースへのアクセスに制限がかかっている場合、`Authorization`ヘッダに認証情報を付与する必要があります。`Authorization`ヘッダで設定できる認証方法を3つ紹介します。
 
 #### `Basic`認証
 
+"`<username>:<password>`"をbase64でエンコードした文字列が認証情報として扱います。認証情報がデコード可能なので、データの盗聴などを防ぐためにはHTTPSプロトコルを利用して通信を暗号化するなどの対応が必要です。
+
 #### `Digest`認証
 
+サーバーから送られてきたランダムな文字列（nonce）とパスワードを組み合わせてハッシュ値を生成し、それを認証情報として扱う認証方式です。認証情報は暗号化されていますが、メッセージのボディは暗号化されないため、メッセージのボディの盗聴を防ぐためにはHTTPSプロトコルを利用して通信を暗号化するなどの対応が必要です。
+
 #### `Bearer`認証
+
+事前に入手したトークン（Bearer token）を`Authorization`ヘッダに設定してリクエストを送り、サーバがそれを確認することで認証を行う認証方式です。クライアントが事前に入手するトークンは、認可サーバーに要求して発行してもらう方式（OAuth）で取得します。
 
 ### `Cache-Control`ヘッダによるキャッシュの制御について
 
@@ -191,8 +199,32 @@ Referrer-Policy: <policy>
 
 #### `no-store`
 
-#### `no-cache`
+`Cache-Control: no-store`を指定すると、レスポンスをキャッシュに保存できなくなります。
 
 #### `max-age`
 
+`Cache-Control: max-age=<seconds>`を指定すると、キャッシュが保存されてから`<seconds>`秒が経過するまではリソースは古くないとみなされ、更新されなくなります。つまり、キャッシュの有効期限が設定できます。設定した時刻が経過して以降にレスポンスを受け取ると、キャッシュは更新されます。
+
+#### `no-cache`
+
+`Cache-Control: no-cache`を指定すると、格納されたレスポンスは、使用する前にかならず検証されます（有効期限が切れていなくても検証されます）。
+
 #### `must-revalidate`
+
+`Cache-Control: must-revalidate`を指定すると、格納されたレスポンスは、有効期限が切れている場合、使用する前にかならず検証されます。
+
+## 参考文献
+
+https://developer.mozilla.org/ja/docs/Web/HTTP/Headers
+
+https://developer.mozilla.org/ja/docs/Web/Security/Referer_header:_privacy_and_security_concerns
+
+https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy
+
+https://developer.mozilla.org/ja/docs/Web/HTTP/Authentication#Authentication_schemes
+
+https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control
+
+https://architecting.hateblo.jp/entry/2020/03/27/130535
+
+https://www.ryotosaito.com/blog/?p=264
