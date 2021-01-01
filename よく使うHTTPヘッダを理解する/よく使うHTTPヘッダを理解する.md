@@ -1,4 +1,4 @@
-# よく使うHTTPヘッダを理解する
+# 【調査】よく使うHTTPヘッダを理解する
 
 ## HTTPヘッダの重要性
 
@@ -215,16 +215,11 @@ Referrer-Policy: <policy>
 
 ## 参考文献
 
-https://developer.mozilla.org/ja/docs/Web/HTTP/Headers
-
-https://developer.mozilla.org/ja/docs/Web/Security/Referer_header:_privacy_and_security_concerns
-
-https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy
-
-https://developer.mozilla.org/ja/docs/Web/HTTP/Authentication#Authentication_schemes
-
-https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control
-
-https://architecting.hateblo.jp/entry/2020/03/27/130535
-
-https://www.ryotosaito.com/blog/?p=264
+- https://developer.mozilla.org/ja/docs/Web/HTTP/Headers
+- https://developer.mozilla.org/ja/docs/Web/Security/Referer_header:_privacy_and_security_concerns
+- https://developer.mozilla.org/ja/docs/Web/Security/Same-origin_policy
+- https://developer.mozilla.org/ja/docs/Web/HTTP/Authentication#Authentication_schemes
+- https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control
+- https://architecting.hateblo.jp/entry/2020/03/27/130535
+- https://www.ryotosaito.com/blog/?p=264
+- 書籍 Webを支える技術 山本陽平 技術評論社
