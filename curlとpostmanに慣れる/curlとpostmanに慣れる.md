@@ -48,12 +48,18 @@ $ curl -H "Content-Type: application/json" -d "{\"name\": \"hoge\"}" "https://ht
 
 ### `-X <method> / --request <method>`
 
-### `-u / --user`
-
 curlは、`-request`でメソッドを指定しなかった場合GETメソッドでリクエストを発行する。GET以外のメソッドを指定したい場合は`--request`オプションを使う。
 
 ```
 $ curl -X PUT -d "name=update-name" http://example.com
+```
+
+### `-u / --user`
+
+`--user`は、認証用のユーザーを設定するためのオプション。デフォルトではBasic認証で使えるようになっている
+
+```
+curl --user username:password http://www.example.com/
 ```
 
 
