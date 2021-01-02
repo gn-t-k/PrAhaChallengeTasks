@@ -46,17 +46,28 @@ $ curl --cookie cookie.txt http://httpbin.org/cookies
 $ curl -H "Content-Type: application/json" -d "{\"name\": \"hoge\"}" "https://httpbin.org/post"
 ```
 
-### `-F "<key-value data>" / --form "<key-value data>"`
-
 ### `-X <method> / --request <method>`
 
 ### `-u / --user`
+
+curlは、`-request`でメソッドを指定しなかった場合GETメソッドでリクエストを発行する。GET以外のメソッドを指定したい場合は`--request`オプションを使う。
+
+```
+$ curl -X PUT -d "name=update-name" http://example.com
+```
+
+
 
 ## shell scriptでよく使われてそうな（？）curlコマンドのオプション
 
 ### `-s / silent`
 
+`--silent`オプションを付けると、ダウンロードの進捗やエラーが出力されなくなる。shell scriptでcurlを利用するときに、不要な出力を表示しなくないときに使う。
+
 ### `-f / --fail`
+
+`--fail`オプションを付けると、エラーのレスポンスが返ってきたときに何も表示されなくなる。shell scriptでcurlを利用してエラーが返ってきたときにエラーページのhtmlを返されても利用しない場合が多いので、そういうときに使うオプション。
 
 ### `-L / --location`
 
+curlは、リダイレクト設定されているURLにアクセスしたとき、デフォルトではリダイレクト先のURLにはリクエストを発行しない。リダイレクトされている場合にリダイレクト先にもリクエストを発行したい場合は`--location`オプションを付ける。
