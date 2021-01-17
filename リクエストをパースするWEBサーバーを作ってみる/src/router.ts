@@ -13,11 +13,11 @@ router.get("/", (_req: Request, res: Response) => {
 
 router.post("/", (req: Request, res: Response) => {
   try {
-    if (req.header("Content-Type") === "application/json") {
-      res.status(201).json(req.body);
-    } else {
+    if (req.header("Content-Type") !== "application/json") {
       throw new Error("Content-Type: application/json is only allowed");
     }
+
+    res.status(201).json(req.body);
   } catch (error: unknown) {
     const errorMessage = ((_error) =>
       isError(_error) ? _error.message : "Sorry, something went wrong.")(error);
