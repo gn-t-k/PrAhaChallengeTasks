@@ -89,9 +89,62 @@ fetch('http://bar.other/resources/credentialed-content/', {
 
 ### クイズ1
 
+CORSでクッキーを送信する際に必要な設定について、XMLHttpRequestの場合とFetchの場合とで、それぞれ必要な設定は何でしょうか。
+
+```javascript
+// XMLHttpRequestの場合
+const invocation = new XMLHttpRequest();
+invocation.xxxxx = true;
+invocation.send();
+```
+
+```javascript
+// Fetchの場合
+fetch('http://bar.other/resources/credentialed-content/', {
+  mode: 'cors',
+  yyyyy: 'include'
+})
+```
+
+`xxxxx`と`yyyyy`に当てはまるプロパティ名を答えてください
+
+<details>
+  <summary>回答</summary>
+  xxxxx … withCredentials <br />
+  yyyyy … credentials
+</details>
+
 ### クイズ2
 
+`Content-Type`ヘッダに設定する値について、設定するとシンプルなリクエストで送信できなくなってしまう値は次のうちどれか
+
+1. application/x-www-form-urlencoded
+2. multipart/form-data
+3. text/plain
+4. application/xhtml+xml
+
+<details>
+  <summary>回答</summary>
+  4. application/xhtml+xml
+</details>
+
 ### クイズ3
+
+HTTPのOPTIONメソッドの利用用途について、適切でないものは次のうちどれか
+
+1. 許可されたリクエストメソッドの識別
+2. CORSでのプリフライトクエスト
+3. 対象リソースへのパスに沿ってメッセージのループバックテストを実行する
+
+<details>
+  <summary>回答</summary>
+  適切でないものは3 <br/>
+
+  1. `curl -X OPTIONS http://example.org -i`などとすると、許可されたリクエストメソッドを識別できる
+  2. CORSのプリフライトリクエストはOPTIONSメソッドで送信する
+  3. TRACEメソッドの説明
+
+</details>
 
 ## 課題3
 
@@ -100,3 +153,5 @@ fetch('http://bar.other/resources/credentialed-content/', {
 ## 課題4
 
 ### CURLで「シンプルなリクエスト」に該当したいPOSTリクエストを送信した場合、CORS制約は適用されるか、またその理由はなにか
+
+適用されない。CORSはブラウザの仕組みであるため、プリフライトリクエストは送信されないため。
