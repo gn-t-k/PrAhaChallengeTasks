@@ -107,6 +107,38 @@ Webサーバーは、照合情報の埋め込みをするなどして、受け�
 
 ## 課題2
 
+XSSやインジェクション攻撃の影響を軽減するために追加できるセキュリティレイヤー「CSP（コンテンツセキュリティポリシー）」について
+
+### クイズ１
+
+CSPを有効にするには、Webサーバーから`xxxxx`HTTPヘッダーを返すよう設定する必要がある。`xxxxx`に入るHTTPヘッダー名は何か
+
+<details>
+<summary>回答</summary>
+
+Content-Security-Policy
+</details>
+
+### クイズ2
+
+CSPを利用するとXSSを軽減できる理由は、CSPをサポートするブラウザは`xxxxx`からである。`xxxxx`に入る説明はなにか
+
+<details>
+<summary>回答</summary>
+
+（例）サーバーから指定された許可リストに乗っているドメインのスクリプトのみ実行する
+</details>
+
+### クイズ3
+
+CSPを利用して、ポリシー違反を検出・設定したURLに報告させるには、`Content-Security-Policy`HTTPヘッダに`xxxxx`ディレクティブを設定する。`xxxxx`に入るディレクティブ名は何か
+
+<details>
+<summary>回答</summary>
+
+report-uri
+</details>
+
 ## 課題3
 
 DVWAを利用する。
