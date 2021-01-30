@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORSについて理解する</title>
+  </head>
+  <body>
+    <p>CORSについて理解する</p>
+    <button onclick="sendSimpleRequest()">シンプルなリクエストを送信する</button>
+    <button onclick="sendPreflightRequest()">プリフライトリクエストを送信する</button>
+    <script>
+      const url = "https://494e29cf9cb7.ngrok.io"
+      const sendSimpleRequest = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.send();
+      };
+
+      const sendPreflightRequest = () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>
