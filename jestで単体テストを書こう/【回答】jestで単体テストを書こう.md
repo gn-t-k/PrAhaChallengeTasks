@@ -55,6 +55,13 @@
 
 ### ペアに単体テストを書いてもらう
 
+おふたりに3つずつの関数と、それぞれのテストの雛形を用意しましたので、以下のPRのご対応をよろしくお願いします。
+
+- 永井さん：[beerFunctionsのテストを作成](https://github.com/gn-t-k/PrAhaChallengeTasks/pull/11)
+- 粟田さん：[coffeeFunctionsのテストを作成](https://github.com/gn-t-k/PrAhaChallengeTasks/pull/12)
+
+Reviewersを自分に設定したかったのですがなぜかできなかったので、ご対応いただけたらslackかPRのコメントでお知らせください。レビューして`learn-unit-test`にマージします。
+
 ### クイズ
 
 #### クイズ1
