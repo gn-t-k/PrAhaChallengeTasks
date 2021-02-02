@@ -66,6 +66,46 @@ Reviewersを自分に設定したかったのですがなぜかできなかっ�
 
 #### クイズ1
 
+jestのカバレッジレポートについて、以下の項目の意味は何か
+
+- Stmts
+- Branch
+- Funcs
+- Lines
+
+<details>
+  <summary>回答</summary>
+
+- Stmts … プログラム内の各命令が実行されている割合
+- Branch … プログラム内の各分岐が読み込まれている割合
+- Funcs … プログラム内の各関数が実行されている割合
+- Lines … プログラム内の各行が読み込まれている割合
+
+</details>
+
 #### クイズ2
 
+axiosのgetメソッドのみモック化したい場合、`xxxxx`に入るjestのメソッド名は何か
+
+```javascript
+jest.xxxxx(axios, 'get').mockReturnValue("mockValue")
+```
+
+<details>
+  <summary>回答</summary>
+
+spyOn
+
+</details>
+
 #### クイズ3
+
+jestを実行すると、テスト結果のレポートが視覚的に見やすいhtml形式で出力される。どこに格納されているか。
+
+<details>
+  <summary>回答</summary>
+
+`coverage/lcov-report/index.html`に格納されている。ブラウザがあれば結果が確認できるので、ユニットテストの作成状況の把握・共有に便利。
+
+
+</details>
