@@ -1,0 +1,1090 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Board Default 1`] = `
+<div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Board Fill O 1`] = `
+<div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      O
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Board Fill Tryangle 1`] = `
+<div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      △
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Board Fill X 1`] = `
+<div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+  </div>
+  <div
+    className="board-row"
+  >
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+    <button
+      className="square"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Game Default 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-board"
+  >
+    <div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="game-info"
+  >
+    <div>
+      Next player: X
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Game Draw 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-board"
+  >
+    <div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="game-info"
+  >
+    <div>
+      Draw
+    </div>
+    <ol>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to game start
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #1
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #2
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #3
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #4
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #5
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #6
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #7
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #8
+        </button>
+      </li>
+    </ol>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Game In Progress 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-board"
+  >
+    <div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="game-info"
+  >
+    <div>
+      Next player: X
+    </div>
+    <ol>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to game start
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #1
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #2
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #3
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #4
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #5
+        </button>
+      </li>
+    </ol>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Game X Win 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-board"
+  >
+    <div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        />
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        />
+      </div>
+      <div
+        className="board-row"
+      >
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          X
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+        <button
+          className="square"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          O
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="game-info"
+  >
+    <div>
+      Winner: X
+    </div>
+    <ol>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to game start
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #1
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #2
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #3
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #4
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #5
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          Go to board #6
+        </button>
+      </li>
+    </ol>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Info Default 1`] = `
+Array [
+  <div>
+    Next player: X
+  </div>,
+  <ol>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to game start
+      </button>
+    </li>
+  </ol>,
+]
+`;
+
+exports[`Storyshots Info Draw 1`] = `
+Array [
+  <div>
+    Draw
+  </div>,
+  <ol>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to game start
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #1
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #2
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #3
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #4
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #5
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #6
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #7
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #8
+      </button>
+    </li>
+  </ol>,
+]
+`;
+
+exports[`Storyshots Info O Win 1`] = `
+Array [
+  <div>
+    Winner: O
+  </div>,
+  <ol>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to game start
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #1
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #2
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #3
+      </button>
+    </li>
+    <li>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Go to board #4
+      </button>
+    </li>
+  </ol>,
+]
+`;
+
+exports[`Storyshots Square Default 1`] = `
+<button
+  className="square"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+/>
+`;
+
+exports[`Storyshots Square O 1`] = `
+<button
+  className="square"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  O
+</button>
+`;
+
+exports[`Storyshots Square X 1`] = `
+<button
+  className="square"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  X
+</button>
+`;
