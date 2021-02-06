@@ -29,52 +29,52 @@ Default.args = {
 
 export const InProgress = Template.bind({});
 InProgress.args = {
-  status: ['X', null, 'O', 'X', 'X', null, null, 'O', 'O'],
+  status: ['半', null, '丁', '半', '半', null, null, '丁', '丁'],
   changeStatus,
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null],
-    ['X', null, 'O', null, null, null, null, null, null],
-    ['X', null, 'O', 'X', null, null, null, null, null],
-    ['X', null, 'O', 'X', null, null, null, null, 'O'],
-    ['X', null, 'O', 'X', 'X', null, null, null, 'O'],
-    ['X', null, 'O', 'X', 'X', null, null, 'O', 'O'],
+    ['半', null, null, null, null, null, null, null, null],
+    ['半', null, '丁', null, null, null, null, null, null],
+    ['半', null, '丁', '半', null, null, null, null, null],
+    ['半', null, '丁', '半', null, null, null, null, '丁'],
+    ['半', null, '丁', '半', '半', null, null, null, '丁'],
+    ['半', null, '丁', '半', '半', null, null, '丁', '丁'],
   ],
   changeHistory,
 };
 
 export const XWin = Template.bind({});
 XWin.args = {
-  status: ['X', null, 'O', 'X', 'X', null, 'X', 'O', 'O'],
+  status: ['半', null, '丁', '半', '半', null, '半', '丁', '丁'],
   changeStatus,
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['X', null, null, null, null, null, null, null, null],
-    ['X', null, 'O', null, null, null, null, null, null],
-    ['X', null, 'O', 'X', null, null, null, null, null],
-    ['X', null, 'O', 'X', null, null, null, null, 'O'],
-    ['X', null, 'O', 'X', 'X', null, null, null, 'O'],
-    ['X', null, 'O', 'X', 'X', null, null, 'O', 'O'],
-    ['X', null, 'O', 'X', 'X', null, 'X', 'O', 'O'],
+    ['半', null, null, null, null, null, null, null, null],
+    ['半', null, '丁', null, null, null, null, null, null],
+    ['半', null, '丁', '半', null, null, null, null, null],
+    ['半', null, '丁', '半', null, null, null, null, '丁'],
+    ['半', null, '丁', '半', '半', null, null, null, '丁'],
+    ['半', null, '丁', '半', '半', null, null, '丁', '丁'],
+    ['半', null, '丁', '半', '半', null, '半', '丁', '丁'],
   ],
   changeHistory,
 };
 
 export const Draw = Template.bind({});
 Draw.args = {
-  status: ['O', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X'],
+  status: ['丁', '半', '丁', '丁', '丁', '半', '半', '丁', '半'],
   changeStatus,
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['O', null, null, null, null, null, null, null, null],
-    ['O', 'X', null, null, null, null, null, null, null],
-    ['O', 'X', null, 'O', null, null, null, null, null],
-    ['O', 'X', null, 'O', null, null, 'X', null, null],
-    ['O', 'X', null, 'O', 'O', null, 'X', null, null],
-    ['O', 'X', null, 'O', 'O', null, 'X', null, 'X'],
-    ['O', 'X', null, 'O', 'O', null, 'X', 'O', 'X'],
-    ['O', 'X', null, 'O', 'O', 'X', 'X', 'O', 'X'],
-    ['O', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X'],
+    ['丁', null, null, null, null, null, null, null, null],
+    ['丁', '半', null, null, null, null, null, null, null],
+    ['丁', '半', null, '丁', null, null, null, null, null],
+    ['丁', '半', null, '丁', null, null, '半', null, null],
+    ['丁', '半', null, '丁', '丁', null, '半', null, null],
+    ['丁', '半', null, '丁', '丁', null, '半', null, '半'],
+    ['丁', '半', null, '丁', '丁', null, '半', '丁', '半'],
+    ['丁', '半', null, '丁', '丁', '半', '半', '丁', '半'],
+    ['丁', '半', '丁', '丁', '丁', '半', '半', '丁', '半'],
   ],
   changeHistory,
 };

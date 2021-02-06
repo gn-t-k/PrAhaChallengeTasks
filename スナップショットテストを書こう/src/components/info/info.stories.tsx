@@ -33,7 +33,7 @@ export const Default = Template.bind({});
 Default.args = {
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['O', null, null, null, null, null, null, null, null],
+    ['丁', null, null, null, null, null, null, null, null],
   ],
   changeHistory,
 };
@@ -42,14 +42,14 @@ export const OWin = Template.bind({});
 OWin.args = {
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['O', null, null, null, null, null, null, null, null],
-    ['O', 'X', null, null, null, null, null, null, null],
-    ['O', 'X', null, 'O', null, null, null, null, null],
-    ['O', 'X', null, 'O', 'X', null, null, null, null],
-    ['O', 'X', null, 'O', 'X', null, 'O', null, null],
+    ['丁', null, null, null, null, null, null, null, null],
+    ['丁', '半', null, null, null, null, null, null, null],
+    ['丁', '半', null, '丁', null, null, null, null, null],
+    ['丁', '半', null, '丁', '半', null, null, null, null],
+    ['丁', '半', null, '丁', '半', null, '丁', null, null],
   ],
   changeHistory,
-  winner: 'O',
+  winner: '丁',
   isGameEnd: true,
 };
 
@@ -57,15 +57,15 @@ export const Draw = Template.bind({});
 Draw.args = {
   history: [
     [null, null, null, null, null, null, null, null, null],
-    ['O', null, null, null, null, null, null, null, null],
-    ['O', 'X', null, null, null, null, null, null, null],
-    ['O', 'X', null, 'O', null, null, null, null, null],
-    ['O', 'X', null, 'O', null, null, 'X', null, null],
-    ['O', 'X', null, 'O', 'O', null, 'X', null, null],
-    ['O', 'X', null, 'O', 'O', null, 'X', null, 'X'],
-    ['O', 'X', null, 'O', 'O', null, 'X', 'O', 'X'],
-    ['O', 'X', null, 'O', 'O', 'X', 'X', 'O', 'X'],
-    ['O', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X'],
+    ['丁', null, null, null, null, null, null, null, null],
+    ['丁', '半', null, null, null, null, null, null, null],
+    ['丁', '半', null, '丁', null, null, null, null, null],
+    ['丁', '半', null, '丁', null, null, '半', null, null],
+    ['丁', '半', null, '丁', '丁', null, '半', null, null],
+    ['丁', '半', null, '丁', '丁', null, '半', null, '半'],
+    ['丁', '半', null, '丁', '丁', null, '半', '丁', '半'],
+    ['丁', '半', null, '丁', '丁', '半', '半', '丁', '半'],
+    ['丁', '半', '丁', '丁', '丁', '半', '半', '丁', '半'],
   ],
   changeHistory,
   winner: null,

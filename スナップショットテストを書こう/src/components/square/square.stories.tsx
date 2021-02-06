@@ -24,14 +24,14 @@ Default.args = {
 
 export const X = Template.bind({});
 X.args = {
-  value: 'X',
+  value: '半',
   onClick,
   isGameEnd: false,
 };
 
 export const O = Template.bind({});
 O.args = {
-  value: 'O',
+  value: '丁',
   onClick,
   isGameEnd: false,
 };

@@ -24,13 +24,13 @@ Default.args = {
 
 export const fillX = Template.bind({});
 fillX.args = {
-  status: Array(9).fill('X'),
+  status: Array(9).fill('半'),
   changeStatus,
 };
 
 export const fillO = Template.bind({});
 fillO.args = {
-  status: Array(9).fill('O'),
+  status: Array(9).fill('丁'),
   changeStatus,
 };
 

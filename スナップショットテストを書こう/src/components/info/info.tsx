@@ -16,7 +16,7 @@ export const Info: FC<Props> = ({
   winner,
   isGameEnd,
 }) => {
-  const nextPlayer = isXNext ? 'X' : 'O';
+  const nextPlayer = isXNext ? '半' : '丁';
   const gameStatus = winner
     ? `Winner: ${winner}`
     : isGameEnd
