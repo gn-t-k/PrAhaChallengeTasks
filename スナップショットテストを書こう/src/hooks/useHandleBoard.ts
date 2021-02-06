@@ -24,7 +24,7 @@ export const useHandleBoard: HandleBoard = (history, setHistory) => {
     const nextBoard = status.map((s, i) => {
       if (i !== index) return s;
 
-      return isXNext ? 'X' : 'O';
+      return isXNext ? '半' : '丁';
     });
     setStatus(nextBoard);
     setHistory(history.concat([nextBoard]));
