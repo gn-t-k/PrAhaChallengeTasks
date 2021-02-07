@@ -1,0 +1,54 @@
+.square {
+  float: left;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin-top: -1px;
+  margin-right: -1px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #999;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.board-row::after {
+  display: table;
+  clear: both;
+  content: '';
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+body {
+  margin: 20px;
+  font: 14px 'Century Gothic', Futura, sans-serif;
+}
+
+ol,
+ul {
+  padding-left: 30px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+
+/*# sourceMappingURL=main.d6e7c0f2.chunk.css.map*/
