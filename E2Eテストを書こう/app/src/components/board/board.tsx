@@ -18,6 +18,7 @@ export const Board: FC<Props> = ({ status, changeStatus, isGameEnd }) => (
 
           return (
             <Square
+              index={index}
               value={status[index]}
               onClick={() => changeStatus(index)}
               isGameEnd={isGameEnd}

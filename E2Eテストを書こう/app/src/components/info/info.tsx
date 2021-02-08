@@ -25,7 +25,7 @@ export const Info: FC<Props> = ({
 
   return (
     <>
-      <div>{gameStatus}</div>
+      <div data-testid="game-status">{gameStatus}</div>
       {history.length > 1 && (
         <ol>
           {history.map((board, index) =>

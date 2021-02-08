@@ -9,8 +9,8 @@ export default {
   component: Square,
 } as Meta;
 
-const Template: Story<Props> = ({ value, onClick, isGameEnd }) => (
-  <Square {...{ value, onClick, isGameEnd }} />
+const Template: Story<Props> = ({ index = 0, value, onClick, isGameEnd }) => (
+  <Square {...{ index, value, onClick, isGameEnd }} />
 );
 
 const onClick = () => console.log('onClick');
