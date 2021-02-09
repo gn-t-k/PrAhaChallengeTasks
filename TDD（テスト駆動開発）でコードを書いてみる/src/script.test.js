@@ -20,4 +20,10 @@ describe("コマンドライン引数から数値を取得できる", () => {
   test("何も渡されなかった場合エラーを返す", () => {
     expect(getArguments()).toEqual("1 to 30 arguments can be set");
   });
+
+  test("31個以上の引数が渡された場合、エラーを返す", () => {
+    expect(getArguments(Array(31).fill(1))).toEqual(
+      "1 to 30 arguments can be set"
+    );
+  });
 });
