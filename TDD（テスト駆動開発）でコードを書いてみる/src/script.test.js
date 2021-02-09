@@ -1,4 +1,3 @@
-const { TestScheduler } = require("jest");
 const getArguments = require("./get-arguments");
 
 describe("コマンドライン引数から数値を取得できる", () => {
@@ -16,5 +15,9 @@ describe("コマンドライン引数から数値を取得できる", () => {
 
   test("1つでも数値以外のものがあった場合エラーを返す", () => {
     expect(getArguments(["1", "a", "3"])).toEqual("Only numbers are available");
+  });
+
+  test("何も渡されなかった場合エラーを返す", () => {
+    expect(getArguments()).toEqual("1 to 30 arguments can be set");
   });
 });
