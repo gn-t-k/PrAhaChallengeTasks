@@ -9,4 +9,12 @@ describe("コマンドライン引数から数値を取得できる", () => {
   test("数値のみ取得する", () => {
     expect(getArguments(["a"])).toEqual("Only numbers are available");
   });
+
+  test("複数取得できる", () => {
+    expect(getArguments(["1", "2"])).toEqual([1, 2]);
+  });
+
+  test("1つでも数値以外のものがあった場合エラーを返す", () => {
+    expect(getArguments(["1", "a", "3"])).toEqual("Only numbers are available");
+  });
 });
