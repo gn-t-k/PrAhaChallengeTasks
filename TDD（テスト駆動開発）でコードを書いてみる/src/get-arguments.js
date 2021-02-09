@@ -1,4 +1,1 @@
-module.exports = (args) => {
-  console.log(args);
-  return [1];
-};
+module.exports = (args) => args.map((arg) => Number(arg));
