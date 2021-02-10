@@ -33,4 +33,10 @@ describe("受け取った配列から四則演算の種類を取得する", () =
   test("配列の先頭を取得する", () => {
     expect(getOperation(["add", "1", "2"])).toEqual("add");
   });
+
+  test("add/subtract/multiply/devideのみを受け取る", () => {
+    expect(getOperation(["square", "1", "2"])).toEqual(
+      "Only add/subtract/multiply/devide is available"
+    );
+  });
 });
