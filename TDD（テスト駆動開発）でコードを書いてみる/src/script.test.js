@@ -31,6 +31,6 @@ describe("受け取った文字列を数値に変換できる", () => {
 
 describe("受け取った配列から四則演算の種類を取得する", () => {
   test("配列の先頭を取得する", () => {
-    expect(getOperation(["add", "1", "2"]));
+    expect(getOperation(["add", "1", "2"])).toEqual("add");
   });
 });
