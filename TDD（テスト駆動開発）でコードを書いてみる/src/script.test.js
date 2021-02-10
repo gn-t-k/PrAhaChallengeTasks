@@ -1,7 +1,8 @@
 const getNumbers = require("./get-numbers");
+const getOperation = require("./get-operation");
 
-describe("コマンドライン引数から数値を取得できる", () => {
-  test("受け取った文字列を数値に変換できる", () => {
+describe("受け取った文字列を数値に変換できる", () => {
+  test("文字列を数値に変換する", () => {
     expect(getNumbers(["1"])).toEqual([1]);
   });
 
@@ -25,5 +26,11 @@ describe("コマンドライン引数から数値を取得できる", () => {
     expect(getNumbers(Array(31).fill(1))).toEqual(
       "1 to 30 arguments can be set"
     );
+  });
+});
+
+describe("受け取った配列から四則演算の種類を取得する", () => {
+  test("配列の先頭を取得する", () => {
+    expect(getOperation(["add", "1", "2"]));
   });
 });
