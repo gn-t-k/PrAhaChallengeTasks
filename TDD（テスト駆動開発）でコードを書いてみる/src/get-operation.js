@@ -4,9 +4,9 @@ module.exports = (args) => {
       args?.[0] === "add" ||
       args?.[0] === "subtract" ||
       args?.[0] === "multiply" ||
-      args?.[0] === "devide"
+      args?.[0] === "divide"
     )
   )
-    return "Only add/subtract/multiply/devide is available";
+    return "Only add/subtract/multiply/divide is available";
   return args?.[0];
 };
