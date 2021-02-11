@@ -46,4 +46,8 @@ describe("add", () => {
   test("受け取った数値を全て加算して返す", () => {
     expect(add([1, 2, 3])).toEqual(6);
   });
+
+  test("計算結果が1000を超える場合は文字列'too big'を返す", () => {
+    expect(add([1000, 1])).toEqual("too big");
+  });
 });
