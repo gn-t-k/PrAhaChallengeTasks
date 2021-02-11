@@ -91,4 +91,8 @@ describe("divide", () => {
   test("0除算が発生しないような引数を受け取る", () => {
     expect(divide([1, 2, 0])).toEqual("Division by zero has occurred");
   });
+
+  test("計算結果は小数点第3位以下は切り捨て", () => {
+    expect(divide([1, 8])).toBeCloseTo(0.12);
+  });
 });
