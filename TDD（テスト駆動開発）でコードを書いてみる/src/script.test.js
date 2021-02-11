@@ -61,4 +61,8 @@ describe("subtract", () => {
   test("2つ以上の引数を受け取る", () => {
     expect(subtract([1])).toEqual("2 or more arguments are required");
   });
+
+  test("計算結果がマイナスの場合は文字列'negative number'を返す", () => {
+    expect(subtract([1, 2, 3])).toEqual("negative number");
+  });
 });
