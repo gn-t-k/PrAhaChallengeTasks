@@ -1,5 +1,6 @@
 const getNumbers = require("./get-numbers");
 const getOperation = require("./get-operation");
+const add = require("./add");
 
 describe("受け取った文字列を数値に変換できる", () => {
   test("文字列を数値に変換する", () => {
@@ -38,5 +39,11 @@ describe("受け取った配列から四則演算の種類を取得する", () =
     expect(getOperation(["square", "1", "2"])).toEqual(
       "Only add/subtract/multiply/devide is available"
     );
+  });
+});
+
+describe("add", () => {
+  test("受け取った数値を全て加算して返す", () => {
+    expect(add([1, 2, 3])).toEqual(6);
   });
 });
