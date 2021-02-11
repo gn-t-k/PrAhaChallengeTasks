@@ -85,6 +85,10 @@ describe("divide", () => {
   });
 
   test("2つ以上の引数を受け取る", () => {
-    expect(subtract([1])).toEqual("2 or more arguments are required");
+    expect(divide([1])).toEqual("2 or more arguments are required");
+  });
+
+  test("0除算が発生しないような引数を受け取る", () => {
+    expect(divide([1, 2, 0])).toEqual("Division by zero has occurred");
   });
 });
