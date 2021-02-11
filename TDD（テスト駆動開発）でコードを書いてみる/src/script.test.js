@@ -3,7 +3,7 @@ const getOperation = require("./get-operation");
 const add = require("./add");
 const subtract = require("./subtract");
 const multiply = require("./multiply");
-const devide = require("./devide");
+const divide = require("./divide");
 
 describe("受け取った文字列を数値に変換できる", () => {
   test("文字列を数値に変換する", () => {
@@ -79,8 +79,8 @@ describe("multipy", () => {
   });
 });
 
-describe("devide", () => {
+describe("divide", () => {
   test("受け取った数値を全て除算して返す", () => {
-    expect(devide([4, 2])).toEqual(2);
+    expect(divide([8, 4, 2])).toEqual(1);
   });
 });
