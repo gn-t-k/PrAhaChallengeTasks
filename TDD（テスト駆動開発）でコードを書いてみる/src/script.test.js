@@ -1,6 +1,7 @@
 const getNumbers = require("./get-numbers");
 const getOperation = require("./get-operation");
 const add = require("./add");
+const subtract = require("./subtract");
 
 describe("受け取った文字列を数値に変換できる", () => {
   test("文字列を数値に変換する", () => {
@@ -49,5 +50,11 @@ describe("add", () => {
 
   test("計算結果が1000を超える場合は文字列'too big'を返す", () => {
     expect(add([1000, 1])).toEqual("too big");
+  });
+});
+
+describe("subtract", () => {
+  test("受け取った数値を全て減算して返す", () => {
+    expect(subtract([3, 2])).toEqual(1);
   });
 });
