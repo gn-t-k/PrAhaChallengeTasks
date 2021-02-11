@@ -57,4 +57,8 @@ describe("subtract", () => {
   test("受け取った数値を全て減算して返す", () => {
     expect(subtract([3, 2])).toEqual(1);
   });
+
+  test("2つ以上の引数を受け取る", () => {
+    expect(subtract([1])).toEqual("2 or more arguments are required");
+  });
 });
