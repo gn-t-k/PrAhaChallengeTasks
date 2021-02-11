@@ -3,6 +3,7 @@ const getOperation = require("./get-operation");
 const add = require("./add");
 const subtract = require("./subtract");
 const multiply = require("./multiply");
+const devide = require("./devide");
 
 describe("受け取った文字列を数値に変換できる", () => {
   test("文字列を数値に変換する", () => {
@@ -75,5 +76,11 @@ describe("multipy", () => {
 
   test("計算結果が1000を超える場合は文字列'big big number'を返す", () => {
     expect(multiply([1001, 1])).toEqual("big big number");
+  });
+});
+
+describe("devide", () => {
+  test("受け取った数値を全て除算して返す", () => {
+    expect(devide([4, 2])).toEqual(2);
   });
 });
