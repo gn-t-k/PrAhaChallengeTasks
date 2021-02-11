@@ -2,6 +2,7 @@ const getNumbers = require("./get-numbers");
 const getOperation = require("./get-operation");
 const add = require("./add");
 const subtract = require("./subtract");
+const multiply = require("./multiply");
 
 describe("受け取った文字列を数値に変換できる", () => {
   test("文字列を数値に変換する", () => {
@@ -64,5 +65,11 @@ describe("subtract", () => {
 
   test("計算結果がマイナスの場合は文字列'negative number'を返す", () => {
     expect(subtract([1, 2, 3])).toEqual("negative number");
+  });
+});
+
+describe("multipy", () => {
+  test("受け取った数値を全て乗算して返す", () => {
+    expect(multiply([2, 3, 4])).toEqual(24);
   });
 });
