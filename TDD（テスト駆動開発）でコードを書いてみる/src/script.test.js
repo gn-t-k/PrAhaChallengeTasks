@@ -72,4 +72,8 @@ describe("multipy", () => {
   test("受け取った数値を全て乗算して返す", () => {
     expect(multiply([2, 3, 4])).toEqual(24);
   });
+
+  test("計算結果が1000を超える場合は文字列'big big number'を返す", () => {
+    expect(multiply([1001, 1])).toEqual("big big number");
+  });
 });
