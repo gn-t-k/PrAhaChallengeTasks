@@ -32,6 +32,16 @@ ORDER BY ShippingCount DESC
 
 ## 売上が高い順番にCountryを並べてください。売上も表示してください
 
+```sql
+SELECT SUM(Products.Price * OrderDetails.Quantity) as sales, Customers.Country as Country
+FROM OrderDetails
+  JOIN Products ON (OrderDetails.ProductID = Products.ProductID)
+  JOIN Orders ON (OrderDetails.OrderID = Orders.OrderID)
+  JOIN Customers ON (Orders.CustomerID = Customers.CustomerID)
+GROUP BY Customers.Country
+ORDER BY sales DESC
+```
+
 ## 国ごとの売上を年ごとに集計する
 
 ## Employeeテーブルに「Junior（若手）」カラム（boolean）を追加
