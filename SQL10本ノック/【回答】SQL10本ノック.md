@@ -13,6 +13,14 @@ ORDER BY OrderCount DESC
 
 ## 過去、最も多くのOrderDetailが紐づいたOrderを取得してください。何個OrderDetailが紐づいていたでしょうか？
 
+```sql
+SELECT OrderID, COUNT(OrderDetailID) AS OrderDetailCount
+FROM OrderDetails
+GROUP BY OrderID
+ORDER BY OrderDetailCount DESC
+LIMIT 1
+```
+
 ## Order数が多い順番にShipperのidを並べてください。Order数も表示してください
 
 ## 売上が高い順番にCountryを並べてください。売上も表示してください
