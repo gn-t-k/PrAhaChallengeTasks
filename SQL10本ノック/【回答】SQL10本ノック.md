@@ -23,6 +23,13 @@ LIMIT 1
 
 ## Order数が多い順番にShipperのidを並べてください。Order数も表示してください
 
+```sql
+SELECT ShipperID, COUNT(OrderID) as ShippingCount
+FROM Orders
+GROUP BY ShipperID
+ORDER BY ShippingCount DESC
+```
+
 ## 売上が高い順番にCountryを並べてください。売上も表示してください
 
 ## 国ごとの売上を年ごとに集計する
