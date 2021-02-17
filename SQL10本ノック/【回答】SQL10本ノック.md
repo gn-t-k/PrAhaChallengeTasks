@@ -24,7 +24,7 @@ LIMIT 1
 ## Order数が多い順番にShipperのidを並べてください。Order数も表示してください
 
 ```sql
-SELECT ShipperID, COUNT(OrderID) as ShippingCount
+SELECT ShipperID, COUNT(OrderID) AS ShippingCount
 FROM Orders
 GROUP BY ShipperID
 ORDER BY ShippingCount DESC
@@ -33,16 +33,24 @@ ORDER BY ShippingCount DESC
 ## 売上が高い順番にCountryを並べてください。売上も表示してください
 
 ```sql
-SELECT SUM(Products.Price * OrderDetails.Quantity) as sales, Customers.Country as Country
+SELECT ROUND(SUM(Products.Price * OrderDetails.Quantity), 0) AS sales, Customers.Country AS Country
 FROM OrderDetails
   JOIN Products ON (OrderDetails.ProductID = Products.ProductID)
   JOIN Orders ON (OrderDetails.OrderID = Orders.OrderID)
   JOIN Customers ON (Orders.CustomerID = Customers.CustomerID)
 GROUP BY Customers.Country
-ORDER BY sales DESC
 ```
 
 ## 国ごとの売上を年ごとに集計する
+
+```sql
+SELECT ROUND(SUM(Products.Price * OrderDetails.Quantity), 0) AS sales, STRFTIME('%Y', Orders.OrderDate) AS OrderYear, Customers.Country AS Country
+FROM OrderDetails
+  JOIN Products ON (OrderDetails.ProductID = Products.ProductID)
+  JOIN Orders ON (OrderDetails.OrderID = Orders.OrderID)
+  JOIN Customers ON (Orders.CustomerID = Customers.CustomerID)
+GROUP BY Customers.Country, OrderYear
+```
 
 ## Employeeテーブルに「Junior（若手）」カラム（boolean）を追加
 
