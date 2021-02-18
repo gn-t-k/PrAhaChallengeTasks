@@ -54,6 +54,18 @@ GROUP BY Customers.Country, OrderYear
 
 ## Employeeテーブルに「Junior（若手）」カラム（boolean）を追加
 
+カラム追加クエリ
+
+```sql
+ALTER TABLE Employees ADD Junior DEFAULT '0'
+```
+
+更新クエリ
+
+```sql
+UPDATE Employees SET Junior = '1' WHERE STRFTIME('%Y', BirthDate) > '1960'
+```
+
 ## Shipperにlong_relationカラム（boolean）を追加
 
 ## それぞれのEmployeeが最後に担当したOrderと、その日付
