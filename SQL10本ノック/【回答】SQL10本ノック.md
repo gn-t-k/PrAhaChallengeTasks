@@ -68,6 +68,26 @@ UPDATE Employees SET Junior = '1' WHERE STRFTIME('%Y', BirthDate) > '1960'
 
 ## Shipperにlong_relationカラム（boolean）を追加
 
+カラム追加クエリ
+
+```sql
+ALTER TABLE Shippers ADD long_relation DEFAULT 0
+```
+
+更新クエリ
+
+```sql
+UPDATE Shippers
+SET long_relation = 1
+WHERE ShipperID = (
+  SELECT Shippers.ShipperID
+  FROM Orders
+  JOIN Shippers ON (Orders.ShipperID = Shippers.ShipperID)
+  GROUP BY Orders.ShipperID
+  HAVING COUNT(Shippers.ShipperID) >= 70
+)
+```
+
 ## それぞれのEmployeeが最後に担当したOrderと、その日付
 
 ## NULLの扱いに慣れる
