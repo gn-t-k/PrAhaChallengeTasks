@@ -90,6 +90,35 @@ WHERE ShipperID = (
 
 ## それぞれのEmployeeが最後に担当したOrderと、その日付
 
+```sql
+SELECT Employees.EmployeeID, Orders.OrderDate AS LatestOrderDate, Orders.OrderID
+FROM Orders JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+GROUP BY Employees.EmployeeID
+HAVING MAX(Orders.OrderDate)
+```
+
 ## NULLの扱いに慣れる
+
+特定のCustomerNameをNULLにするクエリ（IDが1桁のCustomerのNameをNULLにする）
+
+```sql
+UPDATE Customers SET CustomerName = NULL WHERE CustomerID < 10
+```
+
+CustomerNameが存在するユーザーを取得するクエリ
+
+```sql
+SELECT * FROM Customers WHERE CustomerName IS NOT NULL
+```
+
+CustomerNameが存在しないユーザーを取得するクエリ
+
+```sql
+SELECT * FROM Customers WHERE CustomerName IS NULL
+```
+
+### なぜ`SELECT * FROM Customers WHERE CustomerName = NULL;`では期待した結果が得られないか
+
+NULL値は不明の値を表しているため、不明な値同士が同じかどうかは識別できない。NULLとNULLとを比較したとしても、等しい関係にはならない。以上の理由から、NULLには比較演算子を利用できない。
 
 ## JOINの扱いになれる
