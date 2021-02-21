@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["cypress/**/*.js", "cypress/**/*.ts"],
+  "exclude": ["node_modules"]
+}
