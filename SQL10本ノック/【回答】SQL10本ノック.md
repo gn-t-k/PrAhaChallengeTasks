@@ -177,6 +177,36 @@ Transaction Control Languageの略。トランザクションの開始や終了�
 
 ### クイズ1
 
+SQLにおいて`NULL = NULL`は真か偽か。
+
+<details>
+  <summary>回答</summary>
+
+  偽。SQLにおいてNULL値は不明の値を表しているため、不明な値同士が同じかどうかは識別できない。
+</details>
+
 ### クイズ2
 
+`DISTINCT`と`GROUP BY`どちらが先に実行されるか。
+
+<details>
+  <summary>回答</summary>
+
+  `GROUP BY`。
+
+</details>
+
 ### クイズ3
+
+FirstNameがAから始まるEmployeesの中で、最年長の人は2021年2月22日時点で何歳か。
+
+<details>
+  <summary>回答</summary>
+
+  92歳。下記のクエリで取得できる。
+
+  ```sql
+  SELECT * FROM Employees WHERE FirstName LIKE 'A%' ORDER BY BirthDate ASC LIMIT 1
+  ```
+
+</details>
