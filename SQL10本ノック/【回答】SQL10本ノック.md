@@ -150,12 +150,33 @@ FROM Orders LEFT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
 
 ### WHEREとHAVINGの違い/それぞれどのようなときに使うべきか
 
-### SQLの文脈において、DDL, DML, DCL, TCLとはなにか
+- `WHERE`は、`SELECT`・`FROM (テーブル名)`で指定したテーブルに条件を指定して絞り込みを行うときに使う
+- `HAVING`は、`GROUP BY`でグルーピングした結果に条件を指定して絞り込みを行うときに使う
+
+### SQLの文脈において、DDL、DML、DCL、TCLとはなにか
+
+SQLのコマンドは処理内容によってDDL、DML、DCL、TCLの4種類に分類できる。
 
 #### DDL
 
+Data Definition Languageの略。テーブルなどの作成・削除・設定などを行う命令の総称。`CREATE`、`ALTER`、`DROP`、`TRUNCATE`などがある。
+
 #### DML
+
+Data Manipulation Languageの略。データに対して格納・取り出し・更新・削除などの操作を行う命令の総称。`SELECT`、`INSERT`、`UPDATE`、`DELETE`などがある。
 
 #### DCL
 
+Data Control Languageの略。DMLやDDLの利用に関する許可や禁止の設定を行う命令の総称。`GRANT`、`REVOKE`などがある。
+
 #### TCL
+
+Transaction Control Languageの略。トランザクションの開始や終了の命令の総称。`COMMIT`、`ROLLBACK`、`SET TRANSACTION`、`SAVEPOINT`などがある。
+
+## 課題3
+
+### クイズ1
+
+### クイズ2
+
+### クイズ3
