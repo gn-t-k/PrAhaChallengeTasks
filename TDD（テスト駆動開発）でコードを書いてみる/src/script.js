@@ -6,10 +6,18 @@ const add = require("./add");
 const subtract = require("./subtract");
 const multiply = require("./multiply");
 const divide = require("./divide");
+const isOperation = require("./is-operation");
 
 program.parse(process.argv);
 
 const operation = getOperation(program.args);
+if (!isOperation(operation)) {
+  console.log(
+    "Only add / subtract / multiply / divide can be specified in the first argument"
+  );
+  return;
+}
+
 const numbers = getNumbers(program.args.slice(1));
 
 switch (operation) {
@@ -24,10 +32,5 @@ switch (operation) {
     break;
   case "divide":
     console.log(divide(numbers));
-    break;
-  default:
-    console.log(
-      "Only add / subtract / multiply / divide can be specified in the first argument"
-    );
     break;
 }

@@ -1,10 +1,7 @@
+const isOperation = require("./is-operation");
+
 module.exports = (args) => {
-  if (
-    args?.[0] !== "add" &&
-    args?.[0] !== "subtract" &&
-    args?.[0] !== "multiply" &&
-    args?.[0] !== "divide"
-  )
+  if (!isOperation(args?.[0]))
     return "Only add/subtract/multiply/divide is available";
   return args?.[0];
 };
