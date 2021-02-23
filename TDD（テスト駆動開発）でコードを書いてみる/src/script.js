@@ -12,13 +12,15 @@ program.parse(process.argv);
 
 const operation = getOperation(program.args);
 if (!isOperation(operation)) {
-  console.log(
-    "Only add / subtract / multiply / divide can be specified in the first argument"
-  );
+  console.log(operation);
   return;
 }
 
 const numbers = getNumbers(program.args.slice(1));
+if (!numbers.isArray) {
+  console.log(numbers);
+  return;
+}
 
 switch (operation) {
   case "add":
