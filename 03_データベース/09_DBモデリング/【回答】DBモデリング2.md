@@ -2,6 +2,8 @@
 
 ## 課題1
 
+### UML図
+
 ```plantuml
 @startuml
 
@@ -61,6 +63,10 @@ note right of Message : parent_message_idには、スレッドの親のidを設�
 @enduml
 ```
 
+### 操作
+
+#### メッセージ、スレッドメッセージ、チャネルの取得
+
 特定のユーザーが所属しているワークスペース一覧を取得するクエリ
 
 ```sql
@@ -68,7 +74,7 @@ SELECT *
 FROM
   Workspace
   INNER JOIN User_Workspace
-  ON Workspace.id = User_Workspace.workspace_id
+    ON Workspace.id = User_Workspace.workspace_id
 WHERE User_Workspace.user_id = [user_id];
 ```
 
@@ -98,10 +104,24 @@ FROM Message
 WHERE parent_message_id = [parent_message_id];
 ```
 
+#### ユーザーの操作
+
 ワークスペースにユーザーを追加・脱退させる場合は`User_Workspace`に`INSERT`、`DELETE`する。
 チャンネルにユーザーを追加・脱退させる場合は`User_Channel`に`INSERT`、`DELETE`する。
+
+#### 横断機能
 
 参加しているチャンネル内からメッセージを検索するクエリ
 
 ```sql
+SELECT *
+FROM
+  Message
+  INNER JOIN Channel
+    ON Message.channel_id = Channel.id
+  INNER JOIN User_Channel
+    ON Channel.id = User_Channel.channel_id
+WHERE
+  User_Channel.user_id = [user_id]
+  AND [検索クエリ]
 ```
