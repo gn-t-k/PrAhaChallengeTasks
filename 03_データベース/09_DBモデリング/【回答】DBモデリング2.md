@@ -115,13 +115,13 @@ WHERE parent_message_id = [parent_message_id];
 
 ```sql
 SELECT *
-FROM
-  Message
-  INNER JOIN Channel
-    ON Message.channel_id = Channel.id
-  INNER JOIN User_Channel
-    ON Channel.id = User_Channel.channel_id
+FROM Message
 WHERE
-  User_Channel.user_id = [user_id]
+  Message.channel_id =
+    (
+      SELECT User_Channel.channel_id
+      FROM User_Channel
+      WHERE User_Channel.user_id = [user_id]
+    )
   AND [検索クエリ]
 ```
