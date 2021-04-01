@@ -14,7 +14,41 @@ Robert C. Martinにより提唱された多数のソフトウェア設計の原�
 
 ### S … Single Responsibility Principle: 単一責任の原則
 
-個々の部品が責任を負う対象は、たったひとつになるようにするべきであるという原則。
+個々の部品が責任を負う対象は、たったひとつになるようにするべきであるという原則。つまり、将来その部品を改修することになったとして、改修する理由が複数考えられる場合は複数の対象に責任を負っていることになるので、たった一つの対象に責任を負うように部品を適切に分割する必要があるということ。
+
+例えば、以下のような`Employee`クラスはSRPに違反しているといえる。
+
+```typescript
+class Employee {
+  ...
+  public calculatePay(): Money {...};
+  public reportHours(): string {...};
+  public save(): void {...};
+  ...
+}
+```
+
+- calculatePay … 経理部門が規定する、給与計算のメソッド
+- reportHours … 人事部門が規定する、労働時間レポートを出力するメソッド
+- save … データベース管理者が規定する、従業員情報をDBに保存するメソッド
+
+このクラスは、給与計算に関わるビジネスルールの変更、レポートのフォーマットの変更、データベーススキーマの変更のどれかがあるたびに変更を加える必要がある。このとき、給与計算に関わるビジネスルールが変更されただけなのにレポートの出力が影響を受ける可能性があるなどの問題がある。また、`Employee`に依存するクラスもすべてこれらの変更に影響される可能性がある。
+
+この問題を解決するには、以下のように。責任ごとにクラスを適切に分割すれば良い。
+
+```typescript
+class Employee {
+  public calculatePay(): Money {...};
+}
+
+class EmployReporter {
+  public reportHours(e: Employee): string {...};
+}
+
+class EmployeeRepository {
+  public save(e: Employee): void {...};
+}
+```
 
 ### O … Open-Closed Principle: 開放閉鎖の原則
 
