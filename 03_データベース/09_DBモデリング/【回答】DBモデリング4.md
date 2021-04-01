@@ -20,18 +20,12 @@ Entity Reminder {
   *id
   --
   +user_id
-  +period_id
   *text
   *created_at
+  *period
 }
 
-Entity Period {
-  *id
-  --
-  *hour
-}
-
-Entity Remind_History {
+Entity Remind_Schedule {
   *id
   --
   +remind_id
@@ -41,16 +35,15 @@ Entity Remind_History {
 Entity User_Reminder {
   *id
   --
-  +user_id
   +reminder_id
+  +user_id
   *is_done
 }
 
 User ||..o{ User_Reminder
 User ||..o{ Reminder
 Reminder ||..o{ User_Reminder
-Reminder }o..|| Period
-Remind_History }o..|| User_Reminder
+Remind_Schedule }o..|| User_Reminder
 
 note right of Reminder : user_id…Reminderを設定した人のid
 note right of User_Reminder : user_id…Reminderを設定された人のid
@@ -62,14 +55,18 @@ note right of User_Reminder : user_id…Reminderを設定された人のid
 
 #### リマインダーを設定する
 
-1. Reminderにレコードをinsertする。リマインドする頻度はPeriodテーブルから取得する。
-2. User_Reminderにレコードをinsertする。is_doneはfalseを設定する。
+1. Reminderにレコードをinsertする。periodにはリマインドする周期を1時間単位の整数で設定する。
+2. User_Reminderにレコードをinsertする。reminder_idには1. でinsertしたReminderのid、user_idにはリマインドを送るUserのid、is_doneにはfalseを設定する。
+3. Reminder_Scheduleにレコードをinsertする。remind_atにはcreated_atとperiodから計算した時間（未来日）を設定する。
 
 #### リマインドする
 
-1. User_Reminderからis_doneがfalseのレコードを取得する。
-2. Remind_Historyに同じremind_idが1件以上登録されていた場合、Remind_Historyのremind_atとPeriodのhourから次のリマインド時間を計算する。Remind_Historyに同じremind_idが1件も登録されていなかった場合、Reminderのcreated_atとPeriodのhourから次のリマインド時間を計算する。
-3. リマインドしたら、Remind_Historyにレコードをinsertする。
+毎時行われる以下のバッチ処理でリマインドされる。
+
+1. Remind_Scheduleから、バッチを実行した時刻と同一の時刻のレコードを取得する。
+2. 取得したレコードからリマインドの内容とユーザーをたどってuser_idを取得する。
+3. User_Reminderのis_doneがfalseのユーザーにリマインドする。
+4. リマインド後、Reminder_Scheduleにレコードをinsertする（次回のリマインド予定）。remind_atには前回のremind_atとperiodから計算した日時を設定する。
 
 #### タスクを完了させる
 
@@ -86,4 +83,4 @@ Reminderからuser_idで絞り込んでレコードを取得する。
 
 #### 配信頻度のパターンを増やす
 
-Periodにレコードをinsertする。1時間単位で設定する。例えば2週間に1度であれば336を設定する。
+配信頻度はアプリ側で1時間単位で設定してReminder.periodに設定する。（結局パーサーで処理する必要があるので、データベース側では頻度の設定は持たない方針）
