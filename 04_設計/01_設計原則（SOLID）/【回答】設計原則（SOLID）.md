@@ -52,7 +52,45 @@ class EmployeeRepository {
 
 ### O … Open-Closed Principle: 開放閉鎖の原則
 
-ソフトウェアを変更しやすくするために、既存のコードの変更よりも新しいコードの追加によってシステムの振る舞いを変更できるようにするべきであるという原則。
+ソフトウェアを変更しやすくするために、ソフトウェアの構成要素は拡張に対して開いていて、修正に対して閉じているべきであるという原則。つまり、既存のコードの変更よりも新しいコードの追加によってシステムの振る舞いを変更できるようにするべきであるということ。
+
+以下のような、`Repository`クラスに依存している`Service`クラスの修正について考える。
+
+```plantuml
+@startuml
+
+package A {
+  Class Service
+}
+
+package B {
+  Class Repository
+}
+
+Service --> Repository
+@enduml
+```
+
+この関係だと、`Repository`の機能を修正しようとした時、`Repository`を使用している`Service`に影響が及び、`Service`のコードも修正しなければいけない可能性がある。OCPに基づいてこれらの関係を修正すると、以下のようになる。
+
+```plantuml
+@startuml
+
+package A {
+  Class Service
+}
+
+package B {
+  Class Repository implements IRepository
+}
+
+Service --> IRepository
+@enduml
+```
+
+インターフェース`IRepository`を用意する。`Service`は`IRepository`を使用して、`Repository`は`IRepository`を実装する形にすれば、`Repository`を変更しても`Service`には影響がない形を作ることができる。
+
+このようにして、モジュールの振る舞いを容易に変更でき（Open）、モジュールの振る舞いを変更しても他のモジュールに影響しない（Closed）関係を作ることができる。
 
 ### L … Liskov Substitution Principle: リスコフの置換原則
 
