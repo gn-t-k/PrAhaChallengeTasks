@@ -104,6 +104,61 @@ Service --> IRepository
 
 汎用的に使える1つのインターフェースは、特定のクライアント向けの多数のインターフェースに分割されるべきであるという原則。
 
+例えば以下のようなインターフェースはISPに違反している。
+
+```plantuml
+@startuml
+Interface Ops {
+  op1
+  op2
+  op3
+}
+class User1
+class User2
+class User3
+
+User1 --> Ops
+User2 --> Ops
+User3 --> Ops
+@enduml
+```
+
+このとき、User1のソースコードは、実際は使っていないop2とop3に依存していることになる。インターフェースのop2に変更が生じた場合、本来であれば、op2を使用していないUser1は気にする必要はないはずである。しかし、op2を使用できる状態になっている以上、op2の変更の影響を受ける可能性が生まれてしまう。
+
+以下のようにインターフェースを分離することで、この問題は解消できる。
+
+```plantuml
+@startuml
+
+skinparam linetype ortho
+
+Interface User1Ops {
+  op1
+}
+Interface User2Ops {
+  op2
+}
+Interface User3Ops {
+  op3
+}
+Interface Ops {
+  op1
+  op2
+  op3
+}
+class User1
+class User2
+class User3
+
+Ops -up-|> User1Ops
+Ops -up-|> User2Ops
+Ops -up-|> User3Ops
+User1 --> User1Ops
+User2 --> User2Ops
+User3 --> User3Ops
+@enduml
+```
+
 ### D … Dependency Inversion Principle: 依存性逆転の原則
 
 上位レベルの実装コード（より抽象的なものを取り扱うコード）は、下位レベルの実装コード（より具体的なものを取り扱うコード）に依存してはならないという原則。
