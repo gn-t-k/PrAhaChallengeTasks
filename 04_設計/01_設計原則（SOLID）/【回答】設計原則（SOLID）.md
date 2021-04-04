@@ -198,10 +198,93 @@ ApplicationはServiceインターフェース経由でConcreteImplを使用す�
 
 ### SRPと単純なファイル分割との違い
 
+SRPはクラスなどのモジュールが何に対して責任を負うかを分割の単位として考え、モジュールの凝集度を高めることを目的としている。そのため、単純にファイルを細かく分割することによってモジュールの凝集度が下がってしまうような場合は、SRPの目的に反することになる。
+
 ### OCPの実例
+
+以下のようなクラス設計はOCPに違反している。
+
+```typescript
+/**
+ * 従業員のボーナスを計算するシステム。
+ * 従業員のボーナスは、その従業員の給与と職種によって決まる。 
+ */
+
+type IOccupation = 'Engineer' | 'Manager'
+
+class Employee {
+  public salary: number;
+  public occupation: IOccupation;
+
+  constructor(salary: number, occupation: IOccupation) {
+    this.salary = salary;
+    this.occupation = occupation;
+  }
+}
+
+class Bonus {
+  public getBonus(employee: Employee) {
+    switch (employee.occupation) {
+      case 'Engineer':
+        return employee.salary * 2;
+      case 'Manager':
+        return employee.salary * 3;
+    }
+  }
+}
+```
+
+今後取り扱う職種が増えた場合、`IOccupation`や`Bonus`内のswitch文を修正する必要がある。
+以下のように職種ごとにクラスを追加するだけでよい設計にすれば、既存のコードは修正せず新規のコードを追加するだけで済むようになる。
+
+```typescript
+/**
+ * 従業員のボーナスを計算するシステム。
+ * 従業員のボーナスは、その従業員の給与と職種によって決まる。 
+ */
+
+abstract class Employee {
+  protected salary: number
+
+  public constructor(salary: number) {
+    this.salary = salary;
+  }
+
+  public abstract getBonus: () => number;
+}
+
+class Engineer extends Employee {
+  constructor(salary: number) {
+    super(salary);
+  }
+
+  public getBonus = () => this.salary * 2;
+}
+
+class Manager extends Employee {
+  constructor(salary: number) {
+    super(salary);
+  }
+
+  public getBonus = () => this.salary * 3;
+}
+```
 
 ### LSPに違反した場合に生じる不都合
 
+インターフェースTの派生型としてS1とS2があるとき
+
+- S1やS2のインスタンスを生成する時、Tのコンストラクタに渡す引数と異なるS1やS2固有の引数を渡さなければいけないようになっていた場合、S1やS2をTとして扱ったときに、インスタンスの生成に失敗してしまう。
+- Tが2つのメソッドを持っているのにS1やS2で1つしかメソッドを実装しなかった場合、S1やS2をTとして扱ったときに、存在しない（実装していない）メソッドを参照してしまう可能性がある
+
 ### ISPのメリット
 
+実際には使用していないプロパティやメソッドに変更があったときに、その変更による影響を気にする必要がなくなる。
+
 ### DIPを用いるタイミング
+
+ソースコード内に外のソースコードへの依存が発生する場合は常に用いるべきである。ただし、どうしても具象オブジェクトに依存しなければいけない状況が発生した場合は、依存する場所を最小限に抑える。
+
+## 疑問
+
+リスコフの置換原則、ふつうにTypeScriptを書いてたら違反することないのではないか？と思った。
