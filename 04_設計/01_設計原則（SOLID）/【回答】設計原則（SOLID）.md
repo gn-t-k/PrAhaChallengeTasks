@@ -161,7 +161,38 @@ User3 --> User3Ops
 
 ### D … Dependency Inversion Principle: 依存性逆転の原則
 
-上位レベルの実装コード（より抽象的なものを取り扱うコード）は、下位レベルの実装コード（より具体的なものを取り扱うコード）に依存してはならないという原則。
+上位レベルの実装コード（より抽象的なものを取り扱うコード）は、下位レベルの実装コード（より具体的なものを取り扱うコード）に依存してはならないという原則。つまり、システム内の変化しやすい要素に依存することを避け、ソースコードの変更が他のソースコードに影響しにくいようにするということ。
+
+具象オブジェクトの生成にはオブジェクトの具象定義を含むソースコードへの依存が避けられないため、この原則に従うためには具象オブジェクトの生成に特別な処理が必要になる。Abstract Factoryパターンを使って依存性の管理をすることができる。
+
+```plantuml
+@startuml
+
+skinparam linetype ortho
+
+Class Application
+Interface Service
+Interface ServiceFactory {
+  makeSvc
+}
+Class ConcreteImpl
+Class ServiceFactoryImpl {
+  makeSvc
+}
+
+Application -right-> Service
+Application -right-> ServiceFactory
+ServiceFactory ...> Service
+ServiceFactoryImpl -left-|> ServiceFactory
+ConcreteImpl -left-|> Service
+ServiceFactoryImpl ---> ConcreteImpl: <<creates>>
+
+@enduml
+```
+
+ApplicationはServiceインターフェース経由でConcreteImplを使用する。Applicationが具象オブジェクトに依存せずにConcreteImplを生成するために、ServiceFactoryインターフェース経由でServiceFactoryImplのmakeSvcを使用してConcreteImplを生成する。
+
+この例でも、ServiceFactoryImplの生成には具象オブジェクトへの依存が必要なため、厳密にはDIPを満たしているとは言えない。実際、DIPの違反を完全に取り除くことは難しいため、DIP違反は最小限に絞り込んでそれらをシステムの他の部分と分離する方針が現実的である。多くの場合、main関数と呼ばれる関数でServiceFactoryImplのようなインスタンスを生成して、それをServiceFactory型のグローバル変数として扱うことになる。
 
 ## ユースケース
 
