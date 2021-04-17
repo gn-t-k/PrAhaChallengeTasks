@@ -58,7 +58,7 @@ Entity progress_status {
   *created_at
   *updated_at
 }
-Entity member_exercise {
+Entity exercise_on_member {
   +member_id
   +exercise_id
   --
@@ -67,12 +67,12 @@ Entity member_exercise {
   *updated_at
 }
 
-member ||-|{ member_exercise
-member_exercise }|-|| exercise
+member ||-|{ exercise_on_member
+exercise_on_member }|-|| exercise
 member }--|| pair
 member }o---|| activity_status
 exercise }|---|| exercise_group
 pair }--|| team
-member_exercise }o---|| progress_status
+exercise_on_member }o---|| progress_status
 @enduml
 ```

@@ -9,3 +9,81 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Member {
+  id String @id
+  name String
+  email String
+  activityStatus ActivityStatus @relation(fields: [activityStatusId], references: [id])
+  activityStatusId String
+  pair Pair @relation(fields: [pairId], references: [id])
+  pairId String
+  exercise ExerciseOnMember[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActivityStatus {
+  id String @id
+  name String
+  member Member[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pair {
+  id String @id
+  name String
+  team Team @relation(fields: [teamId], references: [id])
+  teamId String 
+  member Member[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id String @id
+  name String
+  pair Pair[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exercise {
+  id String @id
+  title String
+  description String
+  exerciseGroup ExerciseGroup @relation(fields: [exerciseGroupId], references: [id])
+  exerciseGroupId String
+  member ExerciseOnMember[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExerciseGroup {
+  id String @id
+  name String
+  exercise Exercise[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExerciseOnMember {
+  member Member @relation(fields: [memberId], references: [id])
+  memberId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+  progressStatus ProgressStatus @relation(fields: [progressStatusId], references: [id])
+  progressStatusId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([memberId, exerciseId])
+}
+
+model ProgressStatus {
+  id String @id
+  name String
+  exerciseOnMember ExerciseOnMember[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
