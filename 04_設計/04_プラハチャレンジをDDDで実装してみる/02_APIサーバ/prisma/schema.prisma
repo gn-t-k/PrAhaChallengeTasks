@@ -16,8 +16,8 @@ model Member {
   email String
   activityStatus ActivityStatus @relation(fields: [activityStatusId], references: [id])
   activityStatusId String
-  pair Pair @relation(fields: [pairId], references: [id])
-  pairId String
+  pair Pair? @relation(fields: [pairId], references: [id])
+  pairId String?
   exercise ExerciseOnMember[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,8 +34,8 @@ model ActivityStatus {
 model Pair {
   id String @id
   name String
-  team Team @relation(fields: [teamId], references: [id])
-  teamId String 
+  team Team? @relation(fields: [teamId], references: [id])
+  teamId String?
   member Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
