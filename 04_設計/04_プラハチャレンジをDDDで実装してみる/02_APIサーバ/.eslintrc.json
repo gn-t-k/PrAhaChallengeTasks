@@ -49,6 +49,15 @@
     ],
     "import/prefer-default-export": [
       "off"
+    ],
+    "lines-between-class-members": [
+      "off"
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allowAfterThis": true
+      }
     ]
   },
   "settings": {
