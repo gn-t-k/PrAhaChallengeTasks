@@ -46,6 +46,9 @@
         "js": "never",
         "ts": "never"
       }
+    ],
+    "import/prefer-default-export": [
+      "off"
     ]
   },
   "settings": {
