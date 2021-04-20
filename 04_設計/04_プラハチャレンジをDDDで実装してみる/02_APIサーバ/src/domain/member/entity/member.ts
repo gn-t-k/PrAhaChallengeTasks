@@ -40,4 +40,10 @@ export class Member {
   public get exerciseList(): IExercise[] {
     return this.exerciseList_;
   }
+
+  // TODO: 所属しているペアを取得する
+  // TODO: 名前を変更する
+  // TODO: メールアドレスを変更する
+  // TODO: 在籍ステータスを変更する
+  // TODO: 割り当てられた課題のステータスを変更する
 }
