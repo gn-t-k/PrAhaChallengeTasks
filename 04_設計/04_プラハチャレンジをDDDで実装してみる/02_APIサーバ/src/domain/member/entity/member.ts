@@ -41,9 +41,19 @@ export class Member {
     return this.exerciseList_;
   }
 
+  public changeName(name: string): Member {
+    this.name_ = name;
+
+    return this;
+  }
+
+  public changeEmail(email: string): Member {
+    this.email_ = email;
+
+    return this;
+  }
+
   // TODO: 所属しているペアを取得する
-  // TODO: 名前を変更する
-  // TODO: メールアドレスを変更する
   // TODO: 在籍ステータスを変更する
   // TODO: 割り当てられた課題のステータスを変更する
 }
