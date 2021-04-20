@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  praha-challenge-postgresql:
+    container_name: praha-challenge-postgresql
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    volumes:
+      - praha-challenge-postgresql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: praha-challenge-postgresql
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      TZ: "Asia/Tokyo"
+
+volumes:
+  praha-challenge-postgresql:
+    driver: local
