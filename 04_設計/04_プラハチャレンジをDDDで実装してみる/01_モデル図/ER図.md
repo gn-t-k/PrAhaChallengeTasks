@@ -8,7 +8,9 @@ Entity member {
   --
   *name
   *email
-  +activity_status_id
+  *activity_status
+  *is_in_recess
+  *is_left
   +pair_id
   *created_at
   *updated_at
@@ -22,13 +24,6 @@ Entity pair {
   *updated_at
 }
 Entity team {
-  *id
-  --
-  *name
-  *created_at
-  *updated_at
-}
-Entity activity_status {
   *id
   --
   *name
@@ -70,7 +65,6 @@ Entity exercise_on_member {
 member ||-|{ exercise_on_member
 exercise_on_member }|-|| exercise
 member }--o| pair
-member }o---|| activity_status
 exercise }|---|| exercise_group
 pair }--o| team
 exercise_on_member }o---|| progress_status
