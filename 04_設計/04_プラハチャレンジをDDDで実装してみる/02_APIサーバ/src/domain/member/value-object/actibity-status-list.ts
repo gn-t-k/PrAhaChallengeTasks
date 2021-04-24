@@ -14,6 +14,10 @@ export class ActivityStatusList {
     ) {
       throw new Error("Illegal index value.");
     }
+    if (new Set(activityStatusList).size !== activityStatusList.length) {
+      throw new Error("Duplicate status value.");
+    }
+
     this.activityStatusList_ = activityStatusList;
     this.currentStatus_ = activityStatusList[defaultStatusIndex];
   }

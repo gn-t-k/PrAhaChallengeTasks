@@ -58,6 +58,25 @@ describe("ActivityStatusList", () => {
         }).toThrowError("Illegal index value.");
       });
     });
-    // TODO: 重複した在籍ステータス
+
+    describe("重複した在籍ステータスがあるリストは作成できない", () => {
+      test("全て同じ在籍ステータスを渡した場合", () => {
+        expect(() => {
+          const _activityStatusList = new ActivityStatusList(
+            [activityStatusActive, activityStatusActive, activityStatusActive],
+            0,
+          );
+        }).toThrowError("Duplicate status value.");
+      });
+
+      test("1つだけ同じ在籍ステータスを渡した場合", () => {
+        expect(() => {
+          const _activityStatusList = new ActivityStatusList(
+            [activityStatusActive, activityStatusActive, activityStatusLeft],
+            0,
+          );
+        }).toThrowError("Duplicate status value.");
+      });
+    });
   });
 });
