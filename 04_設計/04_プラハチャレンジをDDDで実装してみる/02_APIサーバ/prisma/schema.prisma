@@ -26,6 +26,7 @@ model Member {
 model ActivityStatus {
   id String @id
   name String @unique
+  isDefault Boolean
   member Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,6 +85,7 @@ model ExerciseOnMember {
 model ProgressStatus {
   id String @id
   name String @unique
+  isDefault Boolean
   exerciseOnMember ExerciseOnMember[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
