@@ -19,7 +19,7 @@
     "lint-fix": "eslint --fix --ext '.js,.ts' ./src/**",
     "lint-conflict": "eslint-config-prettier 'src/**/*.{js,ts}'",
     "test": "jest --coverage",
-    "test-watch": "jest --coverage --watch",
+    "test-watch": "jest --coverage --watchAll",
     "build": "tsc",
     "postinstall": "typesync"
   },

@@ -54,10 +54,7 @@
       "off"
     ],
     "no-underscore-dangle": [
-      "error",
-      {
-        "allowAfterThis": true
-      }
+      "off"
     ]
   },
   "settings": {
