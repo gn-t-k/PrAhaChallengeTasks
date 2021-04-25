@@ -2,11 +2,20 @@ import {
   Member,
   IExercise, // TODO: 後で課題オブジェクトに入れ替える
 } from "domain/member/entity/member";
+import { ActivityStatus } from "domain/member/value-object/activity-status";
+import { ActivityStatusList } from "domain/member/value-object/actibity-status-list";
 
 describe("Member", () => {
   const id = "123";
   const name = "tarou";
   const email = "tarou@mail.com";
+  const activityStatusActive = new ActivityStatus("在籍中");
+  const activityStatusInRecess = new ActivityStatus("休会中");
+  const activityStatusLeft = new ActivityStatus("退会済");
+  const activityStatusList = new ActivityStatusList(
+    [activityStatusActive, activityStatusInRecess, activityStatusLeft],
+    0,
+  );
   // TODO: 後で課題オブジェクトに入れ替える
   const exerciseList: IExercise[] = [
     {
@@ -18,7 +27,8 @@ describe("Member", () => {
       status: "未着手",
     },
   ];
-  const makeMember = (): Member => new Member(id, name, email, exerciseList);
+  const makeMember = (): Member =>
+    new Member(id, name, email, activityStatusList, exerciseList);
 
   describe("Memberを作成できる", () => {
     const member = makeMember();

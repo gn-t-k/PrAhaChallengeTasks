@@ -1,3 +1,5 @@
+import { ActivityStatusList } from "../value-object/actibity-status-list";
+
 // TODO: 後で消す
 export interface IExercise {
   title: string;
@@ -7,20 +9,20 @@ export class Member {
   private id_: string;
   private name_: string;
   private email_: string;
-  private status_: string;
+  private activityStatus_: string;
   private exerciseList_: IExercise[];
 
   constructor(
     id: string,
     name: string,
     email: string,
+    activeStatusList: ActivityStatusList,
     exerciseList: IExercise[],
   ) {
     this.id_ = id;
     this.name_ = name;
     this.email_ = email;
-    // TODO: 在籍ステータスオブジェクトを受け取る
-    this.status_ = "在籍中";
+    this.activityStatus_ = activeStatusList.currentStatus.value();
     // TODO: 課題オブジェクトを受け取る
     this.exerciseList_ = exerciseList;
   }
@@ -34,7 +36,7 @@ export class Member {
   }
 
   public get status(): string {
-    return this.status_;
+    return this.activityStatus_;
   }
 
   public get exerciseList(): IExercise[] {

@@ -22,7 +22,7 @@ export class ActivityStatusList {
     this.currentStatus_ = activityStatusList[defaultStatusIndex];
   }
 
-  public get value(): ActivityStatus[] {
+  public get all(): ActivityStatus[] {
     return this.activityStatusList_;
   }
 

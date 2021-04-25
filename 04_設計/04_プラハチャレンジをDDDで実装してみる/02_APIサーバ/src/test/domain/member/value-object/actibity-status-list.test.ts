@@ -18,13 +18,13 @@ describe("ActivityStatusList", () => {
       test("作成時に渡した在籍ステータスがすべてリストに含まれている", () => {
         expect(
           props.every((activityStatus) =>
-            activityStatusList.value.includes(activityStatus),
+            activityStatusList.all.includes(activityStatus),
           ),
         );
       });
 
       test("作成時に渡した在籍ステータスと作成したリストが持つステータスの数が等しい", () => {
-        expect(activityStatusList.value.length).toEqual(props.length);
+        expect(activityStatusList.all.length).toEqual(props.length);
       });
     });
 
