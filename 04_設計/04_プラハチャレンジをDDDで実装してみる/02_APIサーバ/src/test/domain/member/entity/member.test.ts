@@ -34,28 +34,21 @@ describe("Member", () => {
     const member = makeMember();
 
     test("name", () => {
-      const memberName = member.name;
-
-      expect(memberName).toEqual(name);
+      expect(member.name).toEqual(name);
     });
 
     test("email", () => {
-      const memberEmail = member.email;
-
-      expect(memberEmail).toEqual(email);
+      expect(member.email).toEqual(email);
     });
 
     test("status", () => {
-      const memberStatus = member.status;
-
-      expect(memberStatus).toEqual("在籍中");
+      expect(member.status).toEqual("在籍中");
     });
 
     test("exercise", () => {
       const expectedExerciseList = exerciseList;
-      const memberExerciseList = member.exerciseList;
 
-      expect(memberExerciseList).toEqual(expectedExerciseList);
+      expect(member.exerciseList).toEqual(expectedExerciseList);
     });
   });
 
@@ -66,7 +59,7 @@ describe("Member", () => {
       const expectedName = "jiro";
       member.changeName(expectedName);
 
-      expect(member.name).toEqual(expectedName);
+      expect(member.changeName(expectedName).name).toEqual(expectedName);
     });
   });
 
@@ -75,9 +68,8 @@ describe("Member", () => {
 
     test("changeName", () => {
       const expectedEmail = "jiro@mail.com";
-      member.changeEmail(expectedEmail);
 
-      expect(member.email).toEqual(expectedEmail);
+      expect(member.changeEmail(expectedEmail).email).toEqual(expectedEmail);
     });
   });
 
