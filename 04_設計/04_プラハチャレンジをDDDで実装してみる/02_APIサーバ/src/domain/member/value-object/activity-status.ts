@@ -5,11 +5,11 @@ export class ActivityStatus {
     this.status_ = status;
   }
 
-  public value(): string {
+  public get value(): string {
     return this.status_;
   }
 
   public equals(activityStatus: ActivityStatus): boolean {
-    return activityStatus.value() === this.status_;
+    return activityStatus.value === this.status_;
   }
 }

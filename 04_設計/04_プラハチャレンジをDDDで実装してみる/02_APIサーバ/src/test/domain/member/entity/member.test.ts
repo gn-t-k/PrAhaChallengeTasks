@@ -80,4 +80,24 @@ describe("Member", () => {
       expect(member.email).toEqual(expectedEmail);
     });
   });
+
+  describe("Memberの在籍ステータスを変更できる", () => {
+    const member = makeMember();
+
+    test("changeActivityStatus", () => {
+      const expectedActivityStatus = "休会中";
+
+      expect(
+        member.changeActivityStatus(expectedActivityStatus).status,
+      ).toEqual(expectedActivityStatus);
+    });
+
+    test("リストに存在しないステータスを設定しようとした場合エラーが返ってくる", () => {
+      const status = "森三中";
+
+      expect(() => {
+        member.changeActivityStatus(status);
+      }).toThrowError("Invalid status value.");
+    });
+  });
 });

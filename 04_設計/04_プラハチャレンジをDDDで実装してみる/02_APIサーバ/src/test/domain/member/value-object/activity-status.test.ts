@@ -6,7 +6,7 @@ describe("ActivityStatus", () => {
       const status = "在籍中";
       const activityStatus = new ActivityStatus(status);
 
-      expect(activityStatus.value()).toEqual(status);
+      expect(activityStatus.value).toEqual(status);
     });
 
     describe("在籍オブジェクトを比較できる", () => {

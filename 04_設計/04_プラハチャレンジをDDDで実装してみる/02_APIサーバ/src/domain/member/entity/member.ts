@@ -10,19 +10,21 @@ export class Member {
   private name_: string;
   private email_: string;
   private activityStatus_: string;
+  private activityStatusList_: ActivityStatusList;
   private exerciseList_: IExercise[];
 
   constructor(
     id: string,
     name: string,
     email: string,
-    activeStatusList: ActivityStatusList,
+    activityStatusList: ActivityStatusList,
     exerciseList: IExercise[],
   ) {
     this.id_ = id;
     this.name_ = name;
     this.email_ = email;
-    this.activityStatus_ = activeStatusList.currentStatus.value();
+    this.activityStatus_ = activityStatusList.currentStatus.value;
+    this.activityStatusList_ = activityStatusList;
     // TODO: 課題オブジェクトを受け取る
     this.exerciseList_ = exerciseList;
   }
@@ -51,6 +53,20 @@ export class Member {
 
   public changeEmail(email: string): Member {
     this.email_ = email;
+
+    return this;
+  }
+
+  public changeActivityStatus(activityStatus: string): Member {
+    if (
+      !this.activityStatusList_.all
+        .map((status) => status.value)
+        .includes(activityStatus)
+    ) {
+      throw new Error("Invalid status value.");
+    }
+
+    this.activityStatus_ = activityStatus;
 
     return this;
   }
