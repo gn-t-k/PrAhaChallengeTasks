@@ -25,5 +25,13 @@ describe("ActivityStatus", () => {
         );
       });
     });
+
+    describe("バリデーション", () => {
+      test("空文字の在籍ステータスは作成できない", () => {
+        expect(() => {
+          const _activityStatus = new ActivityStatus("");
+        }).toThrowError("Invalid status value.");
+      });
+    });
   });
 });
