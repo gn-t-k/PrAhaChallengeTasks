@@ -3,7 +3,7 @@ import {
   IExercise, // TODO: 後で課題オブジェクトに入れ替える
 } from "domain/member/entity/member";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { ActivityStatusList } from "domain/member/value-object/actibity-status-list";
+import { ActivityStatusList } from "domain/member/value-object/activity-status-list";
 
 describe("Member", () => {
   const id = "123";
@@ -42,7 +42,7 @@ describe("Member", () => {
     });
 
     test("status", () => {
-      expect(member.status).toEqual("在籍中");
+      expect(member.status.value).toEqual("在籍中");
     });
 
     test("exercise", () => {
@@ -77,15 +77,13 @@ describe("Member", () => {
     const member = makeMember();
 
     test("changeActivityStatus", () => {
-      const expectedActivityStatus = "休会中";
-
       expect(
-        member.changeActivityStatus(expectedActivityStatus).status,
-      ).toEqual(expectedActivityStatus);
+        member.changeActivityStatus(activityStatusInRecess).status,
+      ).toEqual(activityStatusInRecess);
     });
 
     test("リストに存在しないステータスを設定しようとした場合エラーが返ってくる", () => {
-      const status = "森三中";
+      const status = new ActivityStatus("森三中");
 
       expect(() => {
         member.changeActivityStatus(status);

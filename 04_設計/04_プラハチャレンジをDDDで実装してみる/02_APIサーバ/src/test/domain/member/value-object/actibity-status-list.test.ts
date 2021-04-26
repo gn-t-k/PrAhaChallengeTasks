@@ -1,5 +1,5 @@
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { ActivityStatusList } from "domain/member/value-object/actibity-status-list";
+import { ActivityStatusList } from "domain/member/value-object/activity-status-list";
 
 describe("ActivityStatusList", () => {
   describe("在籍ステータスリストが作成できる", () => {

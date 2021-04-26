@@ -1,4 +1,5 @@
-import { ActivityStatusList } from "../value-object/actibity-status-list";
+import { ActivityStatus } from "domain/member/value-object/activity-status";
+import { ActivityStatusList } from "domain/member/value-object/activity-status-list";
 
 // TODO: 後で消す
 export interface IExercise {
@@ -9,8 +10,7 @@ export class Member {
   private id_: string;
   private name_: string;
   private email_: string;
-  private activityStatus_: string;
-  private activityStatusList_: ActivityStatusList;
+  private activityStatus_: ActivityStatus;
   private exerciseList_: IExercise[];
 
   constructor(
@@ -23,8 +23,7 @@ export class Member {
     this.id_ = id;
     this.name_ = name;
     this.email_ = email;
-    this.activityStatus_ = activityStatusList.currentStatus.value;
-    this.activityStatusList_ = activityStatusList;
+    this.activityStatus_ = activityStatusList.currentStatus;
     // TODO: 課題オブジェクトを受け取る
     this.exerciseList_ = exerciseList;
   }
@@ -37,7 +36,7 @@ export class Member {
     return this.email_;
   }
 
-  public get status(): string {
+  public get status(): ActivityStatus {
     return this.activityStatus_;
   }
 
@@ -57,15 +56,7 @@ export class Member {
     return this;
   }
 
-  public changeActivityStatus(activityStatus: string): Member {
-    if (
-      !this.activityStatusList_.all
-        .map((status) => status.value)
-        .includes(activityStatus)
-    ) {
-      throw new Error("Invalid status value.");
-    }
-
+  public changeActivityStatus(activityStatus: ActivityStatus): Member {
     this.activityStatus_ = activityStatus;
 
     return this;
