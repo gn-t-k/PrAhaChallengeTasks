@@ -81,13 +81,5 @@ describe("Member", () => {
         member.changeActivityStatus(activityStatusInRecess).status,
       ).toEqual(activityStatusInRecess);
     });
-
-    test("リストに存在しないステータスを設定しようとした場合エラーが返ってくる", () => {
-      const status = new ActivityStatus("森三中");
-
-      expect(() => {
-        member.changeActivityStatus(status);
-      }).toThrowError("Invalid status value.");
-    });
   });
 });
