@@ -1,5 +1,4 @@
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { ActivityStatusList } from "domain/member/value-object/activity-status-list";
 
 // TODO: 後で消す
 export interface IExercise {
@@ -17,7 +16,7 @@ export class Member {
     id: string,
     name: string,
     email: string,
-    activityStatusList: ActivityStatusList,
+    activityStatus: ActivityStatus,
     exerciseList: IExercise[],
   ) {
     if (name === "") {
@@ -30,7 +29,7 @@ export class Member {
     this.id_ = id;
     this.name_ = name;
     this.email_ = email;
-    this.activityStatus_ = activityStatusList.currentStatus;
+    this.activityStatus_ = activityStatus;
     // TODO: 課題オブジェクトを受け取る
     this.exerciseList_ = exerciseList;
   }

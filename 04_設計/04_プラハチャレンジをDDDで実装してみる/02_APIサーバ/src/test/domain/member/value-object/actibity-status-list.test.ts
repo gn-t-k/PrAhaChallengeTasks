@@ -13,7 +13,7 @@ describe("ActivityStatusList", () => {
         activityStatusInRecess,
         activityStatusLeft,
       ];
-      const activityStatusList = new ActivityStatusList(props, 0);
+      const activityStatusList = new ActivityStatusList(props);
 
       test("作成時に渡した在籍ステータスがすべてリストに含まれている", () => {
         expect(
@@ -28,53 +28,24 @@ describe("ActivityStatusList", () => {
       });
     });
 
-    test("デフォルト値をインデックスで指定できる", () => {
-      const activityStatusList = new ActivityStatusList(
-        [activityStatusActive, activityStatusInRecess, activityStatusLeft],
-        0,
-      );
-
-      expect(
-        activityStatusList.currentStatus.equals(activityStatusActive),
-      ).toBe(true);
-    });
-
-    describe("不正なインデックス値を値した場合エラーになる", () => {
-      test("リストよりも大きなインデックス値", () => {
-        expect(() => {
-          const _activityStatusList = new ActivityStatusList(
-            [activityStatusActive, activityStatusInRecess, activityStatusLeft],
-            4,
-          );
-        }).toThrowError("Illegal index value.");
-      });
-
-      test("負のインデックス値", () => {
-        expect(() => {
-          const _activityStatusList = new ActivityStatusList(
-            [activityStatusActive, activityStatusInRecess, activityStatusLeft],
-            -1,
-          );
-        }).toThrowError("Illegal index value.");
-      });
-    });
-
     describe("重複した在籍ステータスがあるリストは作成できない", () => {
       test("全て同じ在籍ステータスを渡した場合", () => {
         expect(() => {
-          const _activityStatusList = new ActivityStatusList(
-            [activityStatusActive, activityStatusActive, activityStatusActive],
-            0,
-          );
+          const _activityStatusList = new ActivityStatusList([
+            activityStatusActive,
+            activityStatusActive,
+            activityStatusActive,
+          ]);
         }).toThrowError("Duplicate status value.");
       });
 
       test("1つだけ同じ在籍ステータスを渡した場合", () => {
         expect(() => {
-          const _activityStatusList = new ActivityStatusList(
-            [activityStatusActive, activityStatusActive, activityStatusLeft],
-            0,
-          );
+          const _activityStatusList = new ActivityStatusList([
+            activityStatusActive,
+            activityStatusActive,
+            activityStatusLeft,
+          ]);
         }).toThrowError("Duplicate status value.");
       });
     });

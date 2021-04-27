@@ -3,7 +3,6 @@ import {
   IExercise, // TODO: 後で課題オブジェクトに入れ替える
 } from "domain/member/entity/member";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { ActivityStatusList } from "domain/member/value-object/activity-status-list";
 
 describe("Member", () => {
   const id = "123";
@@ -11,11 +10,6 @@ describe("Member", () => {
   const email = "tarou@mail.com";
   const activityStatusActive = new ActivityStatus("在籍中");
   const activityStatusInRecess = new ActivityStatus("休会中");
-  const activityStatusLeft = new ActivityStatus("退会済");
-  const activityStatusList = new ActivityStatusList(
-    [activityStatusActive, activityStatusInRecess, activityStatusLeft],
-    0,
-  );
   // TODO: 後で課題オブジェクトに入れ替える
   const exerciseList: IExercise[] = [
     {
@@ -28,7 +22,7 @@ describe("Member", () => {
     },
   ];
   const makeMember = (): Member =>
-    new Member(id, name, email, activityStatusList, exerciseList);
+    new Member(id, name, email, activityStatusActive, exerciseList);
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -59,7 +53,7 @@ describe("Member", () => {
           id,
           "",
           email,
-          activityStatusList,
+          activityStatusActive,
           exerciseList,
         );
       }).toThrowError("Illegal name value.");
@@ -71,7 +65,7 @@ describe("Member", () => {
           id,
           name,
           "",
-          activityStatusList,
+          activityStatusActive,
           exerciseList,
         );
       }).toThrowError("Illegal email value.");
