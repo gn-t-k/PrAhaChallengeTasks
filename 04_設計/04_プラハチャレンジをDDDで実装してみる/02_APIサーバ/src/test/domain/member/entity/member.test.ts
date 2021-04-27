@@ -52,6 +52,32 @@ describe("Member", () => {
     });
   });
 
+  describe("バリデーション", () => {
+    test("nameを空文字にするとエラーが返ってくる", () => {
+      expect(() => {
+        const _member = new Member(
+          id,
+          "",
+          email,
+          activityStatusList,
+          exerciseList,
+        );
+      }).toThrowError("Illegal name value.");
+    });
+
+    test("emailを空文字にするとエラーが返ってくる", () => {
+      expect(() => {
+        const _member = new Member(
+          id,
+          name,
+          "",
+          activityStatusList,
+          exerciseList,
+        );
+      }).toThrowError("Illegal email value.");
+    });
+  });
+
   describe("Memberの名前を変更できる", () => {
     const member = makeMember();
 

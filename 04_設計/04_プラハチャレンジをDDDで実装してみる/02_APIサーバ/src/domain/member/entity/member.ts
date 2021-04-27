@@ -20,6 +20,13 @@ export class Member {
     activityStatusList: ActivityStatusList,
     exerciseList: IExercise[],
   ) {
+    if (name === "") {
+      throw new Error("Illegal name value.");
+    }
+    if (email === "") {
+      throw new Error("Illegal email value.");
+    }
+
     this.id_ = id;
     this.name_ = name;
     this.email_ = email;
