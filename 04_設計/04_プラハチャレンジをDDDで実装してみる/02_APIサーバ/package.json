@@ -19,13 +19,14 @@
     "lint-fix": "eslint --fix --ext '.js,.ts' ./src/**",
     "lint-conflict": "eslint-config-prettier 'src/**/*.{js,ts}'",
     "test": "jest --coverage",
-    "test-watch": "jest --coverage --watch",
+    "test-watch": "jest --coverage --watchAll",
     "build": "tsc",
     "postinstall": "typesync"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.6",
     "@types/express": "^4.17.9",
+    "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
     "@types/prettier": "^2.1.6",
     "@types/supertest": "^2.0.10",

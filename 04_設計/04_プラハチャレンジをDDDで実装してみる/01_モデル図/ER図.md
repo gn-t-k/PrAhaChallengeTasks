@@ -32,6 +32,7 @@ Entity activity_status {
   *id
   --
   *name
+  *is_default
   *created_at
   *updated_at
 }
@@ -55,6 +56,7 @@ Entity progress_status {
   *id
   --
   *name
+  *is_default
   *created_at
   *updated_at
 }
