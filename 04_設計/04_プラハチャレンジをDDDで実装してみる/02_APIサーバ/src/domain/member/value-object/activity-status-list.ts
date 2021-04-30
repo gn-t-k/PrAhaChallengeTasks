@@ -1,17 +1,20 @@
 import { ActivityStatus } from "domain/member/value-object/activity-status";
 
+export interface IActivityStatusList {
+  activityStatusList: ActivityStatus[];
+}
 export class ActivityStatusList {
-  private activityStatusList_: ActivityStatus[];
+  private props: IActivityStatusList;
 
   constructor(activityStatusList: ActivityStatus[]) {
     if (new Set(activityStatusList).size !== activityStatusList.length) {
       throw new Error("Duplicate status value.");
     }
 
-    this.activityStatusList_ = activityStatusList;
+    this.props = { activityStatusList };
   }
 
   public get all(): ActivityStatus[] {
-    return this.activityStatusList_;
+    return this.props.activityStatusList;
   }
 }

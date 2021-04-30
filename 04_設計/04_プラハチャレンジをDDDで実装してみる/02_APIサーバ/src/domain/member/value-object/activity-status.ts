@@ -1,19 +1,22 @@
+export interface IActivityStatus {
+  status: string;
+}
 export class ActivityStatus {
-  private status_: string;
+  private props: IActivityStatus;
 
   constructor(status: string) {
     if (status.length === 0) {
       throw new Error("Invalid status value.");
     }
 
-    this.status_ = status;
+    this.props = { status };
   }
 
   public get value(): string {
-    return this.status_;
+    return this.props.status;
   }
 
   public equals(activityStatus: ActivityStatus): boolean {
-    return activityStatus.value === this.status_;
+    return activityStatus.value === this.props.status;
   }
 }
