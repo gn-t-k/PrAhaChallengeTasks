@@ -12,13 +12,7 @@ export class Team {
     if (!new RegExp("^[1-9]+$").test(name)) {
       throw new Error("Team name can be set with numeric character.");
     }
-    if (
-      !(
-        pairList
-          .map((pair) => pair.memberList.length)
-          .reduce((acc, cur) => acc + cur) >= 3
-      )
-    ) {
+    if (!(numberOfMember(pairList) >= 3)) {
       throw new Error("Team requires 3 or more members");
     }
 
@@ -33,3 +27,8 @@ export class Team {
     return this.props.pairList;
   }
 }
+
+const numberOfMember = (pairList: Pair[]): number =>
+  pairList
+    .map((pair) => pair.memberList.length)
+    .reduce((acc, cur) => acc + cur);
