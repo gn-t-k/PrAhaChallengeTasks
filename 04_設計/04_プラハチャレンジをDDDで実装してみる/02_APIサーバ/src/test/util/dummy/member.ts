@@ -10,7 +10,7 @@ export const makeDummyMemberProps = (): IMember => {
   const id = faker.lorem.slug();
   const name = faker.name.findName();
   const email = faker.internet.email();
-  const activityStatus = new ActivityStatus("在籍中");
+  const activityStatus = new ActivityStatus({ status: "在籍中" });
   // TODO: 後で課題オブジェクトに入れ替える
   const exerciseList: IExercise[] = [
     {
@@ -35,5 +35,5 @@ export const makeDummyMember = (): Member => {
     exerciseList,
   } = makeDummyMemberProps();
 
-  return new Member(id, name, email, activityStatus, exerciseList);
+  return new Member({ id, name, email, activityStatus, exerciseList });
 };

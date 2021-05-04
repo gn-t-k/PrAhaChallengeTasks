@@ -8,15 +8,15 @@ export interface ITeam {
 export class Team {
   private props: ITeam;
 
-  constructor(id: string, name: string, pairList: Pair[]) {
-    if (!new RegExp("^[1-9]+$").test(name)) {
+  constructor(props: ITeam) {
+    if (!new RegExp("^[1-9]+$").test(props.name)) {
       throw new Error("Team name can be set with numeric character.");
     }
-    if (!(numberOfMember(pairList) >= 3)) {
+    if (!(numberOfMember(props.pairList) >= 3)) {
       throw new Error("Team requires 3 or more members");
     }
 
-    this.props = { id, name, pairList };
+    this.props = props;
   }
 
   public get name(): string {

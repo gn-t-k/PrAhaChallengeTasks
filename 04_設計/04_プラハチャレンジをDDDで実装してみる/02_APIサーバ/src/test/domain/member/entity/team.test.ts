@@ -11,7 +11,7 @@ describe("Team", () => {
       makeDummyPair([makeDummyMember(), makeDummyMember()]),
     ];
 
-    const team = new Team(id, name, pairList);
+    const team = new Team({ id, name, pairList });
 
     test("name", () => {
       expect(team.name).toEqual(name);
@@ -34,7 +34,7 @@ describe("Team", () => {
         ];
 
         expect(() => {
-          const _team = new Team(id, name, pairList);
+          const _team = new Team({ id, name, pairList });
         }).toThrowError("Team name can be set with numeric character.");
       });
     });
@@ -47,7 +47,7 @@ describe("Team", () => {
         ];
 
         expect(() => {
-          const _team = new Team(id, name, pairList);
+          const _team = new Team({ id, name, pairList });
         }).toThrowError("Team requires 3 or more members");
       });
     });

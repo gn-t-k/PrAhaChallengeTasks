@@ -11,7 +11,7 @@ describe("Member", () => {
     exerciseList,
   } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    new Member(id, name, email, activityStatus, exerciseList);
+    new Member({ id, name, email, activityStatus, exerciseList });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -38,13 +38,25 @@ describe("Member", () => {
   describe("バリデーション", () => {
     test("nameを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member(id, "", email, activityStatus, exerciseList);
+        const _member = new Member({
+          id,
+          name: "",
+          email,
+          activityStatus,
+          exerciseList,
+        });
       }).toThrowError("Illegal name value.");
     });
 
     test("emailを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member(id, name, "", activityStatus, exerciseList);
+        const _member = new Member({
+          id,
+          name,
+          email: "",
+          activityStatus,
+          exerciseList,
+        });
       }).toThrowError("Illegal email value.");
     });
   });
@@ -71,14 +83,14 @@ describe("Member", () => {
   });
 
   describe("Memberの在籍ステータスを変更できる", () => {
-    const activityStatusInRecess = new ActivityStatus("休会中");
-    const member = new Member(
+    const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
+    const member = new Member({
       id,
       name,
       email,
-      activityStatusInRecess,
+      activityStatus: activityStatusInRecess,
       exerciseList,
-    );
+    });
 
     test("changeActivityStatus", () => {
       expect(

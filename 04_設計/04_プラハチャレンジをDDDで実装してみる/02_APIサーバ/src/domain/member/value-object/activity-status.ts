@@ -4,12 +4,12 @@ export interface IActivityStatus {
 export class ActivityStatus {
   private props: IActivityStatus;
 
-  constructor(status: string) {
-    if (status.length === 0) {
+  constructor(props: IActivityStatus) {
+    if (props.status === "") {
       throw new Error("Invalid status value.");
     }
 
-    this.props = { status };
+    this.props = props;
   }
 
   public get value(): string {

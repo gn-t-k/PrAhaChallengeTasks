@@ -6,15 +6,19 @@ export interface IActivityStatusList {
 export class ActivityStatusList {
   private props: IActivityStatusList;
 
-  constructor(activityStatusList: ActivityStatus[]) {
-    if (new Set(activityStatusList).size !== activityStatusList.length) {
+  constructor(props: IActivityStatusList) {
+    if (isActivityStatusListDuplicated(props.activityStatusList)) {
       throw new Error("Duplicate status value.");
     }
 
-    this.props = { activityStatusList };
+    this.props = props;
   }
 
   public get all(): ActivityStatus[] {
     return this.props.activityStatusList;
   }
 }
+
+const isActivityStatusListDuplicated = (
+  activityStatusList: ActivityStatus[],
+): boolean => new Set(activityStatusList).size !== activityStatusList.length;

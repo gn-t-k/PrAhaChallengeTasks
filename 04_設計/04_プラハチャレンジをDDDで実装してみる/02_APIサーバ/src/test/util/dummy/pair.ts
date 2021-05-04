@@ -12,5 +12,5 @@ export const makeDummyPairProps = (memberList: Member[]): IPair => {
 export const makeDummyPair = (memberList: Member[]): Pair => {
   const { id, name } = makeDummyPairProps(memberList);
 
-  return new Pair(id, name, memberList);
+  return new Pair({ id, name, memberList });
 };

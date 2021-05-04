@@ -3,9 +3,9 @@ import { ActivityStatusList } from "domain/member/value-object/activity-status-l
 
 describe("ActivityStatusList", () => {
   describe("在籍ステータスリストが作成できる", () => {
-    const activityStatusActive = new ActivityStatus("在籍中");
-    const activityStatusInRecess = new ActivityStatus("休会中");
-    const activityStatusLeft = new ActivityStatus("退会済");
+    const activityStatusActive = new ActivityStatus({ status: "在籍中" });
+    const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
+    const activityStatusLeft = new ActivityStatus({ status: "退会済" });
 
     describe("作成した在籍ステータスリストを取得できる", () => {
       const props = [
@@ -13,7 +13,9 @@ describe("ActivityStatusList", () => {
         activityStatusInRecess,
         activityStatusLeft,
       ];
-      const activityStatusList = new ActivityStatusList(props);
+      const activityStatusList = new ActivityStatusList({
+        activityStatusList: props,
+      });
 
       test("作成時に渡した在籍ステータスがすべてリストに含まれている", () => {
         expect(
@@ -31,21 +33,25 @@ describe("ActivityStatusList", () => {
     describe("重複した在籍ステータスがあるリストは作成できない", () => {
       test("全て同じ在籍ステータスを渡した場合", () => {
         expect(() => {
-          const _activityStatusList = new ActivityStatusList([
-            activityStatusActive,
-            activityStatusActive,
-            activityStatusActive,
-          ]);
+          const _activityStatusList = new ActivityStatusList({
+            activityStatusList: [
+              activityStatusActive,
+              activityStatusActive,
+              activityStatusActive,
+            ],
+          });
         }).toThrowError("Duplicate status value.");
       });
 
       test("1つだけ同じ在籍ステータスを渡した場合", () => {
         expect(() => {
-          const _activityStatusList = new ActivityStatusList([
-            activityStatusActive,
-            activityStatusActive,
-            activityStatusLeft,
-          ]);
+          const _activityStatusList = new ActivityStatusList({
+            activityStatusList: [
+              activityStatusActive,
+              activityStatusActive,
+              activityStatusLeft,
+            ],
+          });
         }).toThrowError("Duplicate status value.");
       });
     });

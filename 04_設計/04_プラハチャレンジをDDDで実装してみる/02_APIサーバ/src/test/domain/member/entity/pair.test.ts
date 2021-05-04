@@ -6,7 +6,7 @@ describe("pair", () => {
     const id = "123";
     const name = "a";
     const memberList = [makeDummyMember(), makeDummyMember()];
-    const pair = new Pair(id, name, memberList);
+    const pair = new Pair({ id, name, memberList });
 
     test("name", () => {
       expect(pair.name).toEqual(name);
@@ -26,7 +26,7 @@ describe("pair", () => {
         const name = "ab";
 
         expect(() => {
-          const _pair = new Pair(id, name, memberList);
+          const _pair = new Pair({ id, name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
 
@@ -34,7 +34,7 @@ describe("pair", () => {
         const name = "1";
 
         expect(() => {
-          const _pair = new Pair(id, name, memberList);
+          const _pair = new Pair({ id, name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
     });
@@ -47,7 +47,7 @@ describe("pair", () => {
         const memberList = [makeDummyMember()];
 
         expect(() => {
-          const _pair = new Pair(id, name, memberList);
+          const _pair = new Pair({ id, name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
 
@@ -60,7 +60,7 @@ describe("pair", () => {
         ];
 
         expect(() => {
-          const _pair = new Pair(id, name, memberList);
+          const _pair = new Pair({ id, name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
     });

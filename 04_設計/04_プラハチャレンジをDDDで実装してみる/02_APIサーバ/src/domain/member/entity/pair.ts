@@ -8,15 +8,15 @@ export interface IPair {
 export class Pair {
   private props: IPair;
 
-  constructor(id: string, name: string, memberList: Member[]) {
-    if (!new RegExp("^[a-z]$").test(name)) {
+  constructor(props: IPair) {
+    if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
     }
-    if (memberList.length < 2 || memberList.length > 3) {
+    if (props.memberList.length < 2 || props.memberList.length > 3) {
       throw new Error("2 or more and 3 or less member belong to pair.");
     }
 
-    this.props = { id, name, memberList };
+    this.props = props;
   }
 
   public get name(): string {

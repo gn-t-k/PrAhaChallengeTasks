@@ -17,27 +17,15 @@ export interface IMember {
 export class Member {
   private props: IMember;
 
-  constructor(
-    id: string,
-    name: string,
-    email: string,
-    activityStatus: ActivityStatus,
-    exerciseList: IExercise[],
-  ) {
-    if (name === "") {
+  constructor(props: IMember) {
+    if (props.name === "") {
       throw new Error("Illegal name value.");
     }
-    if (email === "") {
+    if (props.email === "") {
       throw new Error("Illegal email value.");
     }
 
-    this.props = {
-      id,
-      name,
-      email,
-      activityStatus, // TODO: 課題オブジェクトを受け取る
-      exerciseList,
-    };
+    this.props = props;
   }
 
   public get name(): string {
