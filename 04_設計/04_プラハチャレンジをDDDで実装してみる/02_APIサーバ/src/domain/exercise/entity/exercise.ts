@@ -10,6 +10,13 @@ export class Exercise {
   private props: IExercise;
 
   constructor(props: IExercise) {
+    if (props.title === "") {
+      throw new Error("Illegal title value.");
+    }
+    if (props.details === "") {
+      throw new Error("Illegal details value.");
+    }
+
     this.props = props;
   }
 

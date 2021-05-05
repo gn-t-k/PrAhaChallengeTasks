@@ -25,4 +25,30 @@ describe("Exercise", () => {
       expect(exercise.group).toEqual(group);
     });
   });
+
+  describe("バリデーション", () => {
+    test("titleを空文字にするとエラーが返ってくる", () => {
+      expect(() => {
+        const _exercise = new Exercise({
+          id,
+          title: "",
+          details,
+          status,
+          group,
+        });
+      }).toThrowError("Illegal title value.");
+    });
+
+    test("detailsを空文字にするとエラーが返ってくる", () => {
+      expect(() => {
+        const _exercise = new Exercise({
+          id,
+          title,
+          details: "",
+          status,
+          group,
+        });
+      }).toThrowError("Illegal details value.");
+    });
+  });
 });
