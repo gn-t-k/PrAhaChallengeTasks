@@ -1,9 +1,11 @@
+import { ExerciseGroup } from "domain/exercise/value-object/exercise-group";
+
 export interface IExercise {
   id: string;
   title: string;
   details: string;
   status: string;
-  group: string;
+  group: ExerciseGroup;
 }
 
 export class Exercise {
@@ -32,7 +34,7 @@ export class Exercise {
     return this.props.status;
   }
 
-  public get group(): string {
+  public get group(): ExerciseGroup {
     return this.props.group;
   }
 }
