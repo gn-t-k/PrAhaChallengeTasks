@@ -23,6 +23,7 @@ describe("ActivityStatusList", () => {
             activityStatusList.all.includes(activityStatus),
           ),
         );
+        // TODO: テストになってないので修正する
       });
 
       test("作成時に渡した在籍ステータスと作成したリストが持つステータスの数が等しい", () => {
