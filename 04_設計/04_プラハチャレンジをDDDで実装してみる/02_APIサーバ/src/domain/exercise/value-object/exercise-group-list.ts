@@ -10,4 +10,8 @@ export class ExerciseGroupList {
   constructor(props: IExerciseGroupList) {
     this.props = props;
   }
+
+  public get all(): ExerciseGroup[] {
+    return this.props.exerciseGroupList;
+  }
 }

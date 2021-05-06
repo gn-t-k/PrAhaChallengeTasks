@@ -13,7 +13,11 @@ describe("ExerciseGroupList", () => {
     });
 
     test("作成時に渡した課題グループがすべてリストに含まれている", () => {
-      expect();
+      expect(
+        exerciseGroupList.all.every((exerciseGroup) =>
+          props.includes(exerciseGroup),
+        ),
+      ).toBeTruthy;
     });
   });
 });
