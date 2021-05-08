@@ -27,9 +27,9 @@ describe("ActivityStatusList", () => {
         expect(() => {
           const _activityStatusList = new ActivityStatusList({
             activityStatusList: [
-              activityStatusActive,
-              activityStatusActive,
-              activityStatusActive,
+              new ActivityStatus({ status: "在籍中" }),
+              new ActivityStatus({ status: "在籍中" }),
+              new ActivityStatus({ status: "在籍中" }),
             ],
           });
         }).toThrowError("Duplicate status value.");
@@ -39,9 +39,9 @@ describe("ActivityStatusList", () => {
         expect(() => {
           const _activityStatusList = new ActivityStatusList({
             activityStatusList: [
-              activityStatusActive,
-              activityStatusActive,
-              activityStatusLeft,
+              new ActivityStatus({ status: "在籍中" }),
+              new ActivityStatus({ status: "在籍中" }),
+              new ActivityStatus({ status: "退会済" }),
             ],
           });
         }).toThrowError("Duplicate status value.");

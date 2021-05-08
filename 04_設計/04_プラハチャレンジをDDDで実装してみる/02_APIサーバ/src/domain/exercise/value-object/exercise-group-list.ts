@@ -8,6 +8,10 @@ export class ExerciseGroupList {
   private props: IExerciseGroupList;
 
   constructor(props: IExerciseGroupList) {
+    if (isExerciseGroupListDuplicated(props.exerciseGroupList)) {
+      throw new Error("Dupulicate exercise group.");
+    }
+
     this.props = props;
   }
 
@@ -15,3 +19,11 @@ export class ExerciseGroupList {
     return this.props.exerciseGroupList;
   }
 }
+
+const isExerciseGroupListDuplicated = (
+  exerciseGroupList: ExerciseGroup[],
+): boolean => {
+  const nameList = exerciseGroupList.map((exerciseGroup) => exerciseGroup.name);
+
+  return new Set(nameList).size !== nameList.length;
+};

@@ -16,4 +16,30 @@ describe("ExerciseGroupList", () => {
       expect(exerciseGroupList.all).toEqual(props);
     });
   });
+
+  describe("重複した課題グループがあるリストは作成できない", () => {
+    test("全て同じ課題グループを渡した場合", () => {
+      expect(() => {
+        const _exerciseGroupList = new ExerciseGroupList({
+          exerciseGroupList: [
+            new ExerciseGroup({ name: "テスト" }),
+            new ExerciseGroup({ name: "テスト" }),
+            new ExerciseGroup({ name: "テスト" }),
+          ],
+        });
+      }).toThrowError("Dupulicate exercise group.");
+    });
+
+    test("1つだけ同じ課題グループを渡した場合", () => {
+      expect(() => {
+        const _exerciseGroupList = new ExerciseGroupList({
+          exerciseGroupList: [
+            new ExerciseGroup({ name: "テスト" }),
+            new ExerciseGroup({ name: "テスト" }),
+            new ExerciseGroup({ name: "データベース" }),
+          ],
+        });
+      }).toThrowError("Dupulicate exercise group.");
+    });
+  });
 });

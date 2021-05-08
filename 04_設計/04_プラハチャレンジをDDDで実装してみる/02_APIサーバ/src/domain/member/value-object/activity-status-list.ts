@@ -21,4 +21,10 @@ export class ActivityStatusList {
 
 const isActivityStatusListDuplicated = (
   activityStatusList: ActivityStatus[],
-): boolean => new Set(activityStatusList).size !== activityStatusList.length;
+): boolean => {
+  const statusList = activityStatusList.map(
+    (activityStatus) => activityStatus.value,
+  );
+
+  return new Set(statusList).size !== statusList.length;
+};
