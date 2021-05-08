@@ -12,6 +12,7 @@ export class Exercise {
   private props: IExercise;
 
   constructor(props: IExercise) {
+    // TODO: 進捗ステータスのデフォルトは"未着手"
     if (props.title === "") {
       throw new Error("Illegal title value.");
     }
@@ -37,4 +38,10 @@ export class Exercise {
   public get group(): ExerciseGroup {
     return this.props.group;
   }
+
+  // TODO: メソッド
+  /**
+   * - [ ] 進捗ステータスを変更する
+   *   - [ ] 一度完了にした進捗ステータスをレビュー待ち・未着手に戻すことはできない
+   */
 }
