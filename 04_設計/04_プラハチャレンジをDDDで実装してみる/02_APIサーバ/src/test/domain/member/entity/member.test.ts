@@ -70,6 +70,12 @@ describe("Member", () => {
 
       expect(member.changeName(expectedName).name).toEqual(expectedName);
     });
+
+    test("空文字には変更できない", () => {
+      expect(() => {
+        member.changeName("");
+      }).toThrowError("Illegal name value.");
+    });
   });
 
   describe("Memberのメールアドレスを変更できる", () => {
@@ -79,6 +85,12 @@ describe("Member", () => {
       const expectedEmail = "jiro@mail.com";
 
       expect(member.changeEmail(expectedEmail).email).toEqual(expectedEmail);
+    });
+
+    test("空文字には変更できない", () => {
+      expect(() => {
+        member.changeEmail("");
+      }).toThrowError("Illegal email value.");
     });
   });
 

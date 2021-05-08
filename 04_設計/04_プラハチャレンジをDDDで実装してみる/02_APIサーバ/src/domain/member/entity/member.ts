@@ -45,12 +45,20 @@ export class Member {
   }
 
   public changeName(name: string): Member {
+    if (name === "") {
+      throw new Error("Illegal name value.");
+    }
+
     this.props.name = name;
 
     return this;
   }
 
   public changeEmail(email: string): Member {
+    if (email === "") {
+      throw new Error("Illegal email value.");
+    }
+
     this.props.email = email;
 
     return this;
