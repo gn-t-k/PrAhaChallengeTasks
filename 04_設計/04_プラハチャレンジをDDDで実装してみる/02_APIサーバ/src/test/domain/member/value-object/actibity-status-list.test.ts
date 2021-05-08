@@ -17,17 +17,8 @@ describe("ActivityStatusList", () => {
         activityStatusList: props,
       });
 
-      test("作成時に渡した在籍ステータスがすべてリストに含まれている", () => {
-        expect(
-          props.every((activityStatus) =>
-            activityStatusList.all.includes(activityStatus),
-          ),
-        );
-        // TODO: テストになってないので修正する
-      });
-
-      test("作成時に渡した在籍ステータスと作成したリストが持つステータスの数が等しい", () => {
-        expect(activityStatusList.all.length).toEqual(props.length);
+      test("作成したオブジェクトから正しい在籍ステータスリストが取得できる", () => {
+        expect(activityStatusList.all).toEqual(props);
       });
     });
 

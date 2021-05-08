@@ -12,12 +12,8 @@ describe("ExerciseGroupList", () => {
       exerciseGroupList: props,
     });
 
-    test("作成時に渡した課題グループがすべてリストに含まれている", () => {
-      expect(
-        exerciseGroupList.all.every((exerciseGroup) =>
-          props.includes(exerciseGroup),
-        ),
-      ).toBeTruthy;
+    test("作成したオブジェクトから正しい課題グループリストが取得できる", () => {
+      expect(exerciseGroupList.all).toEqual(props);
     });
   });
 });
