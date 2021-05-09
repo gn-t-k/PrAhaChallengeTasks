@@ -1,5 +1,9 @@
 import { Exercise } from "domain/exercise/entity/exercise";
 import { makeDummyExerciseProps } from "test/util/dummy/exercise";
+import {
+  makeProgressStatusWaitingForReview,
+  makeProgressStatusDone,
+} from "test/util/dummy/progress-status";
 
 describe("Exercise", () => {
   const { id, title, details, status, group } = makeDummyExerciseProps();
@@ -49,6 +53,57 @@ describe("Exercise", () => {
           group,
         });
       }).toThrowError("Illegal details value.");
+    });
+  });
+
+  describe("変更メソッド", () => {
+    describe("進捗ステータスが変更できる", () => {
+      describe("progressStatus", () => {
+        const exercise = makeExercise();
+        test('"未着手"から"レビュー待ち"', () => {
+          expect(exercise.progressStatus().status.value).toEqual(
+            "レビュー待ち",
+          );
+        });
+
+        test('"レビュー待ち"から"完了"', () => {
+          expect(exercise.progressStatus().status.value).toEqual("完了");
+        });
+
+        test('"完了"からは進捗できない', () => {
+          expect(() => {
+            exercise.progressStatus();
+          }).toThrowError("Illegal status manipulation");
+        });
+      });
+
+      describe("regressStatus", () => {
+        test('"レビュー待ち"から"未着手"', () => {
+          const exercise = new Exercise({
+            id,
+            title,
+            details,
+            status: makeProgressStatusWaitingForReview(),
+            group,
+          });
+
+          expect(exercise.regressStatus().status.value).toEqual("未着手");
+        });
+
+        test('"完了"から"レビュー待ち"には戻せない', () => {
+          const exercise = new Exercise({
+            id,
+            title,
+            details,
+            status: makeProgressStatusDone(),
+            group,
+          });
+
+          expect(() => {
+            exercise.regressStatus();
+          }).toThrowError("Illegal status manipulation");
+        });
+      });
     });
   });
 });

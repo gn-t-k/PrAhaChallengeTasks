@@ -1,19 +1,19 @@
 import { ProgressStatus } from "domain/exercise/value-object/progress-status";
 import {
-  getProgressStatusNotStartedYet,
-  getProgressStatusWaitingForReview,
-  getProgressStatusDone,
+  makeProgressStatusNotStartedYet,
+  makeProgressStatusWaitingForReview,
+  makeProgressStatusDone,
 } from "test/util/dummy/progress-status";
 
 describe("ProgressStatus", () => {
   test('進捗ステータスの初期値は"未着手"', () => {
-    expect(getProgressStatusNotStartedYet().value).toEqual("未着手");
+    expect(makeProgressStatusNotStartedYet().value).toEqual("未着手");
   });
 
   describe("ステータスを進捗させることができる", () => {
     test('"未着手"の次は"レビュー待ち"', () => {
       expect(
-        ProgressStatus.getNextProgressStatus(getProgressStatusNotStartedYet())
+        ProgressStatus.getNextProgressStatus(makeProgressStatusNotStartedYet())
           .value,
       ).toEqual("レビュー待ち");
     });
@@ -21,7 +21,7 @@ describe("ProgressStatus", () => {
     test('"レビュー待ち"の次は"完了"', () => {
       expect(
         ProgressStatus.getNextProgressStatus(
-          getProgressStatusWaitingForReview(),
+          makeProgressStatusWaitingForReview(),
         ).value,
       ).toEqual("完了");
     });
@@ -29,7 +29,7 @@ describe("ProgressStatus", () => {
     test('"完了"からはステータスを進捗できない', () => {
       expect(() => {
         const _impossibleStatus = ProgressStatus.getNextProgressStatus(
-          getProgressStatusDone(),
+          makeProgressStatusDone(),
         );
       }).toThrowError("Illegal status manipulation");
     });
@@ -38,7 +38,7 @@ describe("ProgressStatus", () => {
   describe("ステータスを戻すことができる", () => {
     test('"レビュー待ち"から"未着手"に戻すことができる', () => {
       expect(
-        ProgressStatus.getPreviousStatus(getProgressStatusWaitingForReview())
+        ProgressStatus.getPreviousStatus(makeProgressStatusWaitingForReview())
           .value,
       ).toEqual("未着手");
     });
@@ -46,7 +46,7 @@ describe("ProgressStatus", () => {
     test('"未着手"から戻そうとするとエラーになる', () => {
       expect(() => {
         const _impossibleStatus = ProgressStatus.getPreviousStatus(
-          getProgressStatusNotStartedYet(),
+          makeProgressStatusNotStartedYet(),
         );
       }).toThrowError("Illegal status manipulation");
     });
@@ -54,7 +54,7 @@ describe("ProgressStatus", () => {
     test('"完了"になったステータスは戻せない', () => {
       expect(() => {
         const _impossibleStatus = ProgressStatus.getPreviousStatus(
-          getProgressStatusDone(),
+          makeProgressStatusDone(),
         );
       }).toThrowError("Illegal status manipulation");
     });

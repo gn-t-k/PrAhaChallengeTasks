@@ -1,14 +1,14 @@
 import { ProgressStatus } from "domain/exercise/value-object/progress-status";
 
-const getProgressStatusNotStartedYet = (): ProgressStatus =>
+const makeProgressStatusNotStartedYet = (): ProgressStatus =>
   ProgressStatus.create();
-const getProgressStatusWaitingForReview = (): ProgressStatus =>
-  ProgressStatus.getNextProgressStatus(getProgressStatusNotStartedYet());
-const getProgressStatusDone = (): ProgressStatus =>
-  ProgressStatus.getNextProgressStatus(getProgressStatusWaitingForReview());
+const makeProgressStatusWaitingForReview = (): ProgressStatus =>
+  ProgressStatus.getNextProgressStatus(makeProgressStatusNotStartedYet());
+const makeProgressStatusDone = (): ProgressStatus =>
+  ProgressStatus.getNextProgressStatus(makeProgressStatusWaitingForReview());
 
 export {
-  getProgressStatusNotStartedYet,
-  getProgressStatusWaitingForReview,
-  getProgressStatusDone,
+  makeProgressStatusNotStartedYet,
+  makeProgressStatusWaitingForReview,
+  makeProgressStatusDone,
 };
