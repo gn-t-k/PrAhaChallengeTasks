@@ -3,26 +3,26 @@ const progressStatus = {
   waitingForReview: "レビュー待ち",
   done: "完了",
 } as const;
-type progressStatusName = typeof progressStatus[keyof typeof progressStatus];
+type progressStatusValue = typeof progressStatus[keyof typeof progressStatus];
 
 export class ProgressStatus {
-  private name: progressStatusName;
+  private value: progressStatusValue;
 
   constructor() {
-    this.name = progressStatus.notStartedYet;
+    this.value = progressStatus.notStartedYet;
   }
 
-  public get currentStatus(): progressStatusName {
-    return this.name;
+  public get currentStatus(): progressStatusValue {
+    return this.value;
   }
 
   public progressStatus(): ProgressStatus {
-    switch (this.name) {
+    switch (this.value) {
       case progressStatus.notStartedYet:
-        this.name = progressStatus.waitingForReview;
+        this.value = progressStatus.waitingForReview;
         break;
       case progressStatus.waitingForReview:
-        this.name = progressStatus.done;
+        this.value = progressStatus.done;
         break;
       default:
         throw new Error("Illegal status manipulation");
@@ -32,8 +32,8 @@ export class ProgressStatus {
   }
 
   public regressStatus(): ProgressStatus {
-    if (this.name === progressStatus.waitingForReview) {
-      this.name = progressStatus.notStartedYet;
+    if (this.value === progressStatus.waitingForReview) {
+      this.value = progressStatus.notStartedYet;
     } else {
       throw new Error("Illegal status manipulation");
     }
