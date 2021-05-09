@@ -1,43 +1,49 @@
-const progressStatus = {
+const progressStatusObject = {
   notStartedYet: "未着手",
   waitingForReview: "レビュー待ち",
   done: "完了",
 } as const;
-type progressStatusValue = typeof progressStatus[keyof typeof progressStatus];
+type ProgressStatusType = typeof progressStatusObject[keyof typeof progressStatusObject];
+
+interface IProgressStatus {
+  value: ProgressStatusType;
+}
 
 export class ProgressStatus {
-  private value: progressStatusValue;
+  private props: IProgressStatus;
 
-  constructor() {
-    this.value = progressStatus.notStartedYet;
+  private constructor(value: ProgressStatusType) {
+    this.props = { value };
   }
 
-  public get currentStatus(): progressStatusValue {
-    return this.value;
+  public get value(): ProgressStatusType {
+    return this.props.value;
   }
 
-  public progressStatus(): ProgressStatus {
-    switch (this.value) {
-      case progressStatus.notStartedYet:
-        this.value = progressStatus.waitingForReview;
-        break;
-      case progressStatus.waitingForReview:
-        this.value = progressStatus.done;
-        break;
+  public static create(): ProgressStatus {
+    return new ProgressStatus(progressStatusObject.notStartedYet);
+  }
+
+  public static getNextProgressStatus(
+    progressStatus: ProgressStatus,
+  ): ProgressStatus {
+    switch (progressStatus.value) {
+      case progressStatusObject.notStartedYet:
+        return new ProgressStatus(progressStatusObject.waitingForReview);
+      case progressStatusObject.waitingForReview:
+        return new ProgressStatus(progressStatusObject.done);
       default:
         throw new Error("Illegal status manipulation");
     }
-
-    return this;
   }
 
-  public regressStatus(): ProgressStatus {
-    if (this.value === progressStatus.waitingForReview) {
-      this.value = progressStatus.notStartedYet;
-    } else {
-      throw new Error("Illegal status manipulation");
+  public static getPreviousStatus(
+    progressStatus: ProgressStatus,
+  ): ProgressStatus {
+    if (progressStatus.value === progressStatusObject.waitingForReview) {
+      return new ProgressStatus(progressStatusObject.notStartedYet);
     }
 
-    return this;
+    throw new Error("Illegal status manipulation");
   }
 }
