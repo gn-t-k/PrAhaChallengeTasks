@@ -30,4 +30,14 @@ export class ProgressStatus {
 
     return this;
   }
+
+  public regressStatus(): ProgressStatus {
+    if (this.name === progressStatus.waitingForReview) {
+      this.name = progressStatus.notStartedYet;
+    } else {
+      throw new Error("Illegal status manipulation");
+    }
+
+    return this;
+  }
 }
