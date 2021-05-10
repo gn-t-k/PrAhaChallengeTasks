@@ -61,18 +61,18 @@ describe("Exercise", () => {
       describe("progressStatus", () => {
         const exercise = makeExercise();
         test('"未着手"から"レビュー待ち"', () => {
-          expect(exercise.progressStatus().status.value).toEqual(
+          expect(exercise.changeStatusNext().status.value).toEqual(
             "レビュー待ち",
           );
         });
 
         test('"レビュー待ち"から"完了"', () => {
-          expect(exercise.progressStatus().status.value).toEqual("完了");
+          expect(exercise.changeStatusNext().status.value).toEqual("完了");
         });
 
         test('"完了"からは進捗できない', () => {
           expect(() => {
-            exercise.progressStatus();
+            exercise.changeStatusNext();
           }).toThrowError("Illegal status manipulation");
         });
       });
@@ -87,7 +87,9 @@ describe("Exercise", () => {
             group,
           });
 
-          expect(exercise.regressStatus().status.value).toEqual("未着手");
+          expect(exercise.changeStatusPrevious().status.value).toEqual(
+            "未着手",
+          );
         });
 
         test('"完了"から"レビュー待ち"には戻せない', () => {
@@ -100,7 +102,7 @@ describe("Exercise", () => {
           });
 
           expect(() => {
-            exercise.regressStatus();
+            exercise.changeStatusPrevious();
           }).toThrowError("Illegal status manipulation");
         });
       });

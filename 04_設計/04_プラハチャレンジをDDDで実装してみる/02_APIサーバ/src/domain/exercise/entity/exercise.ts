@@ -39,17 +39,15 @@ export class Exercise {
     return this.props.group;
   }
 
-  public progressStatus(): Exercise {
-    const nextProgressStatus = ProgressStatus.getNextProgressStatus(
-      this.status,
-    );
+  public changeStatusNext(): Exercise {
+    const nextProgressStatus = ProgressStatus.getNextStatus(this.status);
     // TODO: 何らかの理由で更新に失敗したら、更新前のステータスに戻す処理
     this.props.status = nextProgressStatus;
 
     return this;
   }
 
-  public regressStatus(): Exercise {
+  public changeStatusPrevious(): Exercise {
     const previousProgressStatus = ProgressStatus.getPreviousStatus(
       this.status,
     );

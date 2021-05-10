@@ -3,9 +3,9 @@ import { ProgressStatus } from "domain/exercise/value-object/progress-status";
 const makeProgressStatusNotStartedYet = (): ProgressStatus =>
   ProgressStatus.create();
 const makeProgressStatusWaitingForReview = (): ProgressStatus =>
-  ProgressStatus.getNextProgressStatus(makeProgressStatusNotStartedYet());
+  ProgressStatus.getNextStatus(makeProgressStatusNotStartedYet());
 const makeProgressStatusDone = (): ProgressStatus =>
-  ProgressStatus.getNextProgressStatus(makeProgressStatusWaitingForReview());
+  ProgressStatus.getNextStatus(makeProgressStatusWaitingForReview());
 
 export {
   makeProgressStatusNotStartedYet,

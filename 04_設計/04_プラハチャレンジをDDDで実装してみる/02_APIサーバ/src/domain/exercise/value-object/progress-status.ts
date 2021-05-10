@@ -24,9 +24,7 @@ export class ProgressStatus {
     return new ProgressStatus(progressStatusObject.notStartedYet);
   }
 
-  public static getNextProgressStatus(
-    progressStatus: ProgressStatus,
-  ): ProgressStatus {
+  public static getNextStatus(progressStatus: ProgressStatus): ProgressStatus {
     switch (progressStatus.value) {
       case progressStatusObject.notStartedYet:
         return new ProgressStatus(progressStatusObject.waitingForReview);

@@ -13,22 +13,20 @@ describe("ProgressStatus", () => {
   describe("ステータスを進捗させることができる", () => {
     test('"未着手"の次は"レビュー待ち"', () => {
       expect(
-        ProgressStatus.getNextProgressStatus(makeProgressStatusNotStartedYet())
-          .value,
+        ProgressStatus.getNextStatus(makeProgressStatusNotStartedYet()).value,
       ).toEqual("レビュー待ち");
     });
 
     test('"レビュー待ち"の次は"完了"', () => {
       expect(
-        ProgressStatus.getNextProgressStatus(
-          makeProgressStatusWaitingForReview(),
-        ).value,
+        ProgressStatus.getNextStatus(makeProgressStatusWaitingForReview())
+          .value,
       ).toEqual("完了");
     });
 
     test('"完了"からはステータスを進捗できない', () => {
       expect(() => {
-        const _impossibleStatus = ProgressStatus.getNextProgressStatus(
+        const _impossibleStatus = ProgressStatus.getNextStatus(
           makeProgressStatusDone(),
         );
       }).toThrowError("Illegal status manipulation");
