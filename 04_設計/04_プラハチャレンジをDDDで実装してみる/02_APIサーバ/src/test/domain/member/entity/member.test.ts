@@ -1,28 +1,17 @@
-import {
-  Member,
-  IExercise, // TODO: 後で課題オブジェクトに入れ替える
-} from "domain/member/entity/member";
+import { Member } from "domain/member/entity/member";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
+import { makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
-  const id = "123";
-  const name = "tarou";
-  const email = "tarou@mail.com";
-  const activityStatusActive = new ActivityStatus("在籍中");
-  const activityStatusInRecess = new ActivityStatus("休会中");
-  // TODO: 後で課題オブジェクトに入れ替える
-  const exerciseList: IExercise[] = [
-    {
-      title: "課題1",
-      status: "未着手",
-    },
-    {
-      title: "課題2",
-      status: "未着手",
-    },
-  ];
+  const {
+    id,
+    name,
+    email,
+    activityStatus,
+    exerciseList,
+  } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    new Member(id, name, email, activityStatusActive, exerciseList);
+    new Member({ id, name, email, activityStatus, exerciseList });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -49,25 +38,25 @@ describe("Member", () => {
   describe("バリデーション", () => {
     test("nameを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member(
+        const _member = new Member({
           id,
-          "",
+          name: "",
           email,
-          activityStatusActive,
+          activityStatus,
           exerciseList,
-        );
+        });
       }).toThrowError("Illegal name value.");
     });
 
     test("emailを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member(
+        const _member = new Member({
           id,
           name,
-          "",
-          activityStatusActive,
+          email: "",
+          activityStatus,
           exerciseList,
-        );
+        });
       }).toThrowError("Illegal email value.");
     });
   });
@@ -81,6 +70,12 @@ describe("Member", () => {
 
       expect(member.changeName(expectedName).name).toEqual(expectedName);
     });
+
+    test("空文字には変更できない", () => {
+      expect(() => {
+        member.changeName("");
+      }).toThrowError("Illegal name value.");
+    });
   });
 
   describe("Memberのメールアドレスを変更できる", () => {
@@ -91,10 +86,23 @@ describe("Member", () => {
 
       expect(member.changeEmail(expectedEmail).email).toEqual(expectedEmail);
     });
+
+    test("空文字には変更できない", () => {
+      expect(() => {
+        member.changeEmail("");
+      }).toThrowError("Illegal email value.");
+    });
   });
 
   describe("Memberの在籍ステータスを変更できる", () => {
-    const member = makeMember();
+    const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
+    const member = new Member({
+      id,
+      name,
+      email,
+      activityStatus: activityStatusInRecess,
+      exerciseList,
+    });
 
     test("changeActivityStatus", () => {
       expect(

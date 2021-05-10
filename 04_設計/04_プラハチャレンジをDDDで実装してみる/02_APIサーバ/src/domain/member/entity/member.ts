@@ -5,65 +5,67 @@ export interface IExercise {
   title: string;
   status: "未着手" | "レビュー待ち" | "完了";
 }
-export class Member {
-  private id_: string;
-  private name_: string;
-  private email_: string;
-  private activityStatus_: ActivityStatus;
-  private exerciseList_: IExercise[];
 
-  constructor(
-    id: string,
-    name: string,
-    email: string,
-    activityStatus: ActivityStatus,
-    exerciseList: IExercise[],
-  ) {
-    if (name === "") {
+export interface IMember {
+  id: string;
+  name: string;
+  email: string;
+  activityStatus: ActivityStatus;
+  exerciseList: IExercise[];
+}
+
+export class Member {
+  private props: IMember;
+
+  constructor(props: IMember) {
+    if (props.name === "") {
       throw new Error("Illegal name value.");
     }
-    if (email === "") {
+    if (props.email === "") {
       throw new Error("Illegal email value.");
     }
 
-    this.id_ = id;
-    this.name_ = name;
-    this.email_ = email;
-    this.activityStatus_ = activityStatus;
-    // TODO: 課題オブジェクトを受け取る
-    this.exerciseList_ = exerciseList;
+    this.props = props;
   }
 
   public get name(): string {
-    return this.name_;
+    return this.props.name;
   }
 
   public get email(): string {
-    return this.email_;
+    return this.props.email;
   }
 
   public get status(): ActivityStatus {
-    return this.activityStatus_;
+    return this.props.activityStatus;
   }
 
   public get exerciseList(): IExercise[] {
-    return this.exerciseList_;
+    return this.props.exerciseList;
   }
 
   public changeName(name: string): Member {
-    this.name_ = name;
+    if (name === "") {
+      throw new Error("Illegal name value.");
+    }
+
+    this.props.name = name;
 
     return this;
   }
 
   public changeEmail(email: string): Member {
-    this.email_ = email;
+    if (email === "") {
+      throw new Error("Illegal email value.");
+    }
+
+    this.props.email = email;
 
     return this;
   }
 
   public changeActivityStatus(activityStatus: ActivityStatus): Member {
-    this.activityStatus_ = activityStatus;
+    this.props.activityStatus = activityStatus;
 
     return this;
   }
