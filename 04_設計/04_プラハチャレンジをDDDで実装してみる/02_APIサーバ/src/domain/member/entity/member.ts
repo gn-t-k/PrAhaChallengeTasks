@@ -1,17 +1,12 @@
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-
-// TODO: 後で消す
-export interface IExercise {
-  title: string;
-  status: "未着手" | "レビュー待ち" | "完了";
-}
+import { Exercise } from "domain/exercise/entity/exercise";
 
 export interface IMember {
   id: string;
   name: string;
   email: string;
   activityStatus: ActivityStatus;
-  exerciseList: IExercise[];
+  exerciseList: Exercise[];
 }
 
 export class Member {
@@ -40,7 +35,7 @@ export class Member {
     return this.props.activityStatus;
   }
 
-  public get exerciseList(): IExercise[] {
+  public get exerciseList(): Exercise[] {
     return this.props.exerciseList;
   }
 
@@ -69,7 +64,4 @@ export class Member {
 
     return this;
   }
-
-  // TODO: 所属しているペアを取得する
-  // TODO: 割り当てられた課題のステータスを変更する
 }
