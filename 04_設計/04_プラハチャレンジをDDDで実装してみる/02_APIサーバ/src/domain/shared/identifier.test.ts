@@ -19,6 +19,12 @@ describe("Identifier", () => {
 
       expect(id.value).toEqual(value);
     });
+
+    test("idに空文字は設定できない", () => {
+      expect(() => {
+        const _id = new Identifier("");
+      }).toThrowError("Invalid id value.");
+    });
   });
 
   describe("idどうしで値を比較することができる", () => {
@@ -35,6 +41,20 @@ describe("Identifier", () => {
       const id2 = new Identifier(uuid);
 
       expect(id1.equals(id2)).toBe(true);
+    });
+  });
+
+  describe("idがuuidv4に準拠しているかどうか確認できる", () => {
+    test("準拠している場合", () => {
+      const id = new Identifier();
+
+      expect(id.isUuidV4()).toBe(true);
+    });
+
+    test("準拠していない場合", () => {
+      const id = new Identifier("aaa");
+
+      expect(id.isUuidV4()).toBe(false);
     });
   });
 });
