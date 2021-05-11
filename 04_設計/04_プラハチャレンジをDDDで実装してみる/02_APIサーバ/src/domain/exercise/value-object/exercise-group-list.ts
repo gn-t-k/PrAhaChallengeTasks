@@ -9,7 +9,7 @@ export class ExerciseGroupList {
 
   constructor(props: IExerciseGroupList) {
     if (isExerciseGroupListDuplicated(props.exerciseGroupList)) {
-      throw new Error("Dupulicate exercise group.");
+      throw new Error("Duplicate exercise group.");
     }
 
     this.props = props;

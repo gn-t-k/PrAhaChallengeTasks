@@ -27,7 +27,7 @@ describe("ExerciseGroupList", () => {
             new ExerciseGroup({ name: "テスト" }),
           ],
         });
-      }).toThrowError("Dupulicate exercise group.");
+      }).toThrowError("Duplicate exercise group.");
     });
 
     test("1つだけ同じ課題グループを渡した場合", () => {
@@ -39,7 +39,7 @@ describe("ExerciseGroupList", () => {
             new ExerciseGroup({ name: "データベース" }),
           ],
         });
-      }).toThrowError("Dupulicate exercise group.");
+      }).toThrowError("Duplicate exercise group.");
     });
   });
 });
