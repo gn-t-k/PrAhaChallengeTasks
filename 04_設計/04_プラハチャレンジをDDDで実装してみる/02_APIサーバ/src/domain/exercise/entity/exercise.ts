@@ -40,19 +40,16 @@ export class Exercise {
   }
 
   public changeStatusNext(): Exercise {
-    const nextProgressStatus = ProgressStatus.getNextStatus(this.status);
-    // TODO: 何らかの理由で更新に失敗したら、更新前のステータスに戻す処理
-    this.props.status = nextProgressStatus;
+    this.props.status = ProgressStatus.getNextStatus(this.status);
 
     return this;
   }
 
   public changeStatusPrevious(): Exercise {
-    const previousProgressStatus = ProgressStatus.getPreviousStatus(
-      this.status,
-    );
-    // TODO: 何らかの理由で更新に失敗したら、更新前のステータスに戻す処理
-    this.props.status = previousProgressStatus;
+    if (this.props.status.isCompleted()) {
+      throw new Error("Completed exercise cannnot be changed");
+    }
+    this.props.status = ProgressStatus.getPreviousStatus(this.status);
 
     return this;
   }

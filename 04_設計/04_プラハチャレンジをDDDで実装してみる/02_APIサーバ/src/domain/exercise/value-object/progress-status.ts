@@ -24,6 +24,10 @@ export class ProgressStatus {
     return new ProgressStatus(progressStatusObject.notStartedYet);
   }
 
+  public isCompleted(): boolean {
+    return this.props.value === progressStatusObject.done;
+  }
+
   public static getNextStatus(progressStatus: ProgressStatus): ProgressStatus {
     switch (progressStatus.value) {
       case progressStatusObject.notStartedYet:
@@ -38,10 +42,13 @@ export class ProgressStatus {
   public static getPreviousStatus(
     progressStatus: ProgressStatus,
   ): ProgressStatus {
-    if (progressStatus.value === progressStatusObject.waitingForReview) {
-      return new ProgressStatus(progressStatusObject.notStartedYet);
+    switch (progressStatus.value) {
+      case progressStatusObject.done:
+        return new ProgressStatus(progressStatusObject.waitingForReview);
+      case progressStatusObject.waitingForReview:
+        return new ProgressStatus(progressStatusObject.notStartedYet);
+      default:
+        throw new Error("Illegal status manipulation");
     }
-
-    throw new Error("Illegal status manipulation");
   }
 }

@@ -58,7 +58,7 @@ describe("Exercise", () => {
 
   describe("変更メソッド", () => {
     describe("進捗ステータスが変更できる", () => {
-      describe("progressStatus", () => {
+      describe("changeStatusNext", () => {
         const exercise = makeExercise();
         test('"未着手"から"レビュー待ち"', () => {
           expect(exercise.changeStatusNext().status.value).toEqual(
@@ -77,7 +77,7 @@ describe("Exercise", () => {
         });
       });
 
-      describe("regressStatus", () => {
+      describe("changeStatusPrevious", () => {
         test('"レビュー待ち"から"未着手"', () => {
           const exercise = new Exercise({
             id,
@@ -103,7 +103,7 @@ describe("Exercise", () => {
 
           expect(() => {
             exercise.changeStatusPrevious();
-          }).toThrowError("Illegal status manipulation");
+          }).toThrowError("Completed exercise cannnot be changed");
         });
       });
     });
