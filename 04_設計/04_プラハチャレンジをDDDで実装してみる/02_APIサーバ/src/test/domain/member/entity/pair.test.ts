@@ -3,10 +3,9 @@ import { Pair } from "domain/member/entity/pair";
 
 describe("pair", () => {
   describe("ペアを作成できる", () => {
-    const id = "123";
     const name = "a";
     const memberList = [makeDummyMember(), makeDummyMember()];
-    const pair = new Pair({ id, name, memberList });
+    const pair = new Pair({ name, memberList });
 
     test("name", () => {
       expect(pair.name).toEqual(name);
@@ -19,14 +18,13 @@ describe("pair", () => {
 
   describe("バリデーション", () => {
     describe("ペア名は英字1文字のみ", () => {
-      const id = "123";
       const memberList = [makeDummyMember(), makeDummyMember()];
 
       test("2文字以上設定しようとした場合", () => {
         const name = "ab";
 
         expect(() => {
-          const _pair = new Pair({ id, name, memberList });
+          const _pair = new Pair({ name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
 
@@ -34,20 +32,19 @@ describe("pair", () => {
         const name = "1";
 
         expect(() => {
-          const _pair = new Pair({ id, name, memberList });
+          const _pair = new Pair({ name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
     });
 
     describe("ペアに所属する参加者は2名以上3名以下", () => {
-      const id = "123";
       const name = "a";
 
       test("1人しか所属しないペアを作ろうとした場合", () => {
         const memberList = [makeDummyMember()];
 
         expect(() => {
-          const _pair = new Pair({ id, name, memberList });
+          const _pair = new Pair({ name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
 
@@ -60,7 +57,7 @@ describe("pair", () => {
         ];
 
         expect(() => {
-          const _pair = new Pair({ id, name, memberList });
+          const _pair = new Pair({ name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
     });

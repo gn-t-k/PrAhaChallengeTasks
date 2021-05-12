@@ -1,14 +1,13 @@
 import { Member } from "domain/member/entity/member";
+import { Entity } from "domain/shared/entity";
+import { Identifier } from "domain/shared/identifier";
 
 export interface IPair {
-  id: string;
   name: string;
   memberList: Member[];
 }
-export class Pair {
-  private props: IPair;
-
-  constructor(props: IPair) {
+export class Pair extends Entity<IPair> {
+  constructor(props: IPair, id?: Identifier) {
     if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
     }
@@ -16,7 +15,7 @@ export class Pair {
       throw new Error("2 or more and 3 or less member belong to pair.");
     }
 
-    this.props = props;
+    super(props, id);
   }
 
   public get name(): string {
