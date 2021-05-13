@@ -7,7 +7,7 @@ describe("pair", () => {
   describe("ペアを作成できる", () => {
     const name = "a";
     const memberList = [makeDummyMember(), makeDummyMember()];
-    const pair = new Pair({ name, memberList });
+    const pair = Pair.create({ name, memberList });
 
     test("name", () => {
       expect(pair.name).toEqual(name);
@@ -26,7 +26,7 @@ describe("pair", () => {
         const name = "ab";
 
         expect(() => {
-          const _pair = new Pair({ name, memberList });
+          const _pair = Pair.create({ name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
 
@@ -34,7 +34,7 @@ describe("pair", () => {
         const name = "1";
 
         expect(() => {
-          const _pair = new Pair({ name, memberList });
+          const _pair = Pair.create({ name, memberList });
         }).toThrowError("Pair name can be set with one alphabetic character.");
       });
     });
@@ -46,7 +46,7 @@ describe("pair", () => {
         const memberList = [makeDummyMember()];
 
         expect(() => {
-          const _pair = new Pair({ name, memberList });
+          const _pair = Pair.create({ name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
 
@@ -59,7 +59,7 @@ describe("pair", () => {
         ];
 
         expect(() => {
-          const _pair = new Pair({ name, memberList });
+          const _pair = Pair.create({ name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
       });
     });
@@ -67,11 +67,11 @@ describe("pair", () => {
     describe("idで比較できる", () => {
       test("idが同じ時", () => {
         const id = new Identifier();
-        const pair1 = new Pair(
+        const pair1 = Pair.create(
           makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
           id,
         );
-        const pair2 = new Pair(
+        const pair2 = Pair.create(
           makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
           id,
         );
@@ -80,10 +80,10 @@ describe("pair", () => {
       });
 
       test("idが異なる時", () => {
-        const pair1 = new Pair(
+        const pair1 = Pair.create(
           makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
         );
-        const pair2 = new Pair(
+        const pair2 = Pair.create(
           makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
         );
 

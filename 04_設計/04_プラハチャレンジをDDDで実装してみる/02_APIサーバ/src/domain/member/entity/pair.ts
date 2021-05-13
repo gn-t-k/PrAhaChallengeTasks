@@ -7,7 +7,15 @@ export interface IPair {
   memberList: Member[];
 }
 export class Pair extends Entity<IPair> {
-  constructor(props: IPair, id?: Identifier) {
+  public get name(): string {
+    return this.props.name;
+  }
+
+  public get memberList(): Member[] {
+    return this.props.memberList;
+  }
+
+  public static create(props: IPair, id?: Identifier): Pair {
     if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
     }
@@ -15,14 +23,10 @@ export class Pair extends Entity<IPair> {
       throw new Error("2 or more and 3 or less member belong to pair.");
     }
 
+    return new Pair(props, id);
+  }
+
+  private constructor(props: IPair, id?: Identifier) {
     super(props, id);
-  }
-
-  public get name(): string {
-    return this.props.name;
-  }
-
-  public get memberList(): Member[] {
-    return this.props.memberList;
   }
 }
