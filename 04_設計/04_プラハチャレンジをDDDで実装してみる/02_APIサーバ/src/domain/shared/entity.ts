@@ -14,7 +14,7 @@ export class Entity<T> {
     return this.props.id;
   }
 
-  public equals(id: Identifier): boolean {
-    return this.props.id.equals(id);
+  public equals(entity: Entity<T>): boolean {
+    return this.props.id.equals(entity.id);
   }
 }

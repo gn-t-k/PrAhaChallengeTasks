@@ -1,5 +1,7 @@
 import { makeDummyMember } from "test/util/dummy/member";
 import { Pair } from "domain/member/entity/pair";
+import { Identifier } from "domain/shared/identifier";
+import { makeDummyPairProps } from "test/util/dummy/pair";
 
 describe("pair", () => {
   describe("ペアを作成できる", () => {
@@ -59,6 +61,33 @@ describe("pair", () => {
         expect(() => {
           const _pair = new Pair({ name, memberList });
         }).toThrowError("2 or more and 3 or less member belong to pair.");
+      });
+    });
+
+    describe("idで比較できる", () => {
+      test("idが同じ時", () => {
+        const id = new Identifier();
+        const pair1 = new Pair(
+          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
+          id,
+        );
+        const pair2 = new Pair(
+          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
+          id,
+        );
+
+        expect(pair1.equals(pair2)).toBe(true);
+      });
+
+      test("idが異なる時", () => {
+        const pair1 = new Pair(
+          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
+        );
+        const pair2 = new Pair(
+          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
+        );
+
+        expect(pair1.equals(pair2)).toBe(false);
       });
     });
   });
