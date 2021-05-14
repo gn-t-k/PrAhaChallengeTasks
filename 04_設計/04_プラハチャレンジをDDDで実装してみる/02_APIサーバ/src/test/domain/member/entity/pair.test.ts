@@ -67,25 +67,15 @@ describe("pair", () => {
     describe("idで比較できる", () => {
       test("idが同じ時", () => {
         const id = new Identifier();
-        const pair1 = Pair.create(
-          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
-          id,
-        );
-        const pair2 = Pair.create(
-          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
-          id,
-        );
+        const pair1 = Pair.create(makeDummyPairProps(), id);
+        const pair2 = Pair.create(makeDummyPairProps(), id);
 
         expect(pair1.equals(pair2)).toBe(true);
       });
 
       test("idが異なる時", () => {
-        const pair1 = Pair.create(
-          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
-        );
-        const pair2 = Pair.create(
-          makeDummyPairProps([makeDummyMember(), makeDummyMember()]),
-        );
+        const pair1 = Pair.create(makeDummyPairProps());
+        const pair2 = Pair.create(makeDummyPairProps());
 
         expect(pair1.equals(pair2)).toBe(false);
       });

@@ -1,14 +1,21 @@
 import { Pair } from "domain/member/entity/pair";
+import { Entity } from "domain/shared/entity";
+import { Identifier } from "domain/shared/identifier";
 
 export interface ITeam {
-  id: string;
   name: string;
   pairList: Pair[];
 }
-export class Team {
-  private props: ITeam;
+export class Team extends Entity<ITeam> {
+  public get name(): string {
+    return this.props.name;
+  }
 
-  constructor(props: ITeam) {
+  public get pairList(): Pair[] {
+    return this.props.pairList;
+  }
+
+  public static create(props: ITeam, id?: Identifier): Team {
     if (!new RegExp("^[1-9]+$").test(props.name)) {
       throw new Error("Team name can be set with numeric character.");
     }
@@ -16,15 +23,11 @@ export class Team {
       throw new Error("Team requires 3 or more members");
     }
 
-    this.props = props;
+    return new Team(props, id);
   }
 
-  public get name(): string {
-    return this.props.name;
-  }
-
-  public get pairList(): Pair[] {
-    return this.props.pairList;
+  private constructor(props: ITeam, id?: Identifier) {
+    super(props, id);
   }
 }
 
