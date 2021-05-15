@@ -5,23 +5,16 @@ import faker from "faker";
 import { makeDummyExercise } from "./exercise";
 
 export const makeDummyMemberProps = (): IMember => {
-  const id = faker.lorem.slug();
   const name = faker.name.findName();
   const email = faker.internet.email();
   const activityStatus = new ActivityStatus({ status: "在籍中" });
   const exerciseList: Exercise[] = [makeDummyExercise(), makeDummyExercise()];
 
-  return { id, name, email, activityStatus, exerciseList };
+  return { name, email, activityStatus, exerciseList };
 };
 
 export const makeDummyMember = (): Member => {
-  const {
-    id,
-    name,
-    email,
-    activityStatus,
-    exerciseList,
-  } = makeDummyMemberProps();
+  const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
 
-  return new Member({ id, name, email, activityStatus, exerciseList });
+  return new Member({ name, email, activityStatus, exerciseList });
 };

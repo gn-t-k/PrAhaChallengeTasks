@@ -1,18 +1,17 @@
 import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Exercise } from "domain/exercise/entity/exercise";
+import { AggregateRoot } from "domain/shared/aggregate-root";
+import { Identifier } from "domain/shared/identifier";
 
 export interface IMember {
-  id: string;
   name: string;
   email: string;
   activityStatus: ActivityStatus;
   exerciseList: Exercise[];
 }
 
-export class Member {
-  private props: IMember;
-
-  constructor(props: IMember) {
+export class Member extends AggregateRoot<IMember> {
+  constructor(props: IMember, id?: Identifier) {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }
@@ -20,7 +19,7 @@ export class Member {
       throw new Error("Illegal email value.");
     }
 
-    this.props = props;
+    super(props, id);
   }
 
   public get name(): string {
