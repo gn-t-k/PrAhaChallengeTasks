@@ -1,6 +1,6 @@
 import { Identifier } from "domain/shared/identifier";
 
-export class Entity<T> {
+export abstract class Entity<T> {
   protected props: { id: Identifier } & T;
 
   constructor(props: T, id?: Identifier) {
