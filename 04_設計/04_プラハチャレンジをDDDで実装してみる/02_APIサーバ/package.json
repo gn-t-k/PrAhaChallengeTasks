@@ -21,8 +21,7 @@
     "test": "jest --coverage",
     "test-watch": "jest --coverage --watchAll",
     "build": "tsc",
-    "postinstall": "typesync",
-    "precommit": "lint-staged"
+    "postinstall": "typesync"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.6",
