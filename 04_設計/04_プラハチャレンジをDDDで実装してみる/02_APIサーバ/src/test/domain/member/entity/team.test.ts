@@ -1,7 +1,7 @@
 import { Team } from "domain/member/entity/team";
 import { Identifier } from "domain/shared/identifier";
 import { makeDummyPair } from "test/util/dummy/pair";
-import { makeDummyTeamProps } from "test/util/dummy/team";
+import { makeDummyTeam, makeDummyTeamProps } from "test/util/dummy/team";
 
 describe("Team", () => {
   describe("チームを作成できる", () => {
@@ -53,8 +53,8 @@ describe("Team", () => {
     });
 
     test("idが異なる時", () => {
-      const team1 = Team.create(makeDummyTeamProps());
-      const team2 = Team.create(makeDummyTeamProps());
+      const team1 = makeDummyTeam();
+      const team2 = makeDummyTeam();
 
       expect(team1.equals(team2)).toBe(false);
     });
