@@ -1,9 +1,9 @@
-import { Identifier } from "domain/shared/identifier";
 import {
   v4 as uuidv4,
   validate as uuidValidate,
   version as uuidVersion,
 } from "uuid";
+import { Identifier } from "domain/shared/identifier";
 
 describe("Identifier", () => {
   describe("constructor", () => {

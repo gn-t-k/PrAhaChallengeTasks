@@ -1,6 +1,6 @@
-import { makeDummyPair } from "test/util/dummy/pair";
-import { ITeam, Team } from "domain/member/entity/team";
 import faker from "faker";
+import { ITeam, Team } from "domain/member/entity/team";
+import { makeDummyPair } from "test/util/dummy/pair";
 
 export const makeDummyTeamProps = (): ITeam => {
   const name = String(faker.datatype.number({ min: 1, max: 9 }));

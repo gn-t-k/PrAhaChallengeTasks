@@ -1,6 +1,6 @@
-import { makeDummyMember } from "test/util/dummy/member";
 import { Pair } from "domain/member/entity/pair";
 import { Identifier } from "domain/shared/identifier";
+import { makeDummyMember } from "test/util/dummy/member";
 import { makeDummyPairProps } from "test/util/dummy/pair";
 
 describe("pair", () => {

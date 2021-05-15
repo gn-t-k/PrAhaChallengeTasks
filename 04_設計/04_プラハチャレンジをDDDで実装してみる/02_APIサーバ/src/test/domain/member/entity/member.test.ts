@@ -105,7 +105,7 @@ describe("Member", () => {
   });
 
   describe("Memberの在籍ステータスを変更できる", () => {
-    const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
+    const activityStatusInRecess = ActivityStatus.create({ status: "休会中" });
     const member = Member.create({
       name,
       email,

@@ -1,5 +1,5 @@
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Exercise } from "domain/exercise/entity/exercise";
+import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
 
