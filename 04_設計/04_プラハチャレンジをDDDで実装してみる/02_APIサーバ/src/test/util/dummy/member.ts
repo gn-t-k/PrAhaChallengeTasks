@@ -16,5 +16,5 @@ export const makeDummyMemberProps = (): IMember => {
 export const makeDummyMember = (): Member => {
   const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
 
-  return new Member({ name, email, activityStatus, exerciseList });
+  return Member.create({ name, email, activityStatus, exerciseList });
 };

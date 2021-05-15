@@ -11,17 +11,6 @@ export interface IMember {
 }
 
 export class Member extends AggregateRoot<IMember> {
-  constructor(props: IMember, id?: Identifier) {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
-    if (props.email === "") {
-      throw new Error("Illegal email value.");
-    }
-
-    super(props, id);
-  }
-
   public get name(): string {
     return this.props.name;
   }
@@ -62,5 +51,20 @@ export class Member extends AggregateRoot<IMember> {
     this.props.activityStatus = activityStatus;
 
     return this;
+  }
+
+  public static create(props: IMember, id?: Identifier): Member {
+    if (props.name === "") {
+      throw new Error("Illegal name value.");
+    }
+    if (props.email === "") {
+      throw new Error("Illegal email value.");
+    }
+
+    return new Member(props, id);
+  }
+
+  private constructor(props: IMember, id?: Identifier) {
+    super(props, id);
   }
 }

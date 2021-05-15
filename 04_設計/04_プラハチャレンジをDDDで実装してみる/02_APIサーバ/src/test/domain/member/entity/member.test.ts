@@ -5,7 +5,7 @@ import { makeDummyMemberProps } from "test/util/dummy/member";
 describe("Member", () => {
   const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    new Member({ name, email, activityStatus, exerciseList });
+    Member.create({ name, email, activityStatus, exerciseList });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -32,7 +32,7 @@ describe("Member", () => {
   describe("バリデーション", () => {
     test("nameを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member({
+        const _member = Member.create({
           name: "",
           email,
           activityStatus,
@@ -43,7 +43,7 @@ describe("Member", () => {
 
     test("emailを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _member = new Member({
+        const _member = Member.create({
           name,
           email: "",
           activityStatus,
@@ -88,7 +88,7 @@ describe("Member", () => {
 
   describe("Memberの在籍ステータスを変更できる", () => {
     const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
-    const member = new Member({
+    const member = Member.create({
       name,
       email,
       activityStatus: activityStatusInRecess,
