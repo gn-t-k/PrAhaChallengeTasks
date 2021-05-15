@@ -12,24 +12,16 @@ interface IProgressStatus {
 }
 
 export class ProgressStatus extends ValueObject<IProgressStatus> {
-  private constructor(props: IProgressStatus) {
-    super(props);
-  }
-
   public get value(): ProgressStatusType {
     return this.props.value;
   }
 
+  private constructor(props: IProgressStatus) {
+    super(props);
+  }
+
   public static create(): ProgressStatus {
     return new ProgressStatus({ value: progressStatusObject.notStartedYet });
-  }
-
-  public isCompleted(): boolean {
-    return this.props.value === progressStatusObject.done;
-  }
-
-  public equals(progressStatus: ProgressStatus): boolean {
-    return this.props.value === progressStatus.value;
   }
 
   public static getNextStatus(progressStatus: ProgressStatus): ProgressStatus {
@@ -60,5 +52,13 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
       default:
         throw new Error("Illegal status manipulation");
     }
+  }
+
+  public isCompleted(): boolean {
+    return this.props.value === progressStatusObject.done;
+  }
+
+  public equals(progressStatus: ProgressStatus): boolean {
+    return this.props.value === progressStatus.value;
   }
 }

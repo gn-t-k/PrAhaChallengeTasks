@@ -11,6 +11,10 @@ interface IIdentifier {
 export class Identifier {
   private props: IIdentifier;
 
+  public get value(): string {
+    return this.props.value;
+  }
+
   constructor(id?: string) {
     if (id === "") {
       throw new Error("Invalid id value.");
@@ -19,10 +23,6 @@ export class Identifier {
     this.props = {
       value: id ?? uuidv4(),
     };
-  }
-
-  public get value(): string {
-    return this.props.value;
   }
 
   public equals(id: Identifier): boolean {

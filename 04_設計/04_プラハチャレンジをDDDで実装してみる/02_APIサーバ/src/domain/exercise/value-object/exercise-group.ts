@@ -5,19 +5,23 @@ export interface IExerciseGroup {
 }
 
 export class ExerciseGroup extends ValueObject<IExerciseGroup> {
-  constructor(props: IExerciseGroup) {
+  public get name(): string {
+    return this.props.name;
+  }
+
+  private constructor(props: IExerciseGroup) {
+    super(props);
+  }
+
+  public static create(props: IExerciseGroup): ExerciseGroup {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }
 
-    super(props);
+    return new ExerciseGroup(props);
   }
 
   public equals(exerciseGroup: ExerciseGroup): boolean {
     return this.props.name === exerciseGroup.name;
-  }
-
-  public get name(): string {
-    return this.props.name;
   }
 }

@@ -4,16 +4,20 @@ export interface IActivityStatus {
   status: string;
 }
 export class ActivityStatus extends ValueObject<IActivityStatus> {
-  constructor(props: IActivityStatus) {
+  public get value(): string {
+    return this.props.status;
+  }
+
+  private constructor(props: IActivityStatus) {
+    super(props);
+  }
+
+  public static create(props: IActivityStatus): ActivityStatus {
     if (props.status === "") {
       throw new Error("Invalid status value.");
     }
 
-    super(props);
-  }
-
-  public get value(): string {
-    return this.props.status;
+    return new ActivityStatus(props);
   }
 
   public equals(activityStatus: ActivityStatus): boolean {

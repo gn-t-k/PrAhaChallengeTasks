@@ -15,6 +15,10 @@ export class Team extends Entity<ITeam> {
     return this.props.pairList;
   }
 
+  private constructor(props: ITeam, id?: Identifier) {
+    super(props, id);
+  }
+
   public static create(props: ITeam, id?: Identifier): Team {
     if (!new RegExp("^[1-9]+$").test(props.name)) {
       throw new Error("Team name can be set with numeric character.");
@@ -24,10 +28,6 @@ export class Team extends Entity<ITeam> {
     }
 
     return new Team(props, id);
-  }
-
-  private constructor(props: ITeam, id?: Identifier) {
-    super(props, id);
   }
 }
 

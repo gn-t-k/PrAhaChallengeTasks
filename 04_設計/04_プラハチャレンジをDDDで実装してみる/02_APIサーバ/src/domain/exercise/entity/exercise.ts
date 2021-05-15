@@ -1,28 +1,16 @@
 import { ExerciseGroup } from "domain/exercise/value-object/exercise-group";
 import { ProgressStatus } from "domain/exercise/value-object/progress-status";
+import { AggregateRoot } from "domain/shared/aggregate-root";
+import { Identifier } from "domain/shared/identifier";
 
 export interface IExercise {
-  id: string;
   title: string;
   details: string;
   status: ProgressStatus;
   group: ExerciseGroup;
 }
 
-export class Exercise {
-  private props: IExercise;
-
-  constructor(props: IExercise) {
-    if (props.title === "") {
-      throw new Error("Illegal title value.");
-    }
-    if (props.details === "") {
-      throw new Error("Illegal details value.");
-    }
-
-    this.props = props;
-  }
-
+export class Exercise extends AggregateRoot<IExercise> {
   public get title(): string {
     return this.props.title;
   }
@@ -37,6 +25,21 @@ export class Exercise {
 
   public get group(): ExerciseGroup {
     return this.props.group;
+  }
+
+  private constructor(props: IExercise, id?: Identifier) {
+    super(props, id);
+  }
+
+  public static create(props: IExercise, id?: Identifier): Exercise {
+    if (props.title === "") {
+      throw new Error("Illegal title value.");
+    }
+    if (props.details === "") {
+      throw new Error("Illegal details value.");
+    }
+
+    return new Exercise(props, id);
   }
 
   public changeStatusNext(): Exercise {

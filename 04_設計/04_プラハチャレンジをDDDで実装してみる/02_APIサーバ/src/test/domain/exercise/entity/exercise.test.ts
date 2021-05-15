@@ -6,9 +6,8 @@ import {
 } from "test/util/dummy/progress-status";
 
 describe("Exercise", () => {
-  const { id, title, details, status, group } = makeDummyExerciseProps();
-  const makeExercise = () =>
-    new Exercise({ id, title, details, status, group });
+  const { title, details, status, group } = makeDummyExerciseProps();
+  const makeExercise = () => Exercise.create({ title, details, status, group });
 
   describe("Exerciseを作成できる", () => {
     const exercise = makeExercise();
@@ -33,8 +32,7 @@ describe("Exercise", () => {
   describe("バリデーション", () => {
     test("titleを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _exercise = new Exercise({
-          id,
+        const _exercise = Exercise.create({
           title: "",
           details,
           status,
@@ -45,8 +43,7 @@ describe("Exercise", () => {
 
     test("detailsを空文字にするとエラーが返ってくる", () => {
       expect(() => {
-        const _exercise = new Exercise({
-          id,
+        const _exercise = Exercise.create({
           title,
           details: "",
           status,
@@ -79,8 +76,7 @@ describe("Exercise", () => {
 
       describe("changeStatusPrevious", () => {
         test('"レビュー待ち"から"未着手"', () => {
-          const exercise = new Exercise({
-            id,
+          const exercise = Exercise.create({
             title,
             details,
             status: makeProgressStatusWaitingForReview(),
@@ -93,8 +89,7 @@ describe("Exercise", () => {
         });
 
         test('"完了"から"レビュー待ち"には戻せない', () => {
-          const exercise = new Exercise({
-            id,
+          const exercise = Exercise.create({
             title,
             details,
             status: makeProgressStatusDone(),

@@ -15,6 +15,10 @@ export class Pair extends Entity<IPair> {
     return this.props.memberList;
   }
 
+  private constructor(props: IPair, id?: Identifier) {
+    super(props, id);
+  }
+
   public static create(props: IPair, id?: Identifier): Pair {
     if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
@@ -24,9 +28,5 @@ export class Pair extends Entity<IPair> {
     }
 
     return new Pair(props, id);
-  }
-
-  private constructor(props: IPair, id?: Identifier) {
-    super(props, id);
   }
 }
