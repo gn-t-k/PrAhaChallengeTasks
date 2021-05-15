@@ -16,7 +16,7 @@ export class Pair extends Entity<IPair> {
   }
 
   private constructor(props: IPair, id?: Identifier) {
-    super(props, id);
+    super(props, id, a);
   }
 
   public static create(props: IPair, id?: Identifier): Pair {
