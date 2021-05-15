@@ -1,15 +1,15 @@
+import { ValueObject } from "domain/shared/value-object";
+
 export interface IActivityStatus {
   status: string;
 }
-export class ActivityStatus {
-  private props: IActivityStatus;
-
+export class ActivityStatus extends ValueObject<IActivityStatus> {
   constructor(props: IActivityStatus) {
     if (props.status === "") {
       throw new Error("Invalid status value.");
     }
 
-    this.props = props;
+    super(props);
   }
 
   public get value(): string {

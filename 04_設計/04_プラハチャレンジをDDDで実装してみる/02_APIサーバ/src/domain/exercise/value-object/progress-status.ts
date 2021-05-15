@@ -1,3 +1,5 @@
+import { ValueObject } from "domain/shared/value-object";
+
 const progressStatusObject = {
   notStartedYet: "未着手",
   waitingForReview: "レビュー待ち",
@@ -9,11 +11,9 @@ interface IProgressStatus {
   value: ProgressStatusType;
 }
 
-export class ProgressStatus {
-  private props: IProgressStatus;
-
-  private constructor(value: ProgressStatusType) {
-    this.props = { value };
+export class ProgressStatus extends ValueObject<IProgressStatus> {
+  private constructor(props: IProgressStatus) {
+    super(props);
   }
 
   public get value(): ProgressStatusType {
@@ -21,19 +21,25 @@ export class ProgressStatus {
   }
 
   public static create(): ProgressStatus {
-    return new ProgressStatus(progressStatusObject.notStartedYet);
+    return new ProgressStatus({ value: progressStatusObject.notStartedYet });
   }
 
   public isCompleted(): boolean {
     return this.props.value === progressStatusObject.done;
   }
 
+  public equals(progressStatus: ProgressStatus): boolean {
+    return this.props.value === progressStatus.value;
+  }
+
   public static getNextStatus(progressStatus: ProgressStatus): ProgressStatus {
     switch (progressStatus.value) {
       case progressStatusObject.notStartedYet:
-        return new ProgressStatus(progressStatusObject.waitingForReview);
+        return new ProgressStatus({
+          value: progressStatusObject.waitingForReview,
+        });
       case progressStatusObject.waitingForReview:
-        return new ProgressStatus(progressStatusObject.done);
+        return new ProgressStatus({ value: progressStatusObject.done });
       default:
         throw new Error("Illegal status manipulation");
     }
@@ -44,9 +50,13 @@ export class ProgressStatus {
   ): ProgressStatus {
     switch (progressStatus.value) {
       case progressStatusObject.done:
-        return new ProgressStatus(progressStatusObject.waitingForReview);
+        return new ProgressStatus({
+          value: progressStatusObject.waitingForReview,
+        });
       case progressStatusObject.waitingForReview:
-        return new ProgressStatus(progressStatusObject.notStartedYet);
+        return new ProgressStatus({
+          value: progressStatusObject.notStartedYet,
+        });
       default:
         throw new Error("Illegal status manipulation");
     }
