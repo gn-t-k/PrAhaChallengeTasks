@@ -75,4 +75,20 @@ describe("ProgressStatus", () => {
       });
     });
   });
+
+  describe("進捗ステータスを比較できる", () => {
+    test("同じ進捗ステータスの場合", () => {
+      const progressStatus1 = makeProgressStatusNotStartedYet();
+      const progressStatus2 = makeProgressStatusNotStartedYet();
+
+      expect(progressStatus1.equals(progressStatus2)).toBe(true);
+    });
+
+    test("異なる進捗ステータスの場合", () => {
+      const progressStatus1 = makeProgressStatusNotStartedYet();
+      const progressStatus2 = makeProgressStatusWaitingForReview();
+
+      expect(progressStatus1.equals(progressStatus2)).toBe(false);
+    });
+  });
 });
