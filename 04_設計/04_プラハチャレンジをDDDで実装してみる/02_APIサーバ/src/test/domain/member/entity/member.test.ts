@@ -1,6 +1,7 @@
 import { Member } from "domain/member/entity/member";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { makeDummyMemberProps } from "test/util/dummy/member";
+import { Identifier } from "domain/shared/identifier";
+import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
   const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
@@ -50,6 +51,23 @@ describe("Member", () => {
           exerciseList,
         });
       }).toThrowError("Illegal email value.");
+    });
+  });
+
+  describe("idで比較できる", () => {
+    test("idが同じとき", () => {
+      const id = new Identifier();
+      const member1 = Member.create(makeDummyMemberProps(), id);
+      const member2 = Member.create(makeDummyMemberProps(), id);
+
+      expect(member1.equals(member2)).toBe(true);
+    });
+
+    test("idが異なるとき", () => {
+      const member1 = makeDummyMember();
+      const member2 = makeDummyMember();
+
+      expect(member1.equals(member2)).toBe(false);
     });
   });
 
