@@ -3,14 +3,13 @@ import {
   validate as uuidValidate,
   version as uuidVersion,
 } from "uuid";
+import { ValueObject } from "./value-object";
 
 interface IIdentifier {
   value: string;
 }
 
-export class Identifier {
-  private props: IIdentifier;
-
+export class Identifier extends ValueObject<IIdentifier> {
   public get value(): string {
     return this.props.value;
   }
@@ -19,10 +18,9 @@ export class Identifier {
     if (id === "") {
       throw new Error("Invalid id value.");
     }
-
-    this.props = {
+    super({
       value: id ?? uuidv4(),
-    };
+    });
   }
 
   public equals(id: Identifier): boolean {
