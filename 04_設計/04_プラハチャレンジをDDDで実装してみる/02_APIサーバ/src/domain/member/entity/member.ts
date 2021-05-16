@@ -44,9 +44,7 @@ export class Member extends AggregateRoot<IMember> {
   }
 
   public changeName(name: string): Member {
-    if (name === "") {
-      throw new Error("Illegal name value.");
-    }
+    Member.checkProps({ name });
 
     this.props.name = name;
 
@@ -54,9 +52,7 @@ export class Member extends AggregateRoot<IMember> {
   }
 
   public changeEmail(email: string): Member {
-    if (email === "") {
-      throw new Error("Illegal email value.");
-    }
+    Member.checkProps({ email });
 
     this.props.email = email;
 
@@ -69,11 +65,11 @@ export class Member extends AggregateRoot<IMember> {
     return this;
   }
 
-  private static checkProps(props: IMember): void {
-    if (props.name === "") {
+  private static checkProps(props: Partial<IMember>): void {
+    if (props.name !== undefined ? props.name === "" : false) {
       throw new Error("Illegal name value.");
     }
-    if (props.email === "") {
+    if (props.email !== undefined ? props.email === "" : false) {
       throw new Error("Illegal email value.");
     }
   }
