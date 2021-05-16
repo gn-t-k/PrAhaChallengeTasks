@@ -24,8 +24,8 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
     return new ProgressStatus({ value: progressStatusValue.notStartedYet });
   }
 
-  public static getNextStatus(props: ProgressStatus): ProgressStatus {
-    switch (props.value) {
+  public getNext(): ProgressStatus {
+    switch (this.props.value) {
       case progressStatusValue.notStartedYet:
         return new ProgressStatus({
           value: progressStatusValue.waitingForReview,
@@ -37,8 +37,8 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
     }
   }
 
-  public static getPreviousStatus(props: ProgressStatus): ProgressStatus {
-    switch (props.value) {
+  public getPrevious(): ProgressStatus {
+    switch (this.props.value) {
       case progressStatusValue.done:
         return new ProgressStatus({
           value: progressStatusValue.waitingForReview,

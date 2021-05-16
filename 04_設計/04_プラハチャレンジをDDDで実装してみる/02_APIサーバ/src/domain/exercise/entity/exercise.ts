@@ -44,7 +44,7 @@ export class Exercise extends AggregateRoot<IExercise> {
   }
 
   public changeStatusNext(): Exercise {
-    this.props.status = ProgressStatus.getNextStatus(this.status);
+    this.props.status = this.props.status.getNext();
 
     return this;
   }
@@ -53,7 +53,7 @@ export class Exercise extends AggregateRoot<IExercise> {
     if (this.props.status.isCompleted()) {
       throw new Error("Completed exercise cannnot be changed");
     }
-    this.props.status = ProgressStatus.getPreviousStatus(this.status);
+    this.props.status = this.props.status.getPrevious();
 
     return this;
   }
