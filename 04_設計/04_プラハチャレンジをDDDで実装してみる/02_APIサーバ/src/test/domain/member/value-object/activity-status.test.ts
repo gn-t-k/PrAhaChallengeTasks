@@ -1,17 +1,20 @@
-import { ActivityStatus } from "domain/member/value-object/activity-status";
+import {
+  ActivityStatus,
+  activityStatusValue,
+} from "domain/member/value-object/activity-status";
 
 describe("ActivityStatus", () => {
   describe("在籍ステータスを作成できる", () => {
     test("在籍ステータスを取得できる", () => {
-      const status = "在籍中";
+      const status = activityStatusValue.active;
       const activityStatus = ActivityStatus.create({ status });
 
       expect(activityStatus.value).toEqual(status);
     });
 
     describe("在籍オブジェクトを比較できる", () => {
-      const active = "在籍中";
-      const inRecess = "休会中";
+      const { active } = activityStatusValue;
+      const { inRecess } = activityStatusValue;
       const activityStatusActive = ActivityStatus.create({ status: active });
       const activityStatusInRecess = ActivityStatus.create({
         status: inRecess,
@@ -25,14 +28,6 @@ describe("ActivityStatus", () => {
         expect(activityStatusActive.equals(activityStatusInRecess)).toEqual(
           false,
         );
-      });
-    });
-
-    describe("バリデーション", () => {
-      test("空文字の在籍ステータスは作成できない", () => {
-        expect(() => {
-          const _activityStatus = ActivityStatus.create({ status: "" });
-        }).toThrowError("Invalid status value.");
       });
     });
   });

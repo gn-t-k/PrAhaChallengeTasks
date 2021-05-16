@@ -76,7 +76,7 @@ describe("ProgressStatus", () => {
     });
   });
 
-  describe("進捗ステータスを比較できる", () => {
+  describe("進捗ステータスが比較できる", () => {
     test("同じ進捗ステータスの場合", () => {
       const progressStatus1 = makeProgressStatusNotStartedYet();
       const progressStatus2 = makeProgressStatusNotStartedYet();
