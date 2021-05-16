@@ -19,7 +19,18 @@ export class Team extends Entity<ITeam> {
     super(props, id);
   }
 
-  public static create(props: ITeam, id?: Identifier): Team {
+  public static create(props: ITeam): Team {
+    if (!new RegExp("^[1-9]+$").test(props.name)) {
+      throw new Error("Team name can be set with numeric character.");
+    }
+    if (!(numberOfMember(props.pairList) >= 3)) {
+      throw new Error("Team requires 3 or more members");
+    }
+
+    return new Team(props);
+  }
+
+  public static rebuild(id: Identifier, props: ITeam): Team {
     if (!new RegExp("^[1-9]+$").test(props.name)) {
       throw new Error("Team name can be set with numeric character.");
     }
