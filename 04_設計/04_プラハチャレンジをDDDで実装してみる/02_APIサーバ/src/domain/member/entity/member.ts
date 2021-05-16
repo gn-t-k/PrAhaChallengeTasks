@@ -31,7 +31,18 @@ export class Member extends AggregateRoot<IMember> {
     super(props, id);
   }
 
-  public static create(props: IMember, id?: Identifier): Member {
+  public static create(props: IMember): Member {
+    if (props.name === "") {
+      throw new Error("Illegal name value.");
+    }
+    if (props.email === "") {
+      throw new Error("Illegal email value.");
+    }
+
+    return new Member(props);
+  }
+
+  public static rebuild(id: Identifier, props: IMember): Member {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }

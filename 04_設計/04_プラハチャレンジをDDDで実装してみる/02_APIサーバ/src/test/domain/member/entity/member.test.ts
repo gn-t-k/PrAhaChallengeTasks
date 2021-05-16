@@ -28,37 +28,88 @@ describe("Member", () => {
 
       expect(member.exerciseList).toEqual(expectedExerciseList);
     });
+
+    describe("バリデーション", () => {
+      test("nameを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.create({
+            name: "",
+            email,
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal name value.");
+      });
+
+      test("emailを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.create({
+            name,
+            email: "",
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal email value.");
+      });
+    });
   });
 
-  describe("バリデーション", () => {
-    test("nameを空文字にするとエラーが返ってくる", () => {
-      expect(() => {
-        const _member = Member.create({
-          name: "",
-          email,
-          activityStatus,
-          exerciseList,
-        });
-      }).toThrowError("Illegal name value.");
+  describe("オブジェクトを再構築できる", () => {
+    const member = Member.rebuild(new Identifier(), {
+      name,
+      email,
+      activityStatus,
+      exerciseList,
     });
 
-    test("emailを空文字にするとエラーが返ってくる", () => {
-      expect(() => {
-        const _member = Member.create({
-          name,
-          email: "",
-          activityStatus,
-          exerciseList,
-        });
-      }).toThrowError("Illegal email value.");
+    test("name", () => {
+      expect(member.name).toEqual(name);
+    });
+
+    test("email", () => {
+      expect(member.email).toEqual(email);
+    });
+
+    test("status", () => {
+      expect(member.status.value).toEqual("在籍中");
+    });
+
+    test("exercise", () => {
+      const expectedExerciseList = exerciseList;
+
+      expect(member.exerciseList).toEqual(expectedExerciseList);
+    });
+
+    describe("バリデーション", () => {
+      test("nameを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.rebuild(new Identifier(), {
+            name: "",
+            email,
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal name value.");
+      });
+
+      test("emailを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.rebuild(new Identifier(), {
+            name,
+            email: "",
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal email value.");
+      });
     });
   });
 
   describe("idで比較できる", () => {
     test("idが同じとき", () => {
       const id = new Identifier();
-      const member1 = Member.create(makeDummyMemberProps(), id);
-      const member2 = Member.create(makeDummyMemberProps(), id);
+      const member1 = Member.rebuild(id, makeDummyMemberProps());
+      const member2 = Member.rebuild(id, makeDummyMemberProps());
 
       expect(member1.equals(member2)).toBe(true);
     });

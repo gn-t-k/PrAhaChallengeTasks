@@ -31,7 +31,18 @@ export class Exercise extends AggregateRoot<IExercise> {
     super(props, id);
   }
 
-  public static create(props: IExercise, id?: Identifier): Exercise {
+  public static create(props: IExercise): Exercise {
+    if (props.title === "") {
+      throw new Error("Illegal title value.");
+    }
+    if (props.details === "") {
+      throw new Error("Illegal details value.");
+    }
+
+    return new Exercise(props);
+  }
+
+  public static rebuild(id: Identifier, props: IExercise): Exercise {
     if (props.title === "") {
       throw new Error("Illegal title value.");
     }
