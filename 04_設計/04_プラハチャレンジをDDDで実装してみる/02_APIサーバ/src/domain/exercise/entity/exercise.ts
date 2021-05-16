@@ -32,23 +32,13 @@ export class Exercise extends AggregateRoot<IExercise> {
   }
 
   public static create(props: IExercise): Exercise {
-    if (props.title === "") {
-      throw new Error("Illegal title value.");
-    }
-    if (props.details === "") {
-      throw new Error("Illegal details value.");
-    }
+    this.checkProps(props);
 
     return new Exercise(props);
   }
 
   public static rebuild(id: Identifier, props: IExercise): Exercise {
-    if (props.title === "") {
-      throw new Error("Illegal title value.");
-    }
-    if (props.details === "") {
-      throw new Error("Illegal details value.");
-    }
+    this.checkProps(props);
 
     return new Exercise(props, id);
   }
@@ -66,5 +56,14 @@ export class Exercise extends AggregateRoot<IExercise> {
     this.props.status = ProgressStatus.getPreviousStatus(this.status);
 
     return this;
+  }
+
+  private static checkProps(props: IExercise): void {
+    if (props.title === "") {
+      throw new Error("Illegal title value.");
+    }
+    if (props.details === "") {
+      throw new Error("Illegal details value.");
+    }
   }
 }

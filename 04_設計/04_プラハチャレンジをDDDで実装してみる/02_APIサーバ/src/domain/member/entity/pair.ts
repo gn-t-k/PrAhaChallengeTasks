@@ -20,24 +20,23 @@ export class Pair extends Entity<IPair> {
   }
 
   public static create(props: IPair): Pair {
-    if (!new RegExp("^[a-z]$").test(props.name)) {
-      throw new Error("Pair name can be set with one alphabetic character.");
-    }
-    if (props.memberList.length < 2 || props.memberList.length > 3) {
-      throw new Error("2 or more and 3 or less member belong to pair.");
-    }
+    this.checkProps(props);
 
     return new Pair(props);
   }
 
   public static rebuild(id: Identifier, props: IPair): Pair {
+    this.checkProps(props);
+
+    return new Pair(props, id);
+  }
+
+  private static checkProps(props: IPair): void {
     if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
     }
     if (props.memberList.length < 2 || props.memberList.length > 3) {
       throw new Error("2 or more and 3 or less member belong to pair.");
     }
-
-    return new Pair(props, id);
   }
 }

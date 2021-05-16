@@ -20,29 +20,29 @@ export class Team extends Entity<ITeam> {
   }
 
   public static create(props: ITeam): Team {
-    if (!new RegExp("^[1-9]+$").test(props.name)) {
-      throw new Error("Team name can be set with numeric character.");
-    }
-    if (!(numberOfMember(props.pairList) >= 3)) {
-      throw new Error("Team requires 3 or more members");
-    }
+    this.checkProps(props);
 
     return new Team(props);
   }
 
   public static rebuild(id: Identifier, props: ITeam): Team {
-    if (!new RegExp("^[1-9]+$").test(props.name)) {
-      throw new Error("Team name can be set with numeric character.");
-    }
-    if (!(numberOfMember(props.pairList) >= 3)) {
-      throw new Error("Team requires 3 or more members");
-    }
+    this.checkProps(props);
 
     return new Team(props, id);
   }
-}
 
-const numberOfMember = (pairList: Pair[]): number =>
-  pairList
-    .map((pair) => pair.memberList.length)
-    .reduce((acc, cur) => acc + cur);
+  private static checkProps(props: ITeam): void {
+    if (!new RegExp("^[1-9]+$").test(props.name)) {
+      throw new Error("Team name can be set with numeric character.");
+    }
+    if (!(this.numberOfMember(props.pairList) >= 3)) {
+      throw new Error("Team requires 3 or more members");
+    }
+  }
+
+  private static numberOfMember(pairList: Pair[]): number {
+    return pairList
+      .map((pair) => pair.memberList.length)
+      .reduce((acc, cur) => acc + cur);
+  }
+}

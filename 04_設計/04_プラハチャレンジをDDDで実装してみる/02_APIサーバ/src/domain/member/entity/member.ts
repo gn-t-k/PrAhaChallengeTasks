@@ -32,23 +32,13 @@ export class Member extends AggregateRoot<IMember> {
   }
 
   public static create(props: IMember): Member {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
-    if (props.email === "") {
-      throw new Error("Illegal email value.");
-    }
+    this.checkProps(props);
 
     return new Member(props);
   }
 
   public static rebuild(id: Identifier, props: IMember): Member {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
-    if (props.email === "") {
-      throw new Error("Illegal email value.");
-    }
+    this.checkProps(props);
 
     return new Member(props, id);
   }
@@ -77,5 +67,14 @@ export class Member extends AggregateRoot<IMember> {
     this.props.activityStatus = activityStatus;
 
     return this;
+  }
+
+  private static checkProps(props: IMember): void {
+    if (props.name === "") {
+      throw new Error("Illegal name value.");
+    }
+    if (props.email === "") {
+      throw new Error("Illegal email value.");
+    }
   }
 }
