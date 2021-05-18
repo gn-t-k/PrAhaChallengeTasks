@@ -27,10 +27,6 @@ export class Exercise extends AggregateRoot<IExercise> {
     return this.props.group;
   }
 
-  private constructor(props: IExercise, id?: Identifier) {
-    super(props, id);
-  }
-
   public static create(props: IExercise): Exercise {
     this.checkProps(props);
 

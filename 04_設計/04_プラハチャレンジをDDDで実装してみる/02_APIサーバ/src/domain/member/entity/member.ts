@@ -27,10 +27,6 @@ export class Member extends AggregateRoot<IMember> {
     return this.props.exerciseList;
   }
 
-  private constructor(props: IMember, id?: Identifier) {
-    super(props, id);
-  }
-
   public static create(props: IMember): Member {
     this.checkProps(props);
 

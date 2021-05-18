@@ -15,10 +15,6 @@ export class Team extends Entity<ITeam> {
     return this.props.pairList;
   }
 
-  private constructor(props: ITeam, id?: Identifier) {
-    super(props, id);
-  }
-
   public static create(props: ITeam): Team {
     this.checkProps(props);
 

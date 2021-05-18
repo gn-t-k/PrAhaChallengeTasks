@@ -60,9 +60,6 @@
     "no-use-before-define": [
       "off"
     ],
-    "no-useless-constructor": [
-      "off"
-    ],
     "sort-imports": 0,
     "import/order": [
       2,

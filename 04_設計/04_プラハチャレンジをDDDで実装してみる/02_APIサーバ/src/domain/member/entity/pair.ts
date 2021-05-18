@@ -15,10 +15,6 @@ export class Pair extends Entity<IPair> {
     return this.props.memberList;
   }
 
-  private constructor(props: IPair, id?: Identifier) {
-    super(props, id);
-  }
-
   public static create(props: IPair): Pair {
     this.checkProps(props);
 
