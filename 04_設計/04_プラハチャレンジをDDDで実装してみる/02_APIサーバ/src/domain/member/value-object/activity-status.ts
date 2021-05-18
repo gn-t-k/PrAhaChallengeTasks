@@ -15,10 +15,6 @@ export class ActivityStatus extends ValueObject<IActivityStatus> {
     return this.props.status;
   }
 
-  private constructor(props: IActivityStatus) {
-    super(props);
-  }
-
   public static create(props: IActivityStatus): ActivityStatus {
     return new ActivityStatus(props);
   }

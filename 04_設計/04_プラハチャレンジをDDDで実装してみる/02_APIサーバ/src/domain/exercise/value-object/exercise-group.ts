@@ -9,10 +9,6 @@ export class ExerciseGroup extends ValueObject<IExerciseGroup> {
     return this.props.name;
   }
 
-  private constructor(props: IExerciseGroup) {
-    super(props);
-  }
-
   public static create(props: IExerciseGroup): ExerciseGroup {
     if (props.name === "") {
       throw new Error("Illegal name value.");

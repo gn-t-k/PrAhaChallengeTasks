@@ -16,10 +16,6 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
     return this.props.value;
   }
 
-  private constructor(props: IProgressStatus) {
-    super(props);
-  }
-
   public static create(): ProgressStatus {
     return new ProgressStatus({ value: progressStatusValue.notStartedYet });
   }
