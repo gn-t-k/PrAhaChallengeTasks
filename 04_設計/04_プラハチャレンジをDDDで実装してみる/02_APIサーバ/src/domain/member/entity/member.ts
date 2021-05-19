@@ -1,33 +1,16 @@
+import { Exercise } from "domain/exercise/entity/exercise";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-
-// TODO: 後で消す
-export interface IExercise {
-  title: string;
-  status: "未着手" | "レビュー待ち" | "完了";
-}
+import { AggregateRoot } from "domain/shared/aggregate-root";
+import { Identifier } from "domain/shared/identifier";
 
 export interface IMember {
-  id: string;
   name: string;
   email: string;
   activityStatus: ActivityStatus;
-  exerciseList: IExercise[];
+  exerciseList: Exercise[];
 }
 
-export class Member {
-  private props: IMember;
-
-  constructor(props: IMember) {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
-    if (props.email === "") {
-      throw new Error("Illegal email value.");
-    }
-
-    this.props = props;
-  }
-
+export class Member extends AggregateRoot<IMember> {
   public get name(): string {
     return this.props.name;
   }
@@ -40,14 +23,24 @@ export class Member {
     return this.props.activityStatus;
   }
 
-  public get exerciseList(): IExercise[] {
+  public get exerciseList(): Exercise[] {
     return this.props.exerciseList;
   }
 
+  public static create(props: IMember): Member {
+    this.checkProps(props);
+
+    return new Member(props);
+  }
+
+  public static rebuild(id: Identifier, props: IMember): Member {
+    this.checkProps(props);
+
+    return new Member(props, id);
+  }
+
   public changeName(name: string): Member {
-    if (name === "") {
-      throw new Error("Illegal name value.");
-    }
+    Member.checkProps({ name });
 
     this.props.name = name;
 
@@ -55,9 +48,7 @@ export class Member {
   }
 
   public changeEmail(email: string): Member {
-    if (email === "") {
-      throw new Error("Illegal email value.");
-    }
+    Member.checkProps({ email });
 
     this.props.email = email;
 
@@ -70,6 +61,12 @@ export class Member {
     return this;
   }
 
-  // TODO: 所属しているペアを取得する
-  // TODO: 割り当てられた課題のステータスを変更する
+  private static checkProps(props: Partial<IMember>): void {
+    if (props.name !== undefined ? props.name === "" : false) {
+      throw new Error("Illegal name value.");
+    }
+    if (props.email !== undefined ? props.email === "" : false) {
+      throw new Error("Illegal email value.");
+    }
+  }
 }

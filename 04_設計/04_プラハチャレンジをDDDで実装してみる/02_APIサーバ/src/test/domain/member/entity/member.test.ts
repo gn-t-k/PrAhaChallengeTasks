@@ -1,17 +1,12 @@
 import { Member } from "domain/member/entity/member";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { makeDummyMemberProps } from "test/util/dummy/member";
+import { Identifier } from "domain/shared/identifier";
+import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
-  const {
-    id,
-    name,
-    email,
-    activityStatus,
-    exerciseList,
-  } = makeDummyMemberProps();
+  const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    new Member({ id, name, email, activityStatus, exerciseList });
+    Member.create({ name, email, activityStatus, exerciseList });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -33,31 +28,97 @@ describe("Member", () => {
 
       expect(member.exerciseList).toEqual(expectedExerciseList);
     });
+
+    describe("バリデーション", () => {
+      test("nameを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.create({
+            name: "",
+            email,
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal name value.");
+      });
+
+      test("emailを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.create({
+            name,
+            email: "",
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal email value.");
+      });
+    });
   });
 
-  describe("バリデーション", () => {
-    test("nameを空文字にするとエラーが返ってくる", () => {
-      expect(() => {
-        const _member = new Member({
-          id,
-          name: "",
-          email,
-          activityStatus,
-          exerciseList,
-        });
-      }).toThrowError("Illegal name value.");
+  describe("オブジェクトを再構築できる", () => {
+    const member = Member.rebuild(new Identifier(), {
+      name,
+      email,
+      activityStatus,
+      exerciseList,
     });
 
-    test("emailを空文字にするとエラーが返ってくる", () => {
-      expect(() => {
-        const _member = new Member({
-          id,
-          name,
-          email: "",
-          activityStatus,
-          exerciseList,
-        });
-      }).toThrowError("Illegal email value.");
+    test("name", () => {
+      expect(member.name).toEqual(name);
+    });
+
+    test("email", () => {
+      expect(member.email).toEqual(email);
+    });
+
+    test("status", () => {
+      expect(member.status.value).toEqual("在籍中");
+    });
+
+    test("exercise", () => {
+      const expectedExerciseList = exerciseList;
+
+      expect(member.exerciseList).toEqual(expectedExerciseList);
+    });
+
+    describe("バリデーション", () => {
+      test("nameを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.rebuild(new Identifier(), {
+            name: "",
+            email,
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal name value.");
+      });
+
+      test("emailを空文字にするとエラーが返ってくる", () => {
+        expect(() => {
+          const _member = Member.rebuild(new Identifier(), {
+            name,
+            email: "",
+            activityStatus,
+            exerciseList,
+          });
+        }).toThrowError("Illegal email value.");
+      });
+    });
+  });
+
+  describe("idで比較できる", () => {
+    test("idが同じとき", () => {
+      const id = new Identifier();
+      const member1 = Member.rebuild(id, makeDummyMemberProps());
+      const member2 = Member.rebuild(id, makeDummyMemberProps());
+
+      expect(member1.equals(member2)).toBe(true);
+    });
+
+    test("idが異なるとき", () => {
+      const member1 = makeDummyMember();
+      const member2 = makeDummyMember();
+
+      expect(member1.equals(member2)).toBe(false);
     });
   });
 
@@ -95,9 +156,8 @@ describe("Member", () => {
   });
 
   describe("Memberの在籍ステータスを変更できる", () => {
-    const activityStatusInRecess = new ActivityStatus({ status: "休会中" });
-    const member = new Member({
-      id,
+    const activityStatusInRecess = ActivityStatus.create({ status: "休会中" });
+    const member = Member.create({
       name,
       email,
       activityStatus: activityStatusInRecess,

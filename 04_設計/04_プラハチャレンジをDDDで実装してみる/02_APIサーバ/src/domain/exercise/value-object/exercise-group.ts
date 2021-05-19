@@ -1,19 +1,23 @@
+import { ValueObject } from "domain/shared/value-object";
+
 export interface IExerciseGroup {
   name: string;
 }
 
-export class ExerciseGroup {
-  private props: IExerciseGroup;
+export class ExerciseGroup extends ValueObject<IExerciseGroup> {
+  public get name(): string {
+    return this.props.name;
+  }
 
-  constructor(props: IExerciseGroup) {
+  public static create(props: IExerciseGroup): ExerciseGroup {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }
 
-    this.props = props;
+    return new ExerciseGroup(props);
   }
 
-  public get name(): string {
-    return this.props.name;
+  public equals(exerciseGroup: ExerciseGroup): boolean {
+    return this.props.name === exerciseGroup.name;
   }
 }

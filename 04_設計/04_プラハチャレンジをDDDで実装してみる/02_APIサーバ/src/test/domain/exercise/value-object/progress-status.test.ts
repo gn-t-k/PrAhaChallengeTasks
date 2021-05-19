@@ -12,44 +12,44 @@ describe("ProgressStatus", () => {
 
   describe("ステータスを進捗させることができる", () => {
     test('"未着手"の次は"レビュー待ち"', () => {
-      expect(
-        ProgressStatus.getNextStatus(makeProgressStatusNotStartedYet()).value,
-      ).toEqual("レビュー待ち");
+      const progressStatus = makeProgressStatusNotStartedYet();
+
+      expect(progressStatus.getNext().value).toEqual("レビュー待ち");
     });
 
     test('"レビュー待ち"の次は"完了"', () => {
-      expect(
-        ProgressStatus.getNextStatus(makeProgressStatusWaitingForReview())
-          .value,
-      ).toEqual("完了");
+      const progressStatus = makeProgressStatusWaitingForReview();
+
+      expect(progressStatus.getNext().value).toEqual("完了");
     });
 
     test('"完了"から進捗させようとするとエラーになる', () => {
+      const progressStatus = makeProgressStatusDone();
+
       expect(() => {
-        ProgressStatus.getNextStatus(makeProgressStatusDone());
+        progressStatus.getNext();
       }).toThrowError("Illegal status manipulation");
     });
   });
 
   describe("ステータスを戻すことができる", () => {
     test('"完了"から"レビュー待ち"に戻すことができる', () => {
-      expect(
-        ProgressStatus.getPreviousStatus(makeProgressStatusDone()).value,
-      ).toEqual("レビュー待ち");
+      const progressStatus = makeProgressStatusDone();
+
+      expect(progressStatus.getPrevious().value).toEqual("レビュー待ち");
     });
 
     test('"レビュー待ち"から"未着手"に戻すことができる', () => {
-      expect(
-        ProgressStatus.getPreviousStatus(makeProgressStatusWaitingForReview())
-          .value,
-      ).toEqual("未着手");
+      const progressStatus = makeProgressStatusWaitingForReview();
+
+      expect(progressStatus.getPrevious().value).toEqual("未着手");
     });
 
     test('"未着手"から戻そうとするとエラーになる', () => {
+      const progressStatus = makeProgressStatusNotStartedYet();
+
       expect(() => {
-        const _impossibleStatus = ProgressStatus.getPreviousStatus(
-          makeProgressStatusNotStartedYet(),
-        );
+        progressStatus.getPrevious();
       }).toThrowError("Illegal status manipulation");
     });
   });
@@ -73,6 +73,22 @@ describe("ProgressStatus", () => {
 
         expect(isCompleted).toBe(false);
       });
+    });
+  });
+
+  describe("進捗ステータスが比較できる", () => {
+    test("同じ進捗ステータスの場合", () => {
+      const progressStatus1 = makeProgressStatusNotStartedYet();
+      const progressStatus2 = makeProgressStatusNotStartedYet();
+
+      expect(progressStatus1.equals(progressStatus2)).toBe(true);
+    });
+
+    test("異なる進捗ステータスの場合", () => {
+      const progressStatus1 = makeProgressStatusNotStartedYet();
+      const progressStatus2 = makeProgressStatusWaitingForReview();
+
+      expect(progressStatus1.equals(progressStatus2)).toBe(false);
     });
   });
 });

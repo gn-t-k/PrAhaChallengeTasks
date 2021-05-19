@@ -1,22 +1,25 @@
+import { ValueObject } from "domain/shared/value-object";
+
+export const activityStatusValue = {
+  active: "在籍中",
+  inRecess: "休会中",
+  left: "退会済み",
+} as const;
+type ActivityStatusType = typeof activityStatusValue[keyof typeof activityStatusValue];
+
 export interface IActivityStatus {
-  status: string;
+  status: ActivityStatusType;
 }
-export class ActivityStatus {
-  private props: IActivityStatus;
-
-  constructor(props: IActivityStatus) {
-    if (props.status === "") {
-      throw new Error("Invalid status value.");
-    }
-
-    this.props = props;
-  }
-
+export class ActivityStatus extends ValueObject<IActivityStatus> {
   public get value(): string {
     return this.props.status;
   }
 
-  public equals(activityStatus: ActivityStatus): boolean {
-    return activityStatus.value === this.props.status;
+  public static create(props: IActivityStatus): ActivityStatus {
+    return new ActivityStatus(props);
+  }
+
+  public equals(props: ActivityStatus): boolean {
+    return this.props.status === props.value;
   }
 }

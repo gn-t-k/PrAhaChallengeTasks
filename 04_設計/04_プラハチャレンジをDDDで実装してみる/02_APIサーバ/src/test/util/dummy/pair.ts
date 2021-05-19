@@ -1,16 +1,16 @@
-import { Member } from "domain/member/entity/member";
-import { Pair, IPair } from "domain/member/entity/pair";
 import faker from "faker";
+import { Pair, IPair } from "domain/member/entity/pair";
+import { makeDummyMember } from "test/util/dummy/member";
 
-export const makeDummyPairProps = (memberList: Member[]): IPair => {
-  const id = faker.lorem.slug();
+export const makeDummyPairProps = (): IPair => {
   const name = faker.random.alpha();
+  const memberList = [makeDummyMember(), makeDummyMember()];
 
-  return { id, name, memberList };
+  return { name, memberList };
 };
 
-export const makeDummyPair = (memberList: Member[]): Pair => {
-  const { id, name } = makeDummyPairProps(memberList);
+export const makeDummyPair = (): Pair => {
+  const { name, memberList } = makeDummyPairProps();
 
-  return new Pair({ id, name, memberList });
+  return Pair.create({ name, memberList });
 };

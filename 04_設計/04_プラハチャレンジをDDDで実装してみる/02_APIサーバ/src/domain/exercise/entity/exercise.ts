@@ -1,28 +1,16 @@
 import { ExerciseGroup } from "domain/exercise/value-object/exercise-group";
 import { ProgressStatus } from "domain/exercise/value-object/progress-status";
+import { AggregateRoot } from "domain/shared/aggregate-root";
+import { Identifier } from "domain/shared/identifier";
 
 export interface IExercise {
-  id: string;
   title: string;
   details: string;
   status: ProgressStatus;
   group: ExerciseGroup;
 }
 
-export class Exercise {
-  private props: IExercise;
-
-  constructor(props: IExercise) {
-    if (props.title === "") {
-      throw new Error("Illegal title value.");
-    }
-    if (props.details === "") {
-      throw new Error("Illegal details value.");
-    }
-
-    this.props = props;
-  }
-
+export class Exercise extends AggregateRoot<IExercise> {
   public get title(): string {
     return this.props.title;
   }
@@ -39,8 +27,20 @@ export class Exercise {
     return this.props.group;
   }
 
+  public static create(props: IExercise): Exercise {
+    this.checkProps(props);
+
+    return new Exercise(props);
+  }
+
+  public static rebuild(id: Identifier, props: IExercise): Exercise {
+    this.checkProps(props);
+
+    return new Exercise(props, id);
+  }
+
   public changeStatusNext(): Exercise {
-    this.props.status = ProgressStatus.getNextStatus(this.status);
+    this.props.status = this.props.status.getNext();
 
     return this;
   }
@@ -49,8 +49,17 @@ export class Exercise {
     if (this.props.status.isCompleted()) {
       throw new Error("Completed exercise cannnot be changed");
     }
-    this.props.status = ProgressStatus.getPreviousStatus(this.status);
+    this.props.status = this.props.status.getPrevious();
 
     return this;
+  }
+
+  private static checkProps(props: IExercise): void {
+    if (props.title === "") {
+      throw new Error("Illegal title value.");
+    }
+    if (props.details === "") {
+      throw new Error("Illegal details value.");
+    }
   }
 }
