@@ -9,7 +9,7 @@ Entity member {
   *name
   *email
   +activity_status_id
-  +pair_id
+  *pair_id
   *created_at
   *updated_at
 }
@@ -74,7 +74,7 @@ exercise_on_member }|-|| exercise
 member }--o| pair
 member }o---|| activity_status
 exercise }|---|| exercise_group
-pair }--o| team
+pair }--|| team
 exercise_on_member }o---|| progress_status
 @enduml
 ```
