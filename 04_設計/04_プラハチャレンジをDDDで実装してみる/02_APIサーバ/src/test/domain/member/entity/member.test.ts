@@ -4,9 +4,19 @@ import { Identifier } from "domain/shared/identifier";
 import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
-  const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
+  const {
+    name,
+    email,
+    activityStatus,
+    exerciseListID,
+  } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    Member.create({ name, email, activityStatus, exerciseList });
+    Member.create({
+      name,
+      email,
+      activityStatus,
+      exerciseListID,
+    });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -24,7 +34,7 @@ describe("Member", () => {
     });
 
     test("exercise", () => {
-      const expectedExerciseList = exerciseList;
+      const expectedExerciseList = exerciseListID;
 
       expect(member.exerciseList).toEqual(expectedExerciseList);
     });
@@ -36,7 +46,7 @@ describe("Member", () => {
             name: "",
             email,
             activityStatus,
-            exerciseList,
+            exerciseListID,
           });
         }).toThrowError("Illegal name value.");
       });
@@ -47,7 +57,7 @@ describe("Member", () => {
             name,
             email: "",
             activityStatus,
-            exerciseList,
+            exerciseListID,
           });
         }).toThrowError("Illegal email value.");
       });
@@ -59,7 +69,7 @@ describe("Member", () => {
       name,
       email,
       activityStatus,
-      exerciseList,
+      exerciseListID,
     });
 
     test("name", () => {
@@ -75,7 +85,7 @@ describe("Member", () => {
     });
 
     test("exercise", () => {
-      const expectedExerciseList = exerciseList;
+      const expectedExerciseList = exerciseListID;
 
       expect(member.exerciseList).toEqual(expectedExerciseList);
     });
@@ -87,7 +97,7 @@ describe("Member", () => {
             name: "",
             email,
             activityStatus,
-            exerciseList,
+            exerciseListID,
           });
         }).toThrowError("Illegal name value.");
       });
@@ -98,7 +108,7 @@ describe("Member", () => {
             name,
             email: "",
             activityStatus,
-            exerciseList,
+            exerciseListID,
           });
         }).toThrowError("Illegal email value.");
       });
@@ -161,7 +171,7 @@ describe("Member", () => {
       name,
       email,
       activityStatus: activityStatusInRecess,
-      exerciseList,
+      exerciseListID,
     });
 
     test("changeActivityStatus", () => {

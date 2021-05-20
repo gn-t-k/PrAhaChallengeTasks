@@ -1,4 +1,3 @@
-import { Exercise } from "domain/exercise/entity/exercise";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
@@ -7,7 +6,7 @@ export interface IMember {
   name: string;
   email: string;
   activityStatus: ActivityStatus;
-  exerciseList: Exercise[];
+  exerciseListID: Identifier;
 }
 
 export class Member extends AggregateRoot<IMember> {
@@ -23,8 +22,8 @@ export class Member extends AggregateRoot<IMember> {
     return this.props.activityStatus;
   }
 
-  public get exerciseList(): Exercise[] {
-    return this.props.exerciseList;
+  public get exerciseList(): Identifier {
+    return this.props.exerciseListID;
   }
 
   public static create(props: IMember): Member {
