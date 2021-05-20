@@ -1,6 +1,6 @@
-import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { AggregateRoot } from "domain/shared/aggregate-root";
+import { Entity } from "domain/shared/entity";
 import { Identifier } from "domain/shared/identifier";
+import { ActivityStatus } from "domain/team/value-object/activity-status";
 
 export interface IMember {
   name: string;
@@ -9,7 +9,7 @@ export interface IMember {
   exerciseListID: Identifier;
 }
 
-export class Member extends AggregateRoot<IMember> {
+export class Member extends Entity<IMember> {
   public get name(): string {
     return this.props.name;
   }

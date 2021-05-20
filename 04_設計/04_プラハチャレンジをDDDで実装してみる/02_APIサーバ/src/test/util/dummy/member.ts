@@ -1,7 +1,7 @@
 import faker from "faker";
-import { Member, IMember } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
+import { Member, IMember } from "domain/team/entity/member";
+import { ActivityStatus } from "domain/team/value-object/activity-status";
 
 export const makeDummyMemberProps = (): IMember => {
   const name = faker.name.findName();

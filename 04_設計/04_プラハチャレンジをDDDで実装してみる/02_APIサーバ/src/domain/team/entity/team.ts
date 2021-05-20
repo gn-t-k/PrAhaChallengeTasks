@@ -1,12 +1,12 @@
-import { Pair } from "domain/member/entity/pair";
-import { Entity } from "domain/shared/entity";
+import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
+import { Pair } from "domain/team/entity/pair";
 
 export interface ITeam {
   name: string;
   pairList: Pair[];
 }
-export class Team extends Entity<ITeam> {
+export class Team extends AggregateRoot<ITeam> {
   public get name(): string {
     return this.props.name;
   }

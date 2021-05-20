@@ -1,5 +1,5 @@
-import { Team } from "domain/member/entity/team";
 import { Identifier } from "domain/shared/identifier";
+import { Team } from "domain/team/entity/team";
 import { makeDummyPair } from "test/util/dummy/pair";
 import { makeDummyTeam, makeDummyTeamProps } from "test/util/dummy/team";
 

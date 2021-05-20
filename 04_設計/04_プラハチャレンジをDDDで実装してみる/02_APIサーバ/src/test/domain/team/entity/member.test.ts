@@ -1,6 +1,6 @@
-import { Member } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
+import { Member } from "domain/team/entity/member";
+import { ActivityStatus } from "domain/team/value-object/activity-status";
 import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
