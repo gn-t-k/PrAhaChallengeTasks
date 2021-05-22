@@ -43,8 +43,8 @@ export class Progress extends AggregateRoot<IProgress> {
 
   public equals(progress: Progress): boolean {
     return (
-      this.props.memberID === progress.memberID &&
-      this.props.exerciseID === progress.exerciseID
+      this.props.memberID.equals(progress.memberID) &&
+      this.props.exerciseID.equals(progress.exerciseID)
     );
   }
 }
