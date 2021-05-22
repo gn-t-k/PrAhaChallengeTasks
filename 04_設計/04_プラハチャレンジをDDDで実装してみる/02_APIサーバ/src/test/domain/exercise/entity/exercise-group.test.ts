@@ -24,10 +24,20 @@ describe("ExerciseGroup", () => {
   });
 
   describe("バリデーション", () => {
-    test("nameに空文字を設定するとエラーが返ってくる", () => {
-      expect(() => {
-        const _exerciseGroup = ExerciseGroup.create({ name: "" });
-      }).toThrowError("Illegal name value.");
+    describe("nameに空文字を設定するとエラーが返ってくる", () => {
+      test("create", () => {
+        expect(() => {
+          const _exerciseGroup = ExerciseGroup.create({ name: "" });
+        }).toThrowError("Illegal name value.");
+      });
+
+      test("rebuild", () => {
+        expect(() => {
+          const _exerciseGroup = ExerciseGroup.rebuild(new Identifier(), {
+            name: "",
+          });
+        }).toThrowError("Illegal name value.");
+      });
     });
   });
 });
