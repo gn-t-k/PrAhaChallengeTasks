@@ -1,12 +1,10 @@
 import { ExerciseGroup } from "domain/exercise/value-object/exercise-group";
-import { ProgressStatus } from "domain/exercise/value-object/progress-status";
 import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
 
 export interface IExercise {
   title: string;
   details: string;
-  status: ProgressStatus;
   group: ExerciseGroup;
 }
 
@@ -17,10 +15,6 @@ export class Exercise extends AggregateRoot<IExercise> {
 
   public get details(): string {
     return this.props.details;
-  }
-
-  public get status(): ProgressStatus {
-    return this.props.status;
   }
 
   public get group(): ExerciseGroup {
@@ -39,20 +33,7 @@ export class Exercise extends AggregateRoot<IExercise> {
     return new Exercise(props, id);
   }
 
-  public changeStatusNext(): Exercise {
-    this.props.status = this.props.status.getNext();
-
-    return this;
-  }
-
-  public changeStatusPrevious(): Exercise {
-    if (this.props.status.isCompleted()) {
-      throw new Error("Completed exercise cannnot be changed");
-    }
-    this.props.status = this.props.status.getPrevious();
-
-    return this;
-  }
+  // TODO: 課題タイトルや課題詳細を変更するメソッドがあってもいいかもしれない
 
   private static checkProps(props: IExercise): void {
     if (props.title === "") {
