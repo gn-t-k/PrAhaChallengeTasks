@@ -17,7 +17,7 @@ describe("progress", () => {
       status,
     });
 
-    test("参加者のidを取得できる", () => {
+    test("参加者のIDを取得できる", () => {
       expect(progress.memberID.equals(memberID)).toBe(true);
     });
 
@@ -28,23 +28,55 @@ describe("progress", () => {
     test("進捗ステータスが取得できる", () => {
       expect(progress.status.equals(status)).toBe(true);
     });
-  });
 
-  describe("課題進捗オブジェクトを再構築できる", () => {
-    const id = new Identifier();
-    const progress1 = Progress.rebuild(id, {
-      memberID: new Identifier(),
-      exerciseID: new Identifier(),
-      status,
-    });
-    const progress2 = Progress.rebuild(id, {
-      memberID: new Identifier(),
-      exerciseID: new Identifier(),
-      status,
-    });
+    describe("参加者のIDと課題のIDで比較できる", () => {
+      const id1 = new Identifier();
+      const id2 = new Identifier();
 
-    test("idで比較できる", () => {
-      expect(progress1.equals(progress2)).toBe(true);
+      test("参加者IDと課題IDの両方が一致する場合", () => {
+        const progress1 = Progress.create({
+          memberID: id1,
+          exerciseID: id2,
+          status,
+        });
+        const progress2 = Progress.create({
+          memberID: id1,
+          exerciseID: id2,
+          status,
+        });
+
+        expect(progress1.equals(progress2)).toBe(true);
+      });
+
+      test("参加者IDと課題IDの片方が一致しない場合", () => {
+        const progress1 = Progress.create({
+          memberID: id1,
+          exerciseID: id2,
+          status,
+        });
+        const progress2 = Progress.create({
+          memberID: id1,
+          exerciseID: id1,
+          status,
+        });
+
+        expect(progress1.equals(progress2)).toBe(false);
+      });
+
+      test("参加者IDと課題IDの両方とも一致しない場合", () => {
+        const progress1 = Progress.create({
+          memberID: id1,
+          exerciseID: id1,
+          status,
+        });
+        const progress2 = Progress.create({
+          memberID: id2,
+          exerciseID: id2,
+          status,
+        });
+
+        expect(progress1.equals(progress2)).toBe(false);
+      });
     });
   });
 

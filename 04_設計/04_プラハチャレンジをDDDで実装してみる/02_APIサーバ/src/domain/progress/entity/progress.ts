@@ -25,10 +25,6 @@ export class Progress extends AggregateRoot<IProgress> {
     return new Progress(props);
   }
 
-  public static rebuild(id: Identifier, props: IProgress): Progress {
-    return new Progress(props, id);
-  }
-
   public changeStatusNext(): Progress {
     this.props.status = this.props.status.getNext();
 
@@ -43,5 +39,12 @@ export class Progress extends AggregateRoot<IProgress> {
     this.props.status = this.props.status.getPrevious();
 
     return this;
+  }
+
+  public equals(progress: Progress): boolean {
+    return (
+      this.props.memberID === progress.memberID &&
+      this.props.exerciseID === progress.exerciseID
+    );
   }
 }
