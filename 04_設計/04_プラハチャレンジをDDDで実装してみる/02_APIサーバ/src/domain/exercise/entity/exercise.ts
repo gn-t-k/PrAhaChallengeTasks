@@ -1,4 +1,4 @@
-import { ExerciseGroup } from "domain/exercise/value-object/exercise-group";
+import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
 import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
 
