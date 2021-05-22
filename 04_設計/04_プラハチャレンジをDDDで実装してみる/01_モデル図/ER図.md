@@ -8,8 +8,14 @@ Entity member {
   --
   *name
   *email
-  +activity_status_id
-  *pair_id
+  *activity_status
+  *created_at
+  *updated_at
+}
+Entity member_on_pair {
+  +member_id
+  +pair_id
+  --
   *created_at
   *updated_at
 }
@@ -25,14 +31,6 @@ Entity team {
   *id
   --
   *name
-  *created_at
-  *updated_at
-}
-Entity activity_status {
-  *id
-  --
-  *name
-  *is_default
   *created_at
   *updated_at
 }
@@ -52,29 +50,21 @@ Entity exercise_group {
   *created_at
   *updated_at
 }
-Entity progress_status {
-  *id
-  --
-  *name
-  *is_default
-  *created_at
-  *updated_at
-}
 Entity exercise_on_member {
   +member_id
   +exercise_id
   --
-  +progress_status_id
+  *progress_status
   *created_at
   *updated_at
 }
 
-member ||-|{ exercise_on_member
-exercise_on_member }|-|| exercise
-member }--o| pair
-member }o---|| activity_status
-exercise }|---|| exercise_group
-pair }--|| team
-exercise_on_member }o---|| progress_status
+team ||--|{ pair
+pair ||--o{ member_on_pair
+member_on_pair }o--|| member
+exercise_on_member }o--|| member 
+exercise ||--o{ exercise_on_member 
+exercise_group ||-o{ exercise
+
 @enduml
 ```
