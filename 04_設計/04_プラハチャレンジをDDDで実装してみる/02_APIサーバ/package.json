@@ -17,6 +17,7 @@
     "start-ts": "ts-node ./src/index.ts",
     "dev": "ts-node-dev ./src/index.ts",
     "build": "tsc",
+    "ts-node": "ts-node --compiler-options '{\"module\":\"CommonJS\"}'",
     "postinstall": "typesync"
   },
   "devDependencies": {
