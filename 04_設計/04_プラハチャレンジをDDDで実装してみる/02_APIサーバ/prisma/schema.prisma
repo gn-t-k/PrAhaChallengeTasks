@@ -14,20 +14,9 @@ model Member {
   id String @id
   name String
   email String @unique
-  activityStatus ActivityStatus @relation(fields: [activityStatusId], references: [id])
-  activityStatusId String
-  pair Pair? @relation(fields: [pairId], references: [id])
-  pairId String?
+  activityStatus String
+  pair MemberOnPair[]
   exercise ExerciseOnMember[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model ActivityStatus {
-  id String @id
-  name String @unique
-  isDefault Boolean
-  member Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -35,9 +24,9 @@ model ActivityStatus {
 model Pair {
   id String @id
   name String
-  team Team? @relation(fields: [teamId], references: [id])
-  teamId String?
-  member Member[]
+  team Team @relation(fields: [teamId], references: [id])
+  teamId String
+  member MemberOnPair[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@unique([name, teamId])
@@ -71,22 +60,22 @@ model ExerciseGroup {
 }
 
 model ExerciseOnMember {
-  member Member @relation(fields: [memberId], references: [id])
   memberId String
-  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  member Member @relation(fields: [memberId], references: [id])
   exerciseId String
-  progressStatus ProgressStatus @relation(fields: [progressStatusId], references: [id])
-  progressStatusId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  progressStatus String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@unique([memberId, exerciseId])
 }
 
-model ProgressStatus {
-  id String @id
-  name String @unique
-  isDefault Boolean
-  exerciseOnMember ExerciseOnMember[]
+model MemberOnPair {
+  memberId String
+  member Member @relation(fields: [memberId], references: [id])
+  pairId String
+  pair Pair @relation(fields: [pairId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@unique([memberId, pairId])
 }

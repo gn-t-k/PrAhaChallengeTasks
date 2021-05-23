@@ -1,4 +1,4 @@
-import { ProgressStatus } from "domain/exercise/value-object/progress-status";
+import { ProgressStatus } from "domain/progress/value-object/progress-status";
 import {
   makeProgressStatusNotStartedYet,
   makeProgressStatusWaitingForReview,
@@ -56,20 +56,20 @@ describe("ProgressStatus", () => {
 
   describe("進捗ステータスが完了状態になっているかどうかがわかる", () => {
     test("完了している場合", () => {
-      const isCompleted = makeProgressStatusDone().isCompleted();
+      const isCompleted = makeProgressStatusDone().isDone();
 
       expect(isCompleted).toBe(true);
     });
 
     describe("完了していない場合", () => {
       test('"未着手"の場合', () => {
-        const isCompleted = makeProgressStatusNotStartedYet().isCompleted();
+        const isCompleted = makeProgressStatusNotStartedYet().isDone();
 
         expect(isCompleted).toBe(false);
       });
 
       test('"レビュー待ち"の場合', () => {
-        const isCompleted = makeProgressStatusWaitingForReview().isCompleted();
+        const isCompleted = makeProgressStatusWaitingForReview().isDone();
 
         expect(isCompleted).toBe(false);
       });

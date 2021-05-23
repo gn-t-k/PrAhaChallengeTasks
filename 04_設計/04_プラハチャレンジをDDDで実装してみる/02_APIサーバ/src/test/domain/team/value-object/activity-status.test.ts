@@ -1,7 +1,7 @@
 import {
   ActivityStatus,
   activityStatusValue,
-} from "domain/member/value-object/activity-status";
+} from "domain/team/value-object/activity-status";
 
 describe("ActivityStatus", () => {
   describe("在籍ステータスを作成できる", () => {

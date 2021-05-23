@@ -1,4 +1,4 @@
-import { ProgressStatus } from "domain/exercise/value-object/progress-status";
+import { ProgressStatus } from "domain/progress/value-object/progress-status";
 
 const makeProgressStatusNotStartedYet = (): ProgressStatus =>
   ProgressStatus.create();

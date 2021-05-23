@@ -1,12 +1,16 @@
-import { Member } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
+import { Member } from "domain/team/entity/member";
+import { ActivityStatus } from "domain/team/value-object/activity-status";
 import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
 describe("Member", () => {
-  const { name, email, activityStatus, exerciseList } = makeDummyMemberProps();
+  const { name, email, activityStatus } = makeDummyMemberProps();
   const makeMember = (): Member =>
-    Member.create({ name, email, activityStatus, exerciseList });
+    Member.create({
+      name,
+      email,
+      activityStatus,
+    });
 
   describe("Memberを作成できる", () => {
     const member = makeMember();
@@ -23,12 +27,6 @@ describe("Member", () => {
       expect(member.status.value).toEqual("在籍中");
     });
 
-    test("exercise", () => {
-      const expectedExerciseList = exerciseList;
-
-      expect(member.exerciseList).toEqual(expectedExerciseList);
-    });
-
     describe("バリデーション", () => {
       test("nameを空文字にするとエラーが返ってくる", () => {
         expect(() => {
@@ -36,7 +34,6 @@ describe("Member", () => {
             name: "",
             email,
             activityStatus,
-            exerciseList,
           });
         }).toThrowError("Illegal name value.");
       });
@@ -47,7 +44,6 @@ describe("Member", () => {
             name,
             email: "",
             activityStatus,
-            exerciseList,
           });
         }).toThrowError("Illegal email value.");
       });
@@ -59,7 +55,6 @@ describe("Member", () => {
       name,
       email,
       activityStatus,
-      exerciseList,
     });
 
     test("name", () => {
@@ -74,12 +69,6 @@ describe("Member", () => {
       expect(member.status.value).toEqual("在籍中");
     });
 
-    test("exercise", () => {
-      const expectedExerciseList = exerciseList;
-
-      expect(member.exerciseList).toEqual(expectedExerciseList);
-    });
-
     describe("バリデーション", () => {
       test("nameを空文字にするとエラーが返ってくる", () => {
         expect(() => {
@@ -87,7 +76,6 @@ describe("Member", () => {
             name: "",
             email,
             activityStatus,
-            exerciseList,
           });
         }).toThrowError("Illegal name value.");
       });
@@ -98,7 +86,6 @@ describe("Member", () => {
             name,
             email: "",
             activityStatus,
-            exerciseList,
           });
         }).toThrowError("Illegal email value.");
       });
@@ -161,7 +148,6 @@ describe("Member", () => {
       name,
       email,
       activityStatus: activityStatusInRecess,
-      exerciseList,
     });
 
     test("changeActivityStatus", () => {

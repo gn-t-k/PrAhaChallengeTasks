@@ -1,5 +1,5 @@
 import faker from "faker";
-import { ITeam, Team } from "domain/member/entity/team";
+import { ITeam, Team } from "domain/team/entity/team";
 import { makeDummyPair } from "test/util/dummy/pair";
 
 export const makeDummyTeamProps = (): ITeam => {
