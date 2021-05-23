@@ -48,7 +48,7 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
     }
   }
 
-  public isCompleted(): boolean {
+  public isDone(): boolean {
     return this.props.value === progressStatusValue.done;
   }
 

@@ -6,7 +6,6 @@ export interface IMember {
   name: string;
   email: string;
   activityStatus: ActivityStatus;
-  exerciseListID: Identifier;
 }
 
 export class Member extends Entity<IMember> {
@@ -20,10 +19,6 @@ export class Member extends Entity<IMember> {
 
   public get status(): ActivityStatus {
     return this.props.activityStatus;
-  }
-
-  public get exerciseList(): Identifier {
-    return this.props.exerciseListID;
   }
 
   public static create(props: IMember): Member {
