@@ -12,16 +12,6 @@ import { teamData } from "./seeds/team";
 const prisma = new PrismaClient();
 
 const main = async () => {
-  // await seedExerciseGroupData();
-  // await seedExerciseData();
-  // await seedMemberData();
-  // await seedTeamData();
-  // await seedPairData();
-  // await seedExerciseOnMember();
-  // await seedMemberOnPair();
-
-  // /
-  //  ホントは↓みたいにしたいが、`FATAL: sorry, too many clients already`となる
   await Promise.all([
     seedExerciseGroupData(),
     seedMemberData(),
