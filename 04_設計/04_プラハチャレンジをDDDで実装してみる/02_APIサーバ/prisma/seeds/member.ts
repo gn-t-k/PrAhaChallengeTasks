@@ -81,12 +81,12 @@ export const memberData = [
     id: "a5294443-5945-4a74-aac0-593671ed166b",
     name: "Allison Berge",
     email: "Rosa36@gmail.com",
-    activityStatus: "在籍中",
+    activityStatus: "休会中",
   },
   {
     id: "d2d4dfe8-8364-4930-89cf-c69b1add7704",
     name: "Tami Dicki V",
     email: "Tyler13@hotmail.com",
-    activityStatus: "在籍中",
+    activityStatus: "退会済",
   },
 ];
