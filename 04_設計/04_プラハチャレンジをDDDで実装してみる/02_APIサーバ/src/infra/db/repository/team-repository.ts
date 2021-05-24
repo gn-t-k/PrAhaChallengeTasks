@@ -17,6 +17,7 @@ export class TeamRepository implements ITeamRepository {
     const memberDataList = await prisma.member.findMany();
 
     const memberList = TeamRepository.memberFactory(memberDataList);
+
     const teamList = teamDataList.map((teamData) => {
       const pairList = teamData.pair.map((pairData) => {
         const memberIdList = pairData.member.map(
@@ -36,19 +37,10 @@ export class TeamRepository implements ITeamRepository {
         pairList,
       });
     });
-
-    const independentMemberList = ((ml, tl) => {
-      const memberListBelongingToPair: Member[] = [];
-      tl.forEach((team) => {
-        team.pairList.forEach((pair) => {
-          pair.memberList.forEach((member) => {
-            memberListBelongingToPair.push(member);
-          });
-        });
-      });
-
-      return ml.filter((m) => !memberListBelongingToPair.includes(m));
-    })(memberList, teamList);
+    const independentMemberList = TeamRepository.getIndependentMemberList(
+      memberList,
+      teamList,
+    );
 
     return { teamList, independentMemberList };
   }
@@ -63,5 +55,21 @@ export class TeamRepository implements ITeamRepository {
         activityStatus: ActivityStatus.create({ status: activityStatus }),
       });
     });
+  }
+
+  private static getIndependentMemberList(
+    memberList: Member[],
+    teamList: Team[],
+  ): Member[] {
+    const memberListBelongingToPair: Member[] = [];
+    teamList.forEach((team) => {
+      team.pairList.forEach((pair) => {
+        pair.memberList.forEach((member) => {
+          memberListBelongingToPair.push(member);
+        });
+      });
+    });
+
+    return memberList.filter((m) => !memberListBelongingToPair.includes(m));
   }
 }
