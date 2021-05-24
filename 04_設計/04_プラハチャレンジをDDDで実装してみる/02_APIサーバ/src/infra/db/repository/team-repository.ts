@@ -18,7 +18,7 @@ export class TeamRepository implements ITeamRepository {
 
     const memberList = TeamRepository.memberFactory(memberDataList);
 
-    const teamList = teamDataList.map((teamData) => {
+    const teamList: Team[] = teamDataList.map((teamData) => {
       const pairList = teamData.pair.map((pairData) => {
         const memberIdList = pairData.member.map(
           (memberOnPair) => memberOnPair.memberId,
@@ -37,7 +37,7 @@ export class TeamRepository implements ITeamRepository {
         pairList,
       });
     });
-    const independentMemberList = TeamRepository.getIndependentMemberList(
+    const independentMemberList: Member[] = TeamRepository.getIndependentMemberList(
       memberList,
       teamList,
     );
@@ -70,6 +70,8 @@ export class TeamRepository implements ITeamRepository {
       });
     });
 
-    return memberList.filter((m) => !memberListBelongingToPair.includes(m));
+    return memberList.filter(
+      (member) => !memberListBelongingToPair.includes(member),
+    );
   }
 }
