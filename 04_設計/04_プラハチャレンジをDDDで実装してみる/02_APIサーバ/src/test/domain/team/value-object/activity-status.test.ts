@@ -30,5 +30,11 @@ describe("ActivityStatus", () => {
         );
       });
     });
+
+    test("不正な文字列で在籍ステータスを作ろうとした場合、エラーが返ってくる", () => {
+      expect(() => {
+        const _activityStatus = ActivityStatus.create({ status: "森三中" });
+      }).toThrowError("Invalid status value");
+    });
   });
 });
