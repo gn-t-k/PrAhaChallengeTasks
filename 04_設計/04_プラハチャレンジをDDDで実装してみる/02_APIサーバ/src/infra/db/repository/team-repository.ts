@@ -118,13 +118,13 @@ export class TeamRepository implements ITeamRepository {
 
   private static getMemberFromMemberOnPair(
     memberOnPairList: MemberOnPair[],
-    memberList: Member[],
+    allMemberList: Member[],
   ): Member[] {
     const memberIdList = memberOnPairList.map(
       (memberOnPair) => memberOnPair.memberId,
     );
 
-    return memberList.filter((member) =>
+    return allMemberList.filter((member) =>
       memberIdList.includes(member.id.value),
     );
   }
