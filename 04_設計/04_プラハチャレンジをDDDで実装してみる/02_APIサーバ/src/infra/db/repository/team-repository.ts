@@ -41,8 +41,8 @@ export class TeamRepository implements ITeamRepository {
       allMemberList,
     );
     const independentMemberList: Member[] = TeamRepository.getIndependentMemberList(
-      allMemberList,
       teamList,
+      allMemberList,
     );
 
     return { teamList, independentMemberList };
@@ -67,8 +67,8 @@ export class TeamRepository implements ITeamRepository {
   }
 
   private static getIndependentMemberList(
-    allMemberList: Member[],
     teamList: Team[],
+    allMemberList: Member[],
   ): Member[] {
     const memberListBelongingToPair: Member[] = teamList
       .reduce(
