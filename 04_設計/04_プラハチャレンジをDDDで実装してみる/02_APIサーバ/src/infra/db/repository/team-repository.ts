@@ -2,7 +2,7 @@ import {
   Member as IMemberData,
   Pair as IPairData,
   Team as ITeamData,
-  MemberOnPair,
+  MemberOnPair as IMemberOnPairData,
   PrismaClient,
 } from "@prisma/client";
 import { Identifier } from "domain/shared/identifier";
@@ -13,7 +13,7 @@ import { ITeamRepository, ITeamStructure } from "domain/team/team-repository";
 import { ActivityStatus } from "domain/team/value-object/activity-status";
 
 type INestedPairData = IPairData & {
-  member: MemberOnPair[];
+  member: IMemberOnPairData[];
 };
 type INestedTeamData = ITeamData & {
   pair: INestedPairData[];
@@ -117,7 +117,7 @@ export class TeamRepository implements ITeamRepository {
   }
 
   private static getMemberFromMemberOnPair(
-    memberOnPairList: MemberOnPair[],
+    memberOnPairList: IMemberOnPairData[],
     allMemberList: Member[],
   ): Member[] {
     const memberIdList = memberOnPairList.map(
