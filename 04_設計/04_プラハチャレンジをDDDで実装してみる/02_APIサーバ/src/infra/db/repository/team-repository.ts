@@ -11,6 +11,7 @@ import { Pair } from "domain/team/entity/pair";
 import { Team } from "domain/team/entity/team";
 import { ITeamRepository, ITeamStructure } from "domain/team/team-repository";
 import { ActivityStatus } from "domain/team/value-object/activity-status";
+import { Context } from "infra/db/context";
 
 type INestedTeamData = ITeamData & {
   pair: INestedPairData[];
@@ -22,8 +23,8 @@ type INestedPairData = IPairData & {
 export class TeamRepository implements ITeamRepository {
   private readonly prisma: PrismaClient;
 
-  constructor() {
-    this.prisma = new PrismaClient();
+  constructor(context: Context) {
+    this.prisma = context.prisma;
   }
 
   public async getAll(): Promise<ITeamStructure> {
