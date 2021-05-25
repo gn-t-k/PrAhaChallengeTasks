@@ -12,11 +12,11 @@ import { Team } from "domain/team/entity/team";
 import { ITeamRepository, ITeamStructure } from "domain/team/team-repository";
 import { ActivityStatus } from "domain/team/value-object/activity-status";
 
-type INestedPairData = IPairData & {
-  member: IMemberOnPairData[];
-};
 type INestedTeamData = ITeamData & {
   pair: INestedPairData[];
+};
+type INestedPairData = IPairData & {
+  member: IMemberOnPairData[];
 };
 
 export class TeamRepository implements ITeamRepository {
@@ -82,7 +82,8 @@ export class TeamRepository implements ITeamRepository {
       );
 
     return allMemberList.filter(
-      (member) => !memberListBelongingToPair.includes(member),
+      (member) =>
+        memberListBelongingToPair.find((m) => m.equals(member)) === undefined,
     );
   }
 
