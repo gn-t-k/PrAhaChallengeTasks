@@ -8,10 +8,8 @@ export class GetAllTeamAndMember {
   }
 
   public async execute(): Promise<ITeamStructure> {
-    try {
-      return await this.teamRepository.getAll();
-    } catch {
-      throw new Error("Failed to get data from repository");
-    }
+    const result = await this.teamRepository.getAll();
+
+    return result;
   }
 }
