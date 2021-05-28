@@ -9,9 +9,12 @@ import { Identifier } from "domain/shared/identifier";
 import { Member } from "domain/team/entity/member";
 import { Pair } from "domain/team/entity/pair";
 import { Team } from "domain/team/entity/team";
-import { ITeamRepository, ITeamStructure } from "domain/team/team-repository";
 import { ActivityStatus } from "domain/team/value-object/activity-status";
 import { Context } from "infra/db/context";
+import {
+  IGetAllMemberQueryService,
+  ITeamStructure,
+} from "usecase/query-service-interface/get-all-member-query-service";
 
 type INestedTeamData = ITeamData & {
   pair: INestedPairData[];
@@ -20,14 +23,14 @@ type INestedPairData = IPairData & {
   member: IMemberOnPairData[];
 };
 
-export class TeamRepository implements ITeamRepository {
+export class GetAllMemberQueryService implements IGetAllMemberQueryService {
   private readonly prisma: PrismaClient;
 
   constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
-  public async getAll(): Promise<ITeamStructure> {
+  public async execute(): Promise<ITeamStructure> {
     const [teamDataList, memberDataList] = await Promise.all([
       this.prisma.team.findMany({
         include: { pair: { include: { member: true } } },
@@ -35,18 +38,32 @@ export class TeamRepository implements ITeamRepository {
       this.prisma.member.findMany(),
     ]);
 
-    const allMemberList = TeamRepository.memberFactory(memberDataList);
+    const allMemberList = GetAllMemberQueryService.memberFactory(
+      memberDataList,
+    );
 
-    const teamList: Team[] = TeamRepository.convertTeamDataToEntity(
+    const teamList: Team[] = GetAllMemberQueryService.convertTeamDataToEntity(
       teamDataList,
       allMemberList,
     );
-    const independentMemberList: Member[] = TeamRepository.getIndependentMemberList(
+    const independentMemberList: Member[] = GetAllMemberQueryService.getIndependentMemberList(
       teamList,
       allMemberList,
     );
 
     return { teamList, independentMemberList };
+  }
+
+  private static memberFactory(memberDataList: IMemberData[]): Member[] {
+    return memberDataList.map((memberData) => {
+      const { id, name, email, activityStatus } = memberData;
+
+      return Member.rebuild(new Identifier(id), {
+        name,
+        email,
+        activityStatus: ActivityStatus.create({ status: activityStatus }),
+      });
+    });
   }
 
   private static convertTeamDataToEntity(
@@ -86,18 +103,6 @@ export class TeamRepository implements ITeamRepository {
       (member) =>
         memberListBelongingToPair.find((m) => m.equals(member)) === undefined,
     );
-  }
-
-  private static memberFactory(memberDataList: IMemberData[]): Member[] {
-    return memberDataList.map((memberData) => {
-      const { id, name, email, activityStatus } = memberData;
-
-      return Member.rebuild(new Identifier(id), {
-        name,
-        email,
-        activityStatus: ActivityStatus.create({ status: activityStatus }),
-      });
-    });
   }
 
   private static pairFactory(pairData: IPairData, memberList: Member[]): Pair {
