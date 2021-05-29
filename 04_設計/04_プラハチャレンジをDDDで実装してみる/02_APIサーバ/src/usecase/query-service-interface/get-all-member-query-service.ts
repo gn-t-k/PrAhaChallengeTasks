@@ -1,11 +1,13 @@
-import { Member } from "domain/team/entity/member";
-import { Team } from "domain/team/entity/team";
+import {
+  MemberDTO,
+  TeamDTO,
+} from "usecase/query-service-interface/domain-dtos";
 
-export interface ITeamStructure {
-  teamList: Team[];
-  independentMemberList?: Member[];
+export interface GetAllMemberDTO {
+  teamList: TeamDTO[];
+  independentMemberList?: MemberDTO[];
 }
 
 export interface IGetAllMemberQueryService {
-  execute(): Promise<ITeamStructure>;
+  execute(): Promise<GetAllMemberDTO>;
 }

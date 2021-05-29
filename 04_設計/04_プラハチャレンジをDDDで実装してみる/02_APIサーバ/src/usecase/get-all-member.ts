@@ -1,6 +1,6 @@
 import {
   IGetAllMemberQueryService,
-  ITeamStructure,
+  GetAllMemberDTO,
 } from "usecase/query-service-interface/get-all-member-query-service";
 
 export class GetAllMember {
@@ -10,7 +10,7 @@ export class GetAllMember {
     this.queryService = queryService;
   }
 
-  public async execute(): Promise<ITeamStructure> {
+  public async execute(): Promise<GetAllMemberDTO> {
     const result = await this.queryService.execute();
 
     return result;

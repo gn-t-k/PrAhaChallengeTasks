@@ -1,22 +1,25 @@
 import {
+  Member as IMemberData,
   Pair as IPairData,
   Team as ITeamData,
   MemberOnPair as IMemberOnPairData,
   PrismaClient,
 } from "@prisma/client";
-import { Member } from "domain/team/entity/member";
-import { Pair } from "domain/team/entity/pair";
-import { Team } from "domain/team/entity/team";
 import { Context } from "infra/db/context";
 import {
-  convertMemberDataToEntity,
-  convertMemberOnPairToMember,
-} from "infra/db/factory/member-factory";
-import { convertPairDataToEntity } from "infra/db/factory/pair-factory";
-import { convertTeamDataToEntity } from "infra/db/factory/team-factory";
+  convertMemberOnPairDataToMemberDTO,
+  convertMemberDataToMemberDTO,
+  convertPairDataToPairDTO,
+  convertTeamDataToTeamDTO,
+} from "infra/db/util/convert-to-dto";
+import {
+  MemberDTO,
+  PairDTO,
+  TeamDTO,
+} from "usecase/query-service-interface/domain-dtos";
 import {
   IGetAllMemberQueryService,
-  ITeamStructure,
+  GetAllMemberDTO,
 } from "usecase/query-service-interface/get-all-member-query-service";
 
 type INestedTeamData = ITeamData & {
@@ -33,7 +36,7 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
     this.prisma = context.prisma;
   }
 
-  public async execute(): Promise<ITeamStructure> {
+  public async execute(): Promise<GetAllMemberDTO> {
     const [teamDataList, memberDataList] = await Promise.all([
       this.prisma.team.findMany({
         include: { pair: { include: { member: true } } },
@@ -41,58 +44,66 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
       this.prisma.member.findMany(),
     ]);
 
-    const allMemberList = memberDataList.map((memberData) =>
-      convertMemberDataToEntity(memberData),
-    );
-
-    const teamList: Team[] = GetAllMemberQueryService.getTeamList(
+    const teamList: TeamDTO[] = GetAllMemberQueryService.getTeamList(
       teamDataList,
-      allMemberList,
+      memberDataList,
     );
-    const independentMemberList: Member[] = GetAllMemberQueryService.getIndependentMemberList(
+    const independentMemberList: MemberDTO[] = GetAllMemberQueryService.getIndependentMemberList(
       teamList,
-      allMemberList,
+      memberDataList.map((memberData) =>
+        convertMemberDataToMemberDTO(memberData),
+      ),
     );
 
     return { teamList, independentMemberList };
   }
 
   private static getTeamList(
-    teamDataList: INestedTeamData[],
-    allMemberList: Member[],
-  ): Team[] {
-    return teamDataList.map((teamData) => {
-      const pairList: Pair[] = teamData.pair.map((pairData) => {
-        const memberList: Member[] = convertMemberOnPairToMember(
-          pairData.member,
-          allMemberList,
-        );
+    nestedTeamDataList: INestedTeamData[],
+    memberDataList: IMemberData[],
+  ): TeamDTO[] {
+    return nestedTeamDataList.map((nestedTeamData) => {
+      const teamData: ITeamData = {
+        id: nestedTeamData.id,
+        name: nestedTeamData.name,
+        createdAt: nestedTeamData.createdAt,
+        updatedAt: nestedTeamData.updatedAt,
+      };
 
-        return convertPairDataToEntity(pairData, memberList);
-      });
+      const pairDTOList: PairDTO[] = nestedTeamData.pair.map(
+        (nestedPairData) => {
+          const pairData: IPairData = {
+            id: nestedPairData.id,
+            name: nestedPairData.name,
+            teamId: nestedTeamData.id,
+            createdAt: nestedPairData.createdAt,
+            updatedAt: nestedPairData.updatedAt,
+          };
 
-      return convertTeamDataToEntity(teamData, pairList);
+          const memberDTOList: MemberDTO[] = convertMemberOnPairDataToMemberDTO(
+            nestedPairData.member,
+            memberDataList,
+          );
+
+          return convertPairDataToPairDTO(pairData, memberDTOList);
+        },
+      );
+
+      return convertTeamDataToTeamDTO(teamData, pairDTOList);
     });
   }
 
   private static getIndependentMemberList(
-    teamList: Team[],
-    allMemberList: Member[],
-  ): Member[] {
-    const memberListBelongingToPair: Member[] = teamList
-      .reduce(
-        (pairList: Pair[], team: Team) => pairList.concat(team.pairList),
-        [],
-      )
-      .reduce(
-        (memberList: Member[], pair: Pair) =>
-          memberList.concat(pair.memberList),
-        [],
-      );
+    teamDTOList: TeamDTO[],
+    memberDTOList: MemberDTO[],
+  ): MemberDTO[] {
+    const memberBelongingToPairList: MemberDTO[] = teamDTOList
+      .reduce((pl: PairDTO[], t: TeamDTO) => pl.concat(t.pairList), [])
+      .reduce((ml: MemberDTO[], p: PairDTO) => ml.concat(p.memberList), []);
 
-    return allMemberList.filter(
-      (member) =>
-        memberListBelongingToPair.find((m) => m.equals(member)) === undefined,
+    return memberDTOList.filter(
+      (memberDTO) =>
+        !memberBelongingToPairList.map((m) => m.id).includes(memberDTO.id),
     );
   }
 }

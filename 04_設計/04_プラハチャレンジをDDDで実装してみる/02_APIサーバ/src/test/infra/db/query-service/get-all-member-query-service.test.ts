@@ -1,12 +1,14 @@
-import { Member } from "domain/team/entity/member";
-import { Pair } from "domain/team/entity/pair";
-import { Team } from "domain/team/entity/team";
 import { MockContext, Context, createMockContext } from "infra/db/context";
 import { GetAllMemberQueryService } from "infra/db/query-service/get-all-member-query-service";
 import {
   allMemberDataList,
   nestedTeamDataList,
 } from "test/stub/infra/db/query-service/get-all-member-query-service";
+import {
+  MemberDTO,
+  PairDTO,
+  TeamDTO,
+} from "usecase/query-service-interface/domain-dtos";
 
 let mockContext: MockContext;
 let context: Context;
@@ -33,7 +35,7 @@ describe("GetAllMemberQueryService", () => {
       ).execute();
 
       const stubTeamIDList = nestedTeamDataList.map((team) => team.id);
-      const teamIDList = teamStructure.teamList.map((team) => team.id.value);
+      const teamIDList = teamStructure.teamList.map((team) => team.id);
 
       expect(isEqualValueArray(stubTeamIDList, teamIDList)).toBe(true);
     });
@@ -45,14 +47,14 @@ describe("GetAllMemberQueryService", () => {
       const teamStructure = await new GetAllMemberQueryService(
         context,
       ).execute();
-      const anID = teamStructure.teamList[0].id.value;
+      const anID = teamStructure.teamList[0].id;
 
       const stubPairIDList = nestedTeamDataList
         .find((team) => team.id === anID)
         ?.pair.map((pair) => pair.id);
       const pairIDList = teamStructure.teamList
-        .find((team) => team.id.value === anID)
-        ?.pairList.map((pair) => pair.id.value);
+        .find((team) => team.id === anID)
+        ?.pairList.map((pair) => pair.id);
 
       expect(isEqualValueArray(stubPairIDList, pairIDList)).toBe(true);
     });
@@ -69,19 +71,20 @@ describe("GetAllMemberQueryService", () => {
         context,
       ).execute();
       const independentMemberIDList = teamStructure.independentMemberList?.map(
-        (member) => member.id.value,
+        (member) => member.id,
       );
       const memberBelongingToPairIDList = teamStructure.teamList
         .reduce(
-          (pairList: Pair[], team: Team) => pairList.concat(team.pairList),
+          (pairList: PairDTO[], team: TeamDTO) =>
+            pairList.concat(team.pairList),
           [],
         )
         .reduce(
-          (memberList: Member[], pair: Pair) =>
+          (memberList: MemberDTO[], pair: PairDTO) =>
             memberList.concat(pair.memberList),
           [],
         )
-        .map((member) => member.id.value);
+        .map((member) => member.id);
 
       expect(
         independentMemberIDList?.every(
