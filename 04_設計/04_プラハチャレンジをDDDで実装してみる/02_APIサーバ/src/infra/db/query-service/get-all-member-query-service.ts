@@ -33,9 +33,9 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
     ]);
 
     const memberList: GetAllMemberDTO = memberDataList.map((memberData) => {
-      const { id, name, activityStatus } = memberData;
+      const { id, name, email, activityStatus } = memberData;
 
-      return { id, name, activityStatus, pairID: null, teamID: null };
+      return { id, name, email, activityStatus, pairID: null, teamID: null };
     });
     teamDataList.forEach((nestedTeamData: INestedTeamData) => {
       const teamID = nestedTeamData.id;
