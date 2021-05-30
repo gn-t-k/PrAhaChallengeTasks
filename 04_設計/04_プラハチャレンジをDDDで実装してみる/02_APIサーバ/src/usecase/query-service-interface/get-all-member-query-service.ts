@@ -5,7 +5,7 @@ import {
 
 export interface GetAllMemberDTO {
   teamList: TeamDTO[];
-  independentMemberList?: MemberDTO[];
+  independentMemberList: MemberDTO[];
 }
 
 export interface IGetAllMemberQueryService {
