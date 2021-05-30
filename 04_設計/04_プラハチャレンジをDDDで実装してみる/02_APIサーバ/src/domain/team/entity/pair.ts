@@ -1,6 +1,6 @@
+import { Member } from "domain/member/entity/member";
 import { Entity } from "domain/shared/entity";
 import { Identifier } from "domain/shared/identifier";
-import { Member } from "domain/team/entity/member";
 
 export interface IPair {
   name: string;
