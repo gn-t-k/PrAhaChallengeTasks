@@ -1,22 +1,10 @@
 import {
-  Member as IMemberData,
   Pair as IPairData,
   Team as ITeamData,
   MemberOnPair as IMemberOnPairData,
   PrismaClient,
 } from "@prisma/client";
 import { Context } from "infra/db/context";
-import {
-  convertMemberOnPairDataToMemberDTO,
-  convertMemberDataToMemberDTO,
-  convertPairDataToPairDTO,
-  convertTeamDataToTeamDTO,
-} from "infra/db/util/convert-to-dto";
-import {
-  MemberDTO,
-  PairDTO,
-  TeamDTO,
-} from "usecase/query-service-interface/domain-dtos";
 import {
   IGetAllMemberQueryService,
   GetAllMemberDTO,
@@ -44,66 +32,31 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
       this.prisma.member.findMany(),
     ]);
 
-    const teamList: TeamDTO[] = GetAllMemberQueryService.getTeamList(
-      teamDataList,
-      memberDataList,
-    );
-    const independentMemberList: MemberDTO[] = GetAllMemberQueryService.getIndependentMemberList(
-      teamList,
-      memberDataList.map((memberData) =>
-        convertMemberDataToMemberDTO(memberData),
-      ),
-    );
+    const memberList: GetAllMemberDTO = memberDataList.map((memberData) => {
+      const { id, name, activityStatus } = memberData;
 
-    return { teamList, independentMemberList };
-  }
+      return { id, name, activityStatus, pairID: null, teamID: null };
+    });
+    teamDataList.forEach((nestedTeamData: INestedTeamData) => {
+      const teamID = nestedTeamData.id;
 
-  private static getTeamList(
-    nestedTeamDataList: INestedTeamData[],
-    memberDataList: IMemberData[],
-  ): TeamDTO[] {
-    return nestedTeamDataList.map((nestedTeamData) => {
-      const teamData: ITeamData = {
-        id: nestedTeamData.id,
-        name: nestedTeamData.name,
-        createdAt: nestedTeamData.createdAt,
-        updatedAt: nestedTeamData.updatedAt,
-      };
+      nestedTeamData.pair.forEach((nestedPairData: INestedPairData) => {
+        const pairID = nestedPairData.id;
 
-      const pairDTOList: PairDTO[] = nestedTeamData.pair.map(
-        (nestedPairData) => {
-          const pairData: IPairData = {
-            id: nestedPairData.id,
-            name: nestedPairData.name,
-            teamId: nestedTeamData.id,
-            createdAt: nestedPairData.createdAt,
-            updatedAt: nestedPairData.updatedAt,
-          };
-
-          const memberDTOList: MemberDTO[] = convertMemberOnPairDataToMemberDTO(
-            nestedPairData.member,
-            memberDataList,
+        nestedPairData.member.forEach((memberOnPair: IMemberOnPairData) => {
+          const memberID = memberOnPair.memberId;
+          const targetMember = memberList.find(
+            (member) => member.id === memberID,
           );
 
-          return convertPairDataToPairDTO(pairData, memberDTOList);
-        },
-      );
-
-      return convertTeamDataToTeamDTO(teamData, pairDTOList);
+          if (targetMember) {
+            targetMember.pairID = pairID;
+            targetMember.teamID = teamID;
+          }
+        });
+      });
     });
-  }
 
-  private static getIndependentMemberList(
-    teamDTOList: TeamDTO[],
-    memberDTOList: MemberDTO[],
-  ): MemberDTO[] {
-    const memberBelongingToPairList: MemberDTO[] = teamDTOList
-      .reduce((pl: PairDTO[], t: TeamDTO) => pl.concat(t.pairList), [])
-      .reduce((ml: MemberDTO[], p: PairDTO) => ml.concat(p.memberList), []);
-
-    return memberDTOList.filter(
-      (memberDTO) =>
-        !memberBelongingToPairList.map((m) => m.id).includes(memberDTO.id),
-    );
+    return memberList;
   }
 }
