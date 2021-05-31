@@ -1,11 +1,6 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 
-export interface IMemberFactoryProps {
-  name: string;
-  email: string;
-}
-
 export class MemberService {
   private readonly repository: IMemberRepository;
 
