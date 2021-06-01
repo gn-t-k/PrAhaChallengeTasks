@@ -1,5 +1,5 @@
-import { MemberService } from "domain/member/domain-service/member-service";
 import { IMemberRepository } from "domain/member/member-repository-interface";
+import { MemberService } from "domain/member/member-service";
 
 export interface IRegisterMemberProps {
   name: string;

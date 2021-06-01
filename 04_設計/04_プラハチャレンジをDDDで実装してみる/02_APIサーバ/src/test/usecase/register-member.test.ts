@@ -46,7 +46,29 @@ describe("RegisterMember", () => {
         }),
       );
     });
-    test("idが重複する参加者がいた場合");
-    test("emailが重複する参加者がいた場合");
+
+    test("emailが重複する参加者がいた場合", async () => {
+      const [name, email] = ["name", "Pamela69@gmail.com"];
+      const memberData = {
+        id: "test",
+        name,
+        email,
+        activityStatus: "在籍中",
+        updatedAt: new Date(),
+        createdAt: new Date(),
+      };
+      mockContext.prisma.member.create.mockResolvedValue(memberData);
+      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
+
+      const repository = new MemberRepository(context);
+      const registerMember = new RegisterMember(repository);
+
+      const promise = registerMember.execute({
+        name,
+        email,
+      });
+
+      await expect(promise).rejects.toThrowError("Member already exists");
+    });
   });
 });

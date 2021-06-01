@@ -53,6 +53,8 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
             targetMember.pairID = pairID;
             targetMember.teamID = teamID;
           }
+
+          // TODO: team.findManyで取得した参加者がmember.findManyの中にいなかった場合のエラーハンドリング
         });
       });
     });

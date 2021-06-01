@@ -12,7 +12,7 @@ export class MemberRepository implements IMemberRepository {
     this.prisma = context.prisma;
   }
 
-  public async register(member: Member): Promise<void> {
+  public register = async (member: Member): Promise<void> => {
     const id = member.id.value;
     const { name, email } = member;
     const activityStatus = member.status.value;
@@ -20,7 +20,7 @@ export class MemberRepository implements IMemberRepository {
     await this.prisma.member.create({
       data: { id, name, email, activityStatus },
     });
-  }
+  };
 
   public async getAll(): Promise<Member[]> {
     const memberDataList = await this.prisma.member.findMany();
