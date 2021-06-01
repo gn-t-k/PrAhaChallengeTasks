@@ -4,11 +4,6 @@ import {
   allMemberDataList,
   nestedTeamDataList,
 } from "test/stub/infra/db/query-service/get-all-member-query-service";
-import {
-  MemberDTO,
-  PairDTO,
-  TeamDTO,
-} from "usecase/query-service-interface/domain-dtos";
 
 let mockContext: MockContext;
 let context: Context;
@@ -19,78 +14,50 @@ beforeEach(() => {
 });
 
 describe("GetAllMemberQueryService", () => {
-  describe("teamList", () => {
-    const isEqualValueArray = (left?: string[], right?: string[]) =>
-      left !== undefined &&
-      right !== undefined &&
-      left.length === right.length &&
-      left.every((l) => right.includes(l));
+  test("pairIDとteamIDが適切に設定されている", async () => {
+    mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
+    mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
 
-    test("teamのIDがスタブと一致している", async () => {
-      mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
-      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
+    const memberList = await new GetAllMemberQueryService(context).execute();
 
-      const teamStructure = await new GetAllMemberQueryService(
-        context,
-      ).execute();
+    const targetTeamID = nestedTeamDataList[0].id;
+    const targetPairID = nestedTeamDataList[0].pair[0].id;
+    const targetMemberID = nestedTeamDataList[0].pair[0].member[0].memberId;
 
-      const stubTeamIDList = nestedTeamDataList.map((team) => team.id);
-      const teamIDList = teamStructure.teamList.map((team) => team.id);
+    const targetMember = memberList.find(
+      (member) => member.id === targetMemberID,
+    );
 
-      expect(isEqualValueArray(stubTeamIDList, teamIDList)).toBe(true);
-    });
-
-    test("あるteamに所属しているpairのidが一致している", async () => {
-      mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
-      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
-
-      const teamStructure = await new GetAllMemberQueryService(
-        context,
-      ).execute();
-      const anID = teamStructure.teamList[0].id;
-
-      const stubPairIDList = nestedTeamDataList
-        .find((team) => team.id === anID)
-        ?.pair.map((pair) => pair.id);
-      const pairIDList = teamStructure.teamList
-        .find((team) => team.id === anID)
-        ?.pairList.map((pair) => pair.id);
-
-      expect(isEqualValueArray(stubPairIDList, pairIDList)).toBe(true);
-    });
-
-    // TODO: memberが一致しているかどうかもテストしたかったが力尽きた
+    expect(
+      targetMember &&
+        targetMember.pairID === targetPairID &&
+        targetMember.teamID === targetTeamID,
+    ).toBe(true);
   });
 
-  describe("independentMemberList", () => {
-    test("independentMemberListに含まれるmemberはteamListに含まれない", async () => {
-      mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
-      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
+  test("pairIDとteamIDがともにnullになっている参加者は、どのペアにも属していない", async () => {
+    mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
+    mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
 
-      const teamStructure = await new GetAllMemberQueryService(
-        context,
-      ).execute();
-      const independentMemberIDList = teamStructure.independentMemberList?.map(
-        (member) => member.id,
-      );
-      const memberBelongingToPairIDList = teamStructure.teamList
-        .reduce(
-          (pairList: PairDTO[], team: TeamDTO) =>
-            pairList.concat(team.pairList),
-          [],
-        )
-        .reduce(
-          (memberList: MemberDTO[], pair: PairDTO) =>
-            memberList.concat(pair.memberList),
-          [],
-        )
-        .map((member) => member.id);
+    const memberList = await new GetAllMemberQueryService(context).execute();
 
-      expect(
-        independentMemberIDList?.every(
-          (id) => !memberBelongingToPairIDList.includes(id),
-        ),
-      ).toBe(true);
-    });
+    const independentMemberList = memberList.filter(
+      (member) => member.pairID === null && member.teamID === null,
+    );
+    const isIndependentMemberExist = independentMemberList
+      .map((independentMember) => {
+        const { id } = independentMember;
+
+        return !nestedTeamDataList.every((nestedTeamData) =>
+          nestedTeamData.pair.every((nestedPairData) =>
+            nestedPairData.member.every(
+              (memberOnPairData) => memberOnPairData.memberId !== id,
+            ),
+          ),
+        );
+      })
+      .reduce((acc, cur) => acc && cur);
+
+    expect(isIndependentMemberExist).toBe(false);
   });
 });

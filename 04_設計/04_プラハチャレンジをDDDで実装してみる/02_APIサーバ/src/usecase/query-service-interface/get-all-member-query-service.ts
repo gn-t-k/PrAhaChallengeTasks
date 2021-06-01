@@ -1,12 +1,12 @@
-import {
-  MemberDTO,
-  TeamDTO,
-} from "usecase/query-service-interface/domain-dtos";
-
-export interface GetAllMemberDTO {
-  teamList: TeamDTO[];
-  independentMemberList: MemberDTO[];
+interface OneOfGetAllMemberDTO {
+  id: string;
+  name: string;
+  email: string;
+  activityStatus: string;
+  pairID: string | null;
+  teamID: string | null;
 }
+export type GetAllMemberDTO = OneOfGetAllMemberDTO[];
 
 export interface IGetAllMemberQueryService {
   execute(): Promise<GetAllMemberDTO>;
