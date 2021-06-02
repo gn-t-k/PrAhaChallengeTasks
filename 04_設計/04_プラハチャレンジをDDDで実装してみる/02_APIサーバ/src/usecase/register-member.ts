@@ -24,6 +24,8 @@ export class RegisterMember {
       throw new Error("Member already exists");
     }
 
+    // TODO: 参加者の課題と同時に課題進捗も登録する
+
     await this.repository.register(member);
   }
 }
