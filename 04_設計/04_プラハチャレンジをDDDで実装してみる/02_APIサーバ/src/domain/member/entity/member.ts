@@ -1,6 +1,6 @@
+import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Entity } from "domain/shared/entity";
 import { Identifier } from "domain/shared/identifier";
-import { ActivityStatus } from "domain/team/value-object/activity-status";
 
 export interface IMember {
   name: string;
