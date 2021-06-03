@@ -4,7 +4,7 @@ import { Identifier } from "domain/shared/identifier";
 
 export interface IExercise {
   title: string;
-  details: string;
+  description: string;
   group: ExerciseGroup;
 }
 
@@ -14,7 +14,7 @@ export class Exercise extends AggregateRoot<IExercise> {
   }
 
   public get details(): string {
-    return this.props.details;
+    return this.props.description;
   }
 
   public get group(): ExerciseGroup {
@@ -39,7 +39,7 @@ export class Exercise extends AggregateRoot<IExercise> {
     if (props.title === "") {
       throw new Error("Illegal title value.");
     }
-    if (props.details === "") {
+    if (props.description === "") {
       throw new Error("Illegal details value.");
     }
   }

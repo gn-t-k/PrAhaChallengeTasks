@@ -8,40 +8,52 @@ const progressStatusValue = {
 type ProgressStatusType = typeof progressStatusValue[keyof typeof progressStatusValue];
 
 interface IProgressStatus {
-  value: ProgressStatusType;
+  status: string;
 }
 
 export class ProgressStatus extends ValueObject<IProgressStatus> {
-  public get value(): ProgressStatusType {
-    return this.props.value;
+  public get value(): string {
+    return this.props.status;
   }
 
   public static create(): ProgressStatus {
-    return new ProgressStatus({ value: progressStatusValue.notStartedYet });
+    return new ProgressStatus({ status: progressStatusValue.notStartedYet });
+  }
+
+  public static rebuild(props: IProgressStatus): ProgressStatus {
+    if (
+      !Object.values(progressStatusValue).includes(
+        props.status as ProgressStatusType,
+      )
+    ) {
+      throw new Error("Invalid status value");
+    }
+
+    return new ProgressStatus(props);
   }
 
   public getNext(): ProgressStatus {
-    switch (this.props.value) {
+    switch (this.props.status) {
       case progressStatusValue.notStartedYet:
         return new ProgressStatus({
-          value: progressStatusValue.waitingForReview,
+          status: progressStatusValue.waitingForReview,
         });
       case progressStatusValue.waitingForReview:
-        return new ProgressStatus({ value: progressStatusValue.done });
+        return new ProgressStatus({ status: progressStatusValue.done });
       default:
         throw new Error("Illegal status manipulation");
     }
   }
 
   public getPrevious(): ProgressStatus {
-    switch (this.props.value) {
+    switch (this.props.status) {
       case progressStatusValue.done:
         return new ProgressStatus({
-          value: progressStatusValue.waitingForReview,
+          status: progressStatusValue.waitingForReview,
         });
       case progressStatusValue.waitingForReview:
         return new ProgressStatus({
-          value: progressStatusValue.notStartedYet,
+          status: progressStatusValue.notStartedYet,
         });
       default:
         throw new Error("Illegal status manipulation");
@@ -49,10 +61,10 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
   }
 
   public isDone(): boolean {
-    return this.props.value === progressStatusValue.done;
+    return this.props.status === progressStatusValue.done;
   }
 
   public equals(props: ProgressStatus): boolean {
-    return this.props.value === props.value;
+    return this.props.status === props.value;
   }
 }

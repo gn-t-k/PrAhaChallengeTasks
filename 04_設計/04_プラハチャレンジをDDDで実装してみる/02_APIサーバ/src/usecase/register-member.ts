@@ -5,7 +5,13 @@ import { MemberService } from "domain/member/member-service";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 import { ProgressService } from "domain/progress/progress-service";
 
-export interface IRegisterMemberProps {
+interface IRegisterMemberProps {
+  memberRepository: IMemberRepository;
+  exerciseRepository: IExerciseRepository;
+  progressRepository: IProgressRepository;
+}
+
+interface IExecuteProps {
   name: string;
   email: string;
 }
@@ -17,19 +23,15 @@ export class RegisterMember {
   private readonly memberService: MemberService;
   private readonly progressService: ProgressService;
 
-  constructor(
-    memberRepository: IMemberRepository,
-    exerciseRepository: IExerciseRepository,
-    progressRepository: IProgressRepository,
-  ) {
-    this.memberRepository = memberRepository;
-    this.exerciseRepository = exerciseRepository;
-    this.progressRepository = progressRepository;
-    this.memberService = new MemberService(memberRepository);
-    this.progressService = new ProgressService(progressRepository);
+  constructor(props: IRegisterMemberProps) {
+    this.memberRepository = props.memberRepository;
+    this.exerciseRepository = props.exerciseRepository;
+    this.progressRepository = props.progressRepository;
+    this.memberService = new MemberService(props.memberRepository);
+    this.progressService = new ProgressService(props.progressRepository);
   }
 
-  public async execute(props: IRegisterMemberProps): Promise<void> {
+  public async execute(props: IExecuteProps): Promise<void> {
     const { name, email } = props;
     const member = MemberService.factory({ name, email });
 

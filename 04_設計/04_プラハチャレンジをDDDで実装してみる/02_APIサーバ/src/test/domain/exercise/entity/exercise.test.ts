@@ -3,17 +3,17 @@ import { Identifier } from "domain/shared/identifier";
 import { makeDummyExerciseProps } from "test/util/dummy/exercise";
 
 describe("Exercise", () => {
-  const { title, details, group } = makeDummyExerciseProps();
+  const { title, description, group } = makeDummyExerciseProps();
 
   describe("Exerciseを作成できる", () => {
-    const exercise = Exercise.create({ title, details, group });
+    const exercise = Exercise.create({ title, description, group });
 
     test("title", () => {
       expect(exercise.title).toEqual(title);
     });
 
     test("details", () => {
-      expect(exercise.details).toEqual(details);
+      expect(exercise.details).toEqual(description);
     });
 
     test("group", () => {
@@ -25,7 +25,7 @@ describe("Exercise", () => {
         expect(() => {
           const _exercise = Exercise.create({
             title: "",
-            details,
+            description,
             group,
           });
         }).toThrowError("Illegal title value.");
@@ -35,7 +35,7 @@ describe("Exercise", () => {
         expect(() => {
           const _exercise = Exercise.create({
             title,
-            details: "",
+            description: "",
             group,
           });
         }).toThrowError("Illegal details value.");
@@ -46,7 +46,7 @@ describe("Exercise", () => {
   describe("オブジェクトを再構築できる", () => {
     const exercise = Exercise.rebuild(new Identifier(), {
       title,
-      details,
+      description,
       group,
     });
 
@@ -55,7 +55,7 @@ describe("Exercise", () => {
     });
 
     test("details", () => {
-      expect(exercise.details).toEqual(details);
+      expect(exercise.details).toEqual(description);
     });
 
     test("group", () => {
@@ -67,7 +67,7 @@ describe("Exercise", () => {
         expect(() => {
           const _exercise = Exercise.rebuild(new Identifier(), {
             title: "",
-            details,
+            description,
             group,
           });
         }).toThrowError("Illegal title value.");
@@ -77,7 +77,7 @@ describe("Exercise", () => {
         expect(() => {
           const _exercise = Exercise.rebuild(new Identifier(), {
             title,
-            details: "",
+            description: "",
             group,
           });
         }).toThrowError("Illegal details value.");
