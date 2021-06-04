@@ -6,6 +6,14 @@ import { ExerciseRepository } from "infra/db/repository/exercise-repository";
 import { MemberRepository } from "infra/db/repository/member-repository";
 import { ProgressRepository } from "infra/db/repository/progress-repository";
 import { allMemberDataList } from "test/stub/infra/db/query-service/get-all-member-query-service";
+import {
+  exerciseDataList,
+  exerciseGroupDataList,
+} from "test/stub/infra/db/repository/exercise-repository";
+import {
+  batchPayload,
+  progressDataList,
+} from "test/stub/infra/db/repository/progress-repository";
 import { RegisterMember } from "usecase/register-member";
 
 let mockContext: MockContext;
@@ -18,6 +26,20 @@ beforeEach(() => {
 
 describe("RegisterMember", () => {
   describe("参加者を登録できる", () => {
+    beforeEach(() => {
+      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
+      mockContext.prisma.exercise.findMany.mockResolvedValue(exerciseDataList);
+      mockContext.prisma.exerciseGroup.findMany.mockResolvedValue(
+        exerciseGroupDataList,
+      );
+      mockContext.prisma.exerciseOnMember.createMany.mockResolvedValue(
+        batchPayload,
+      );
+      mockContext.prisma.exerciseOnMember.findMany.mockResolvedValue(
+        progressDataList,
+      );
+    });
+
     test("重複する参加者がいなかった場合", async () => {
       const [name, email] = ["name", "test@email.com"];
       const memberData = {
@@ -29,8 +51,6 @@ describe("RegisterMember", () => {
         createdAt: new Date(),
       };
       mockContext.prisma.member.create.mockResolvedValue(memberData);
-      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
-      // TODO: exerciseとかexerciseOnMemberとかのモック
 
       const memberRepository = new MemberRepository(context);
       const exerciseRepository = new ExerciseRepository(context);
@@ -67,8 +87,6 @@ describe("RegisterMember", () => {
         createdAt: new Date(),
       };
       mockContext.prisma.member.create.mockResolvedValue(memberData);
-      mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
-      // TODO: exerciseとかexerciseOnMemberとかのモック
 
       const memberRepository = new MemberRepository(context);
       const exerciseRepository = new ExerciseRepository(context);
