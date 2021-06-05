@@ -1,9 +1,9 @@
+import { Member } from "domain/member/entity/member";
+import { IMemberRepository } from "domain/member/member-repository-interface";
 import {
   ActivityStatus,
   activityStatusValue,
-} from "./value-object/activity-status";
-import { Member } from "domain/member/entity/member";
-import { IMemberRepository } from "domain/member/member-repository-interface";
+} from "domain/member/value-object/activity-status";
 
 interface IMemberFactoryProps {
   name: string;
