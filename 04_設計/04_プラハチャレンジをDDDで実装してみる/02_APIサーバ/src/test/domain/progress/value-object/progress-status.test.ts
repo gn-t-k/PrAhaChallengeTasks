@@ -10,6 +10,23 @@ describe("ProgressStatus", () => {
     expect(ProgressStatus.create().value).toEqual("未着手");
   });
 
+  describe("進捗ステータスオブジェクトを作成できる", () => {
+    test("レビュー待ちの進捗ステータスオブジェクトを作成できる", () => {
+      const status = "レビュー待ち";
+      const progressStatus = ProgressStatus.rebuild({ status });
+
+      expect(progressStatus.value).toEqual(status);
+    });
+
+    test("既定の文字列以外のステータスは受け付けない", () => {
+      const status = "ハマチ";
+
+      expect(() => {
+        const _progressStatus = ProgressStatus.rebuild({ status });
+      }).toThrowError("Invalid status value");
+    });
+  });
+
   describe("ステータスを進捗させることができる", () => {
     test('"未着手"の次は"レビュー待ち"', () => {
       const progressStatus = makeProgressStatusNotStartedYet();
