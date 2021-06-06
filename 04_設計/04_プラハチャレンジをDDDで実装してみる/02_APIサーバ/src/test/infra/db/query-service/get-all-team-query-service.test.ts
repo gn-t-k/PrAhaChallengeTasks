@@ -11,7 +11,23 @@ beforeEach(() => {
 });
 
 describe("GetAllTeamQueryService", () => {
-  test("すべてのチームが取得できる", async () => {
+  test("すべてのチームが取得できている", async () => {
+    mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
+
+    const teamList = await new GetAllTeamQueryService(context).execute();
+
+    const expectedTeamIDList = nestedTeamDataList.map((t) => t.id);
+    const actualTeamIDList = teamList.map((t) => t.id);
+
+    const isSameLength = expectedTeamIDList.length === actualTeamIDList.length;
+    const isAllIDIncluded = actualTeamIDList.every((actualTeamID) =>
+      expectedTeamIDList.includes(actualTeamID),
+    );
+
+    expect(isSameLength && isAllIDIncluded).toBe(true);
+  });
+
+  test("pairIDが適切に設定されている", async () => {
     mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
 
     const teamList = await new GetAllTeamQueryService(context).execute();
