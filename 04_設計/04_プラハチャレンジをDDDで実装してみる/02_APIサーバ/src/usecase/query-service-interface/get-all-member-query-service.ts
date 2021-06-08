@@ -1,12 +1,6 @@
-interface OneOfGetAllMemberDTO {
-  id: string;
-  name: string;
-  email: string;
-  activityStatus: string;
-  pairID: string | null;
-  teamID: string | null;
-}
-export type GetAllMemberDTO = OneOfGetAllMemberDTO[];
+import { MemberDTO } from "usecase/query-service-interface/entity-dto/member-dto";
+
+export type GetAllMemberDTO = MemberDTO[];
 
 export interface IGetAllMemberQueryService {
   execute(): Promise<GetAllMemberDTO>;

@@ -1,5 +1,5 @@
 import faker from "faker";
-import { IExercise } from "domain/exercise/entity/exercise";
+import { Exercise, IExercise } from "domain/exercise/entity/exercise";
 import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
 
 export const makeDummyExerciseProps = (): IExercise => {
@@ -8,4 +8,10 @@ export const makeDummyExerciseProps = (): IExercise => {
   const group = ExerciseGroup.create({ name: faker.name.title() });
 
   return { title, description, group };
+};
+
+export const makeDummyExercise = (): Exercise => {
+  const { title, description, group } = makeDummyExerciseProps();
+
+  return Exercise.create({ title, description, group });
 };

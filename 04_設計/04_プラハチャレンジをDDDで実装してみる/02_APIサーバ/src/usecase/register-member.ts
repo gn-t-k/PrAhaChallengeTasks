@@ -1,9 +1,11 @@
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
-import { MemberService } from "domain/member/member-service";
+import { IsMemberExist } from "domain/member/service/is-member-exist";
+import { MemberFactory } from "domain/member/service/member-factory";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
-import { ProgressService } from "domain/progress/progress-service";
+import { IsProgressExist } from "domain/progress/service/is-progress-exist";
+import { ProgressFactory } from "domain/progress/service/progress-factory";
 
 interface IRegisterMemberProps {
   memberRepository: IMemberRepository;
@@ -20,20 +22,16 @@ export class RegisterMember {
   private readonly memberRepository: IMemberRepository;
   private readonly exerciseRepository: IExerciseRepository;
   private readonly progressRepository: IProgressRepository;
-  private readonly memberService: MemberService;
-  private readonly progressService: ProgressService;
 
   constructor(props: IRegisterMemberProps) {
     this.memberRepository = props.memberRepository;
     this.exerciseRepository = props.exerciseRepository;
     this.progressRepository = props.progressRepository;
-    this.memberService = new MemberService(props.memberRepository);
-    this.progressService = new ProgressService(props.progressRepository);
   }
 
   public async execute(props: IExecuteProps): Promise<void> {
     const { name, email } = props;
-    const member = MemberService.factory({ name, email });
+    const member = MemberFactory.execute({ name, email });
 
     await Promise.all([
       this.checkMemberExist(member),
@@ -41,7 +39,7 @@ export class RegisterMember {
     ]);
 
     const exerciseList = await this.exerciseRepository.getAll();
-    const progressList = ProgressService.factory(member, exerciseList);
+    const progressList = ProgressFactory.execute({ member, exerciseList });
 
     await Promise.all([
       this.progressRepository.register(progressList),
@@ -50,7 +48,9 @@ export class RegisterMember {
   }
 
   private async checkMemberExist(member: Member): Promise<void> {
-    const isMemberExist = await this.memberService.isExist(member);
+    const isMemberExist = await new IsMemberExist(
+      this.memberRepository,
+    ).execute(member);
 
     if (isMemberExist) {
       throw new Error("Member already exists");
@@ -58,7 +58,9 @@ export class RegisterMember {
   }
 
   private async checkProgressExist(member: Member): Promise<void> {
-    const isProgressExist = await this.progressService.isExist(member);
+    const isProgressExist = await new IsProgressExist(
+      this.progressRepository,
+    ).execute(member);
 
     if (isProgressExist) {
       throw new Error("Progress already exists");
