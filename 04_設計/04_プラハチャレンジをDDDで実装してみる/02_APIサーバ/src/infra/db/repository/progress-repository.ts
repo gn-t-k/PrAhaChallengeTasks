@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Progress } from "domain/progress/entity/progress";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 import { ProgressStatus } from "domain/progress/value-object/progress-status";

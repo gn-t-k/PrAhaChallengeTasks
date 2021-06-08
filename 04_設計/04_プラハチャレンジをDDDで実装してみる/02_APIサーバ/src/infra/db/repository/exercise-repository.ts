@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Exercise } from "domain/exercise/entity/exercise";
 import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";

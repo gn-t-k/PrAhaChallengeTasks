@@ -3,7 +3,7 @@ import {
   validate as uuidValidate,
   version as uuidVersion,
 } from "uuid";
-import { ValueObject } from "./value-object";
+import { ValueObject } from "domain/shared/value-object";
 
 interface IIdentifier {
   value: string;

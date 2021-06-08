@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient } from "@prisma/client";
