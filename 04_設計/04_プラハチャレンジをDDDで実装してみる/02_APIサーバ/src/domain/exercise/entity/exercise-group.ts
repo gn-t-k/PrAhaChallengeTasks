@@ -10,19 +10,25 @@ export class ExerciseGroup extends Entity<IExerciseGroup> {
     return this.props.name;
   }
 
-  public static create(props: IExerciseGroup): ExerciseGroup {
+  public static create = (props: IExerciseGroup): ExerciseGroup => {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }
 
     return new ExerciseGroup(props);
-  }
+  };
 
-  public static rebuild(id: Identifier, props: IExerciseGroup): ExerciseGroup {
+  public static rebuild = (
+    id: Identifier,
+    props: IExerciseGroup,
+  ): ExerciseGroup => {
     if (props.name === "") {
       throw new Error("Illegal name value.");
     }
 
     return new ExerciseGroup(props, id);
-  }
+  };
+
+  public equals = (exerciseGroup: ExerciseGroup): boolean =>
+    exerciseGroup.id.equals(this.id);
 }

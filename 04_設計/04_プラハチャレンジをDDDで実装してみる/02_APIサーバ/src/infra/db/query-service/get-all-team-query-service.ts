@@ -8,11 +8,11 @@ import {
 export class GetAllTeamQueryService implements IGetAllTeamQueryService {
   private readonly prisma: PrismaClient;
 
-  constructor(context: Context) {
+  public constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
-  public async execute(): Promise<GetAllTeamDTO> {
+  public execute = async (): Promise<GetAllTeamDTO> => {
     const teamDataList = await this.prisma.team.findMany({
       include: { pair: true },
     });
@@ -27,5 +27,5 @@ export class GetAllTeamQueryService implements IGetAllTeamQueryService {
         pairIDList,
       };
     });
-  }
+  };
 }

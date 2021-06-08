@@ -21,46 +21,48 @@ export class Member extends Entity<IMember> {
     return this.props.activityStatus;
   }
 
-  public static create(props: IMember): Member {
-    this.checkProps(props);
+  public static create = (props: IMember): Member => {
+    Member.checkProps(props);
 
     return new Member(props);
-  }
+  };
 
-  public static rebuild(id: Identifier, props: IMember): Member {
-    this.checkProps(props);
+  public static rebuild = (id: Identifier, props: IMember): Member => {
+    Member.checkProps(props);
 
     return new Member(props, id);
-  }
+  };
 
-  public changeName(name: string): Member {
+  public changeName = (name: string): Member => {
     Member.checkProps({ name });
 
     this.props.name = name;
 
     return this;
-  }
+  };
 
-  public changeEmail(email: string): Member {
+  public changeEmail = (email: string): Member => {
     Member.checkProps({ email });
 
     this.props.email = email;
 
     return this;
-  }
+  };
 
-  public changeActivityStatus(activityStatus: ActivityStatus): Member {
+  public changeActivityStatus = (activityStatus: ActivityStatus): Member => {
     this.props.activityStatus = activityStatus;
 
     return this;
-  }
+  };
 
-  private static checkProps(props: Partial<IMember>): void {
+  public equals = (member: Member): boolean => member.id.equals(this.id);
+
+  private static checkProps = (props: Partial<IMember>): void => {
     if (props.name !== undefined ? props.name === "" : false) {
       throw new Error("Illegal name value.");
     }
     if (props.email !== undefined ? props.email === "" : false) {
       throw new Error("Illegal email value.");
     }
-  }
+  };
 }

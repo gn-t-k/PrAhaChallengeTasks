@@ -6,13 +6,13 @@ import {
 export class GetAllTeam {
   private queryService: IGetAllTeamQueryService;
 
-  constructor(queryService: IGetAllTeamQueryService) {
+  public constructor(queryService: IGetAllTeamQueryService) {
     this.queryService = queryService;
   }
 
-  public async execute(): Promise<GetAllTeamDTO> {
+  public execute = async (): Promise<GetAllTeamDTO> => {
     const result = await this.queryService.execute();
 
     return result;
-  }
+  };
 }

@@ -15,24 +15,26 @@ export class Pair extends Entity<IPair> {
     return this.props.memberList;
   }
 
-  public static create(props: IPair): Pair {
-    this.checkProps(props);
+  public static create = (props: IPair): Pair => {
+    Pair.checkProps(props);
 
     return new Pair(props);
-  }
+  };
 
-  public static rebuild(id: Identifier, props: IPair): Pair {
-    this.checkProps(props);
+  public static rebuild = (id: Identifier, props: IPair): Pair => {
+    Pair.checkProps(props);
 
     return new Pair(props, id);
-  }
+  };
 
-  private static checkProps(props: IPair): void {
+  public equals = (pair: Pair): boolean => pair.id.equals(this.id);
+
+  private static checkProps = (props: IPair): void => {
     if (!new RegExp("^[a-z]$").test(props.name)) {
       throw new Error("Pair name can be set with one alphabetic character.");
     }
     if (props.memberList.length < 2 || props.memberList.length > 3) {
       throw new Error("2 or more and 3 or less member belong to pair.");
     }
-  }
+  };
 }

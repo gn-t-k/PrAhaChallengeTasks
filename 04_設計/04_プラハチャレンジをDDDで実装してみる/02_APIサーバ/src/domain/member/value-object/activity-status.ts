@@ -15,7 +15,7 @@ export class ActivityStatus extends ValueObject<IActivityStatus> {
     return this.props.status;
   }
 
-  public static create(props: IActivityStatus): ActivityStatus {
+  public static create = (props: IActivityStatus): ActivityStatus => {
     if (
       !Object.values(activityStatusValue).includes(
         props.status as ActivityStatusType,
@@ -25,9 +25,8 @@ export class ActivityStatus extends ValueObject<IActivityStatus> {
     }
 
     return new ActivityStatus(props);
-  }
+  };
 
-  public equals(props: ActivityStatus): boolean {
-    return this.props.status === props.value;
-  }
+  public equals = (props: ActivityStatus): boolean =>
+    this.props.status === props.value;
 }

@@ -15,30 +15,31 @@ export class Team extends AggregateRoot<ITeam> {
     return this.props.pairList;
   }
 
-  public static create(props: ITeam): Team {
-    this.checkProps(props);
+  public static create = (props: ITeam): Team => {
+    Team.checkProps(props);
 
     return new Team(props);
-  }
+  };
 
-  public static rebuild(id: Identifier, props: ITeam): Team {
-    this.checkProps(props);
+  public static rebuild = (id: Identifier, props: ITeam): Team => {
+    Team.checkProps(props);
 
     return new Team(props, id);
-  }
+  };
 
-  private static checkProps(props: ITeam): void {
+  public equals = (team: Team): boolean => team.id.equals(this.id);
+
+  private static checkProps = (props: ITeam): void => {
     if (!new RegExp("^[1-9]+$").test(props.name)) {
       throw new Error("Team name can be set with numeric character.");
     }
-    if (!(this.numberOfMember(props.pairList) >= 3)) {
+    if (!(Team.numberOfMember(props.pairList) >= 3)) {
       throw new Error("Team requires 3 or more members");
     }
-  }
+  };
 
-  private static numberOfMember(pairList: Pair[]): number {
-    return pairList
+  private static numberOfMember = (pairList: Pair[]): number =>
+    pairList
       .map((pair) => pair.memberList.length)
       .reduce((acc, cur) => acc + cur);
-  }
 }
