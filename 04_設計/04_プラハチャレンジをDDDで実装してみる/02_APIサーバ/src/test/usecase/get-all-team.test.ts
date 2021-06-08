@@ -16,10 +16,7 @@ describe("GetAllTeam", () => {
     mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
 
     const getAllTeamQueryService = new GetAllTeamQueryService(context);
-    const getAllTeamSpy = jest.spyOn(
-      GetAllTeamQueryService.prototype,
-      "execute",
-    );
+    const getAllTeamSpy = jest.spyOn(getAllTeamQueryService, "execute");
     const _result = await new GetAllTeam(getAllTeamQueryService).execute();
 
     expect(getAllTeamSpy).toHaveBeenCalled();

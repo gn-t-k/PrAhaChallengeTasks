@@ -9,13 +9,12 @@ interface IProps {
 }
 
 export class ProgressFactory {
-  public static execute(props: IProps): Progress[] {
-    return props.exerciseList.map((exercise) => {
+  public static execute = (props: IProps): Progress[] =>
+    props.exerciseList.map((exercise) => {
       const memberID = props.member.id;
       const exerciseID = exercise.id;
       const status = ProgressStatus.create();
 
       return Progress.create({ memberID, exerciseID, status });
     });
-  }
 }

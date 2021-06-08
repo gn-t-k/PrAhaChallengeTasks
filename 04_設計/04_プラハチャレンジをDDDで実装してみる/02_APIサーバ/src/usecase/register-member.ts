@@ -23,13 +23,13 @@ export class RegisterMember {
   private readonly exerciseRepository: IExerciseRepository;
   private readonly progressRepository: IProgressRepository;
 
-  constructor(props: IRegisterMemberProps) {
+  public constructor(props: IRegisterMemberProps) {
     this.memberRepository = props.memberRepository;
     this.exerciseRepository = props.exerciseRepository;
     this.progressRepository = props.progressRepository;
   }
 
-  public async execute(props: IExecuteProps): Promise<void> {
+  public execute = async (props: IExecuteProps): Promise<void> => {
     const { name, email } = props;
     const member = MemberFactory.execute({ name, email });
 
@@ -45,9 +45,9 @@ export class RegisterMember {
       this.progressRepository.register(progressList),
       this.memberRepository.register(member),
     ]);
-  }
+  };
 
-  private async checkMemberExist(member: Member): Promise<void> {
+  private checkMemberExist = async (member: Member): Promise<void> => {
     const isMemberExist = await new IsMemberExist(
       this.memberRepository,
     ).execute(member);
@@ -55,9 +55,9 @@ export class RegisterMember {
     if (isMemberExist) {
       throw new Error("Member already exists");
     }
-  }
+  };
 
-  private async checkProgressExist(member: Member): Promise<void> {
+  private checkProgressExist = async (member: Member): Promise<void> => {
     const isProgressExist = await new IsProgressExist(
       this.progressRepository,
     ).execute(member);
@@ -65,5 +65,5 @@ export class RegisterMember {
     if (isProgressExist) {
       throw new Error("Progress already exists");
     }
-  }
+  };
 }

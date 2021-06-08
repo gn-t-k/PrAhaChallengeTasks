@@ -1,6 +1,4 @@
 import { Member } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { Identifier } from "domain/shared/identifier";
 import { MockContext, Context, createMockContext } from "infra/db/context";
 import { ExerciseRepository } from "infra/db/repository/exercise-repository";
 import { MemberRepository } from "infra/db/repository/member-repository";
@@ -68,11 +66,8 @@ describe("RegisterMember", () => {
       });
 
       expect(memberRepository.register).toHaveBeenCalledWith(
-        Member.rebuild(new Identifier(expect.any(String)), {
-          name,
-          email,
-          activityStatus: ActivityStatus.create({ status: "在籍中" }),
-        }),
+        // TODO: プロパティのテストもしたい
+        expect.any(Member),
       );
     });
 

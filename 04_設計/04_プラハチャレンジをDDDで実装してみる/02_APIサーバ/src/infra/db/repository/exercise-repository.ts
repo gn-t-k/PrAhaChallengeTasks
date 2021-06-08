@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Exercise } from "domain/exercise/entity/exercise";
 import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";
@@ -8,11 +8,11 @@ import { Context } from "infra/db/context";
 export class ExerciseRepository implements IExerciseRepository {
   private readonly prisma: PrismaClient;
 
-  constructor(context: Context) {
+  public constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
-  public async getAll(): Promise<Exercise[]> {
+  public getAll = async (): Promise<Exercise[]> => {
     const [exerciseList, exerciseGroupList] = await Promise.all([
       this.prisma.exercise.findMany(),
       this.prisma.exerciseGroup.findMany(),
@@ -39,5 +39,5 @@ export class ExerciseRepository implements IExerciseRepository {
 
       return exercise;
     });
-  }
+  };
 }

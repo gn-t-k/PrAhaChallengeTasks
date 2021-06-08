@@ -21,26 +21,28 @@ export class Exercise extends AggregateRoot<IExercise> {
     return this.props.group;
   }
 
-  public static create(props: IExercise): Exercise {
-    this.checkProps(props);
+  public static create = (props: IExercise): Exercise => {
+    Exercise.checkProps(props);
 
     return new Exercise(props);
-  }
+  };
 
-  public static rebuild(id: Identifier, props: IExercise): Exercise {
-    this.checkProps(props);
+  public static rebuild = (id: Identifier, props: IExercise): Exercise => {
+    Exercise.checkProps(props);
 
     return new Exercise(props, id);
-  }
+  };
+
+  public equals = (exercise: Exercise): boolean => exercise.id.equals(this.id);
 
   // TODO: 課題タイトルや課題詳細を変更するメソッドがあってもいいかもしれない
 
-  private static checkProps(props: IExercise): void {
+  private static checkProps = (props: IExercise): void => {
     if (props.title === "") {
       throw new Error("Illegal title value.");
     }
     if (props.description === "") {
       throw new Error("Illegal details value.");
     }
-  }
+  };
 }

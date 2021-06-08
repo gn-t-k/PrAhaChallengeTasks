@@ -4,13 +4,13 @@ import { IProgressRepository } from "domain/progress/progress-repository-interfa
 export class IsProgressExist {
   private readonly repository: IProgressRepository;
 
-  constructor(repository: IProgressRepository) {
+  public constructor(repository: IProgressRepository) {
     this.repository = repository;
   }
 
-  public async execute(member: Member): Promise<boolean> {
+  public execute = async (member: Member): Promise<boolean> => {
     const progressList = await this.repository.getAll();
 
     return progressList.some((progress) => progress.memberID.equals(member.id));
-  }
+  };
 }

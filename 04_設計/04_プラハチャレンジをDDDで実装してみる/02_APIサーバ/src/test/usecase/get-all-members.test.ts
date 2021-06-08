@@ -21,10 +21,7 @@ describe("GetAllMember", () => {
       mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
 
       const getAllMemberQueryService = new GetAllMemberQueryService(context);
-      const getAllMemberSpy = jest.spyOn(
-        GetAllMemberQueryService.prototype,
-        "execute",
-      );
+      const getAllMemberSpy = jest.spyOn(getAllMemberQueryService, "execute");
       const _result = await new GetAllMember(
         getAllMemberQueryService,
       ).execute();

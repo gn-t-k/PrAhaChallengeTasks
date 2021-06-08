@@ -6,13 +6,13 @@ import {
 export class GetAllMember {
   private queryService: IGetAllMemberQueryService;
 
-  constructor(queryService: IGetAllMemberQueryService) {
+  public constructor(queryService: IGetAllMemberQueryService) {
     this.queryService = queryService;
   }
 
-  public async execute(): Promise<GetAllMemberDTO> {
+  public execute = async (): Promise<GetAllMemberDTO> => {
     const result = await this.queryService.execute();
 
     return result;
-  }
+  };
 }

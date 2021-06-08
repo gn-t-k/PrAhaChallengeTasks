@@ -20,11 +20,11 @@ type INestedPairData = IPairData & {
 export class GetAllMemberQueryService implements IGetAllMemberQueryService {
   private readonly prisma: PrismaClient;
 
-  constructor(context: Context) {
+  public constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
-  public async execute(): Promise<GetAllMemberDTO> {
+  public execute = async (): Promise<GetAllMemberDTO> => {
     const [teamDataList, memberDataList] = await Promise.all([
       this.prisma.team.findMany({
         include: { pair: { include: { member: true } } },
@@ -60,5 +60,5 @@ export class GetAllMemberQueryService implements IGetAllMemberQueryService {
     });
 
     return memberList;
-  }
+  };
 }

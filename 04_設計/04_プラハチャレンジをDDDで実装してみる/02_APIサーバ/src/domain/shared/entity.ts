@@ -7,14 +7,12 @@ export abstract class Entity<T> {
     return this.props.id;
   }
 
-  constructor(props: T, id?: Identifier) {
+  public constructor(props: T, id?: Identifier) {
     this.props = {
       id: id ?? new Identifier(),
       ...props,
     };
   }
 
-  public equals(entity: Entity<T>): boolean {
-    return this.props.id.equals(entity.id);
-  }
+  abstract equals(entity: Entity<T>): boolean;
 }

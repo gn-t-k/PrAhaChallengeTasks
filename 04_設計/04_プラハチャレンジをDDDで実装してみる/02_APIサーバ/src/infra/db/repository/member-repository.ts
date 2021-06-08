@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
@@ -8,7 +8,7 @@ import { Context } from "infra/db/context";
 export class MemberRepository implements IMemberRepository {
   private readonly prisma: PrismaClient;
 
-  constructor(context: Context) {
+  public constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
@@ -22,7 +22,7 @@ export class MemberRepository implements IMemberRepository {
     });
   };
 
-  public async getAll(): Promise<Member[]> {
+  public getAll = async (): Promise<Member[]> => {
     const memberDataList = await this.prisma.member.findMany();
 
     return memberDataList.map((memberData) => {
@@ -34,5 +34,5 @@ export class MemberRepository implements IMemberRepository {
 
       return Member.rebuild(id, { name, email, activityStatus });
     });
-  }
+  };
 }

@@ -21,17 +21,15 @@ export class Progress extends AggregateRoot<IProgress> {
     return this.props.status;
   }
 
-  public static create(props: IProgress): Progress {
-    return new Progress(props);
-  }
+  public static create = (props: IProgress): Progress => new Progress(props);
 
-  public changeStatusNext(): Progress {
+  public changeStatusNext = (): Progress => {
     this.props.status = this.props.status.getNext();
 
     return this;
-  }
+  };
 
-  public changeStatusPrevious(): Progress {
+  public changeStatusPrevious = (): Progress => {
     if (this.props.status.isDone()) {
       throw new Error("Done status cannot change previous");
     }
@@ -39,12 +37,9 @@ export class Progress extends AggregateRoot<IProgress> {
     this.props.status = this.props.status.getPrevious();
 
     return this;
-  }
+  };
 
-  public equals(progress: Progress): boolean {
-    return (
-      this.props.memberID.equals(progress.memberID) &&
-      this.props.exerciseID.equals(progress.exerciseID)
-    );
-  }
+  public equals = (progress: Progress): boolean =>
+    this.props.memberID.equals(progress.memberID) &&
+    this.props.exerciseID.equals(progress.exerciseID);
 }

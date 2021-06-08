@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Progress } from "domain/progress/entity/progress";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 import { ProgressStatus } from "domain/progress/value-object/progress-status";
@@ -8,7 +8,7 @@ import { Context } from "infra/db/context";
 export class ProgressRepository implements IProgressRepository {
   private readonly prisma: PrismaClient;
 
-  constructor(context: Context) {
+  public constructor(context: Context) {
     this.prisma = context.prisma;
   }
 
@@ -28,7 +28,7 @@ export class ProgressRepository implements IProgressRepository {
     });
   };
 
-  public async getAll(): Promise<Progress[]> {
+  public getAll = async (): Promise<Progress[]> => {
     const progressList = await this.prisma.exerciseOnMember.findMany();
 
     return progressList.map((progress) =>
@@ -38,5 +38,5 @@ export class ProgressRepository implements IProgressRepository {
         status: ProgressStatus.rebuild({ status: progress.progressStatus }),
       }),
     );
-  }
+  };
 }
