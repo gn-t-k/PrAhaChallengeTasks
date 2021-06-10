@@ -1,11 +1,13 @@
-import { MemberDTO } from "usecase/query-service-interface/entity-dto/member-dto";
-
-interface OneOfGetMemberByTeamNameDTO extends MemberDTO {
+interface MemberDTO {
+  id: string;
+  name: string;
+  email: string;
+  activityStatus: string;
   pairID: string;
   teamID: string;
 }
 
-export type GetMemberByTeamNameDTO = OneOfGetMemberByTeamNameDTO[];
+export type GetMemberByTeamNameDTO = MemberDTO[];
 
 export interface IGetMemberByTeamNameQueryService {
   execute(teamName: string): Promise<GetMemberByTeamNameDTO>;
