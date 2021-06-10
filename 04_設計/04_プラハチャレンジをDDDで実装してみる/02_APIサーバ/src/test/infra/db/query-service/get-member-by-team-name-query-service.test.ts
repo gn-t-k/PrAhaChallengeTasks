@@ -53,5 +53,4 @@ describe("GetMemberByTeamNameQueryService", () => {
       expect(isAllPairIDIncluded).toBe(true);
     });
   });
-  test("存在しないチーム名だった場合エラーになる");
 });
