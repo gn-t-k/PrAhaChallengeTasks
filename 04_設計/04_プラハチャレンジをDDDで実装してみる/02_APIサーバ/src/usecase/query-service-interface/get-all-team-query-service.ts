@@ -1,4 +1,8 @@
-import { TeamDTO } from "usecase/query-service-interface/entity-dto/team-dto";
+interface TeamDTO {
+  id: string;
+  name: string;
+  pairIDList: string[];
+}
 
 export type GetAllTeamDTO = TeamDTO[];
 

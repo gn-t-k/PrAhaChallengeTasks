@@ -1,4 +1,11 @@
-import { MemberDTO } from "usecase/query-service-interface/entity-dto/member-dto";
+interface MemberDTO {
+  id: string;
+  name: string;
+  email: string;
+  activityStatus: string;
+  pairID: string | null;
+  teamID: string | null;
+}
 
 export type GetAllMemberDTO = MemberDTO[];
 
