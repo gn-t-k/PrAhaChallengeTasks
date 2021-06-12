@@ -1,4 +1,4 @@
-import { MemberOnPair, Pair, PrismaClient } from "@prisma/client";
+import { Member, MemberOnPair, Pair, PrismaClient } from "@prisma/client";
 import { Context } from "infra/db/context";
 import {
   GetMemberByPairNameDTO,
@@ -21,47 +21,41 @@ export class GetMemberByPairNameQueryService
     teamName: string,
     pairName: string,
   ): Promise<GetMemberByPairNameDTO> => {
-    const teamData = await this.prisma.team.findUnique({
+    const nestedTeamData = await this.prisma.team.findUnique({
       where: {
         name: teamName,
       },
+      include: {
+        pair: {
+          where: {
+            name: pairName,
+          },
+          include: {
+            member: true,
+          },
+        },
+      },
     });
 
-    if (teamData === null) {
+    if (nestedTeamData === null) {
       throw new Error(`Team named ${teamName} is not exists`);
     }
 
-    const nestedPairData: NestedPairData | null = await this.prisma.pair.findUnique(
-      {
-        where: {
-          name_teamId: {
-            name: pairName,
-            teamId: teamData.id,
-          },
-        },
-        include: {
-          member: true,
-        },
-      },
-    );
-
-    if (nestedPairData === null) {
+    if (nestedTeamData.pair.length === 0) {
       throw new Error(`Pair named ${pairName} is not exists`);
     }
 
-    const memberIDDataList = nestedPairData?.member.map((mop) => mop.memberId);
-    const memberDataList = await this.prisma.member.findMany({
-      where: {
-        id: {
-          in: memberIDDataList,
-        },
-      },
-    });
+    if (nestedTeamData.pair.length > 1) {
+      // TODO: データ不整合時に起きるエラーなので、ログで通知できるようにする（するとは言っていない）
+      throw new Error(`Pair name ${pairName} is duplicated in pair table`);
+    }
+
+    const teamID = nestedTeamData.id;
+    const pairID = nestedTeamData.pair[0].id;
+    const memberDataList = await this.getMemberDataList(nestedTeamData.pair);
 
     return memberDataList.map((memberData) => {
       const { id, name, email, activityStatus } = memberData;
-      const teamID = teamData.id;
-      const pairID = nestedPairData.id;
 
       return {
         id,
@@ -72,5 +66,27 @@ export class GetMemberByPairNameQueryService
         pairID,
       };
     });
+  };
+
+  private getMemberDataList = async (
+    nestedPairDataList: NestedPairData[],
+  ): Promise<Member[]> => {
+    const memberIDDataList = nestedPairDataList
+      .reduce(
+        (memberOnPairDataList: MemberOnPair[], pair: NestedPairData) =>
+          memberOnPairDataList.concat(pair.member),
+        [],
+      )
+      .map((mop) => mop.memberId);
+
+    const memberDataList = await this.prisma.member.findMany({
+      where: {
+        id: {
+          in: memberIDDataList,
+        },
+      },
+    });
+
+    return memberDataList;
   };
 }
