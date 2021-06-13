@@ -55,8 +55,10 @@ export class GetMemberByTeamNameQueryService
       const teamID = nestedTeamData.id;
 
       if (pairID === undefined) {
-        // コンパイルエラー避けのエラー。ダサい。
-        throw new Error();
+        // TODO: データ不整合時に起きるエラーなので、ログで通知できるようにする（するとは言っていない）
+        throw new Error(
+          "There is a data inconsistency between the member table and the member_on_pair table",
+        );
       }
 
       return {
