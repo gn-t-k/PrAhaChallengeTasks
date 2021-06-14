@@ -1,6 +1,6 @@
 import { Team } from "domain/team//entity/team";
 
-interface IGetTeamByPairID {
+export interface IGetTeamByPairID {
   pairID: string;
 }
 

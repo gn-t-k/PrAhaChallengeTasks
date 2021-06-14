@@ -1,6 +1,6 @@
 import { Member } from "domain/member/entity/member";
 
-interface IGetMemberByID {
+export interface IGetMemberByID {
   id: string;
 }
 
