@@ -44,9 +44,47 @@ export class TeamRepository implements ITeamRepository {
     return team;
   };
 
+  /**
+   * 疑問
+   * リポジトリの永続化メソッドなので、整合性を保たせるために集約ルートであるチームオブジェクトを渡している。
+   * pairIDとmemberIDをそのまま渡せたらこんな力技しなくてもすむんですが、だめ？
+   */
   public addMemberToPair = async (team: Team): Promise<void> => {
     const currentTeam = await this.getByID({ id: team.id.value });
-    // TODO: 新しく追加するメンバーを抽出する
+    const currentMemberList = currentTeam.getMemberList();
+
+    // 渡されたチームと既存のチームを比較して、新しく追加しようとしている参加者を抽出している。
+    const newMemberList = team
+      .getMemberList()
+      .filter((member) =>
+        currentMemberList.every(
+          (currentMember) => !currentMember.equals(member),
+        ),
+      );
+
+    if (newMemberList.length !== 1) {
+      throw new Error("Only 1 member can be added");
+    }
+
+    const newMember = newMemberList[0];
+    const pairHasNewMember = currentTeam.pairList.find((pair) =>
+      pair.memberList.some((member) => member.equals(newMember)),
+    );
+
+    if (pairHasNewMember === undefined) {
+      // TODO: コンパイル避けのエラー。ダサい。
+      throw new Error();
+    }
+
+    const memberId = newMember.id.value;
+    const pairId = pairHasNewMember.id.value;
+
+    await this.prisma.memberOnPair.create({
+      data: {
+        memberId,
+        pairId,
+      },
+    });
   };
 
   private getTeam = async (nestedTeamData: NestedTeamData): Promise<Team> => {

@@ -1,3 +1,4 @@
+import { Member } from "domain/member/entity/member";
 import { AggregateRoot } from "domain/shared/aggregate-root";
 import { Identifier } from "domain/shared/identifier";
 import { Pair } from "domain/team/entity/pair";
@@ -26,6 +27,12 @@ export class Team extends AggregateRoot<ITeam> {
 
     return new Team(props, id);
   };
+
+  public getMemberList = (): Member[] =>
+    this.pairList.reduce(
+      (memberList: Member[], pair) => memberList.concat(pair.memberList),
+      [],
+    );
 
   public equals = (team: Team): boolean => team.id.equals(this.id);
 

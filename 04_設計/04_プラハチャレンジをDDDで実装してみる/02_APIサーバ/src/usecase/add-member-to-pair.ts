@@ -19,7 +19,7 @@ export class AddMemberToPair {
 
   public execute = async (memberID: string, pairID: string): Promise<void> => {
     const [targetTeam, targetMember] = await Promise.all([
-      this.teamRepository.get({ pairID }),
+      this.teamRepository.getByPairID({ pairID }),
       this.memberRepository.get({ id: memberID }),
     ]);
 
