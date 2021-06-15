@@ -12,6 +12,7 @@ import { Team } from "domain/team/entity/team";
 import {
   ITeamRepository,
   IGetTeamByPairID,
+  IGetTeamByID,
 } from "domain/team/team-repository-interface";
 import { Context } from "infra/db/context";
 
@@ -29,8 +30,26 @@ export class TeamRepository implements ITeamRepository {
     this.prisma = context.prisma;
   }
 
-  public get = async (props: IGetTeamByPairID): Promise<Team> => {
-    const nestedTeamData = await this.getNestedTeamData(props.pairID);
+  public getByID = async (props: IGetTeamByID): Promise<Team> => {
+    const nestedTeamData = await this.getNestedTeamData(props.id);
+    const team = await this.getTeam(nestedTeamData);
+
+    return team;
+  };
+
+  public getByPairID = async (props: IGetTeamByPairID): Promise<Team> => {
+    const nestedTeamData = await this.getNestedTeamDataByPairID(props.pairID);
+    const team = await this.getTeam(nestedTeamData);
+
+    return team;
+  };
+
+  public addMemberToPair = async (team: Team): Promise<void> => {
+    const currentTeam = await this.getByID({ id: team.id.value });
+    // TODO: 新しく追加するメンバーを抽出する
+  };
+
+  private getTeam = async (nestedTeamData: NestedTeamData): Promise<Team> => {
     const memberDataList = await this.getMemberDataList(nestedTeamData);
     const pairList = TeamRepository.makePairList(
       nestedTeamData,
@@ -45,25 +64,10 @@ export class TeamRepository implements ITeamRepository {
     });
   };
 
-  // public addMemberToPair = (team: Team): Promise<void> => {};
-
-  private getNestedTeamData = async (pairID: string) => {
-    const pairDataForTeamID = await this.prisma.pair.findUnique({
-      where: {
-        id: pairID,
-      },
-      select: {
-        teamId: true,
-      },
-    });
-
-    if (pairDataForTeamID === null) {
-      throw new Error("Pair not exists");
-    }
-
+  private getNestedTeamData = async (id: string) => {
     const nestedTeamData = await this.prisma.team.findUnique({
       where: {
-        id: pairDataForTeamID.teamId,
+        id,
       },
       include: {
         pair: {
@@ -78,6 +82,27 @@ export class TeamRepository implements ITeamRepository {
       // TODO: データ不整合時にしか起こらないエラーのため、ログ出すなどする
       throw new Error("Team not exists");
     }
+
+    return nestedTeamData;
+  };
+
+  private getNestedTeamDataByPairID = async (pairID: string) => {
+    const pairDataForTeamID = await this.prisma.pair.findUnique({
+      where: {
+        id: pairID,
+      },
+      select: {
+        teamId: true,
+      },
+    });
+
+    if (pairDataForTeamID === null) {
+      throw new Error("Pair not exists");
+    }
+
+    const nestedTeamData = await this.getNestedTeamData(
+      pairDataForTeamID.teamId,
+    );
 
     return nestedTeamData;
   };
