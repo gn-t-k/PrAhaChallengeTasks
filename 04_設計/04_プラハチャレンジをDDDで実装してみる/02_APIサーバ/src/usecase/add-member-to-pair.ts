@@ -40,7 +40,7 @@ export class AddMemberToPair {
       pairList: replacedPairList,
     });
 
-    await this.teamRepository.addMemberToPair(replacedTeam);
+    await this.teamRepository.save(replacedTeam);
   };
 
   private static isMemberExistsInTeam = (member: Member, team: Team) => {
