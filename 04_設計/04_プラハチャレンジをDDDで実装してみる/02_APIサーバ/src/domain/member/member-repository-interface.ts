@@ -6,6 +6,6 @@ export interface IGetMemberByID {
 
 export interface IMemberRepository {
   register(member: Member): Promise<void>;
-  get(props: IGetMemberByID): Promise<Member>;
+  getByID(props: IGetMemberByID): Promise<Member>;
   getAll(): Promise<Member[]>;
 }

@@ -24,7 +24,7 @@ export class MemberRepository implements IMemberRepository {
     });
   };
 
-  public get = async (props: IGetMemberByID): Promise<Member> => {
+  public getByID = async (props: IGetMemberByID): Promise<Member> => {
     const memberData = await this.prisma.member.findUnique({
       where: {
         id: props.id,
