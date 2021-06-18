@@ -10,5 +10,5 @@ export interface IGetTeamByPairID {
 export interface ITeamRepository {
   getByID(props: IGetTeamByID): Promise<Team>;
   getByPairID(props: IGetTeamByPairID): Promise<Team>;
-  save(team: Team): Promise<void>;
+  update(team: Team): Promise<void>;
 }

@@ -44,196 +44,12 @@ export class TeamRepository implements ITeamRepository {
     return team;
   };
 
-  public save = async (team: Team): Promise<void> => {
-    const currentTeam = await this.getByID({ id: team.id.value });
+  public update = async (newTeam: Team): Promise<void> => {
+    const currentTeam = await this.getByID({ id: newTeam.id.value });
 
-    /**
-     * teamのテーブルへの書き込み
-     */
-    if (currentTeam.name !== team.name) {
-      await this.prisma.team.update({
-        where: {
-          id: team.id.value,
-        },
-        data: {
-          name: team.name,
-        },
-      });
-    }
-
-    /**
-     * pairテーブルへの書き込み
-     */
-    const currentPairIDList = currentTeam.pairList.map((pair) => pair.id.value);
-    const newPairIDList = team.pairList.map((pair) => pair.id.value);
-    const pairIDListDifference = ((
-      idListA: string[],
-      idListB: string[],
-    ): string[] => {
-      if (idListA.length === idListB.length) {
-        return idListA.filter((a) => idListB.every((b) => a !== b));
-      }
-      const [shorter, longer] =
-        idListA.length < idListB.length
-          ? [idListA, idListB]
-          : [idListB, idListA];
-
-      return longer.filter((l) => shorter.every((s) => l !== s));
-    })(currentPairIDList, newPairIDList);
-
-    if (pairIDListDifference.length > 1) {
-      throw new Error("Only 1 pair can be added or removed at once");
-    }
-
-    if (pairIDListDifference.length === 1) {
-      /**
-       * pairの追加/削除
-       */
-      if (newPairIDList.includes(pairIDListDifference[0])) {
-        // ペアの追加
-        const addedPair = team.pairList.find(
-          (pair) => pair.id.value === pairIDListDifference[0],
-        );
-
-        if (addedPair === undefined) {
-          throw new Error();
-        }
-
-        await this.prisma.pair.create({
-          data: {
-            id: addedPair.id.value,
-            name: addedPair.name,
-            teamId: team.id.value,
-          },
-        });
-        await Promise.all(
-          addedPair.memberList.map((member) =>
-            this.prisma.memberOnPair.create({
-              data: {
-                memberId: member.id.value,
-                pairId: addedPair.id.value,
-              },
-            }),
-          ),
-        );
-      } else {
-        // ペアの削除
-        const removedPair = currentTeam.pairList.find(
-          (pair) => pair.id.value === pairIDListDifference[0],
-        );
-
-        if (removedPair === undefined) {
-          throw new Error();
-        }
-
-        await this.prisma.pair.delete({
-          where: {
-            id: removedPair.id.value,
-          },
-        });
-        await this.prisma.memberOnPair.deleteMany({
-          where: {
-            pairId: removedPair.id.value,
-          },
-        });
-      }
-    } else {
-      /**
-       * pairのnameの更新
-       */
-      const renamedPairList = team.pairList.filter((newPair) => {
-        const currentPair = currentTeam.pairList.find((p) => p.equals(newPair));
-        if (currentPair === undefined) {
-          throw new Error();
-        }
-
-        return newPair.name !== currentPair.name;
-      });
-
-      await Promise.all(
-        renamedPairList.map((pair) =>
-          this.prisma.pair.update({
-            where: {
-              id: pair.id.value,
-            },
-            data: {
-              name: pair.name,
-              teamId: team.id.value,
-            },
-          }),
-        ),
-      );
-    }
-
-    /**
-     * 参加者の追加/削除
-     */
-    const currentMemberIDList = currentTeam
-      .getMemberList()
-      .map((m) => m.id.value);
-    const newMemberIDList = team.getMemberList().map((m) => m.id.value);
-    const memberIDListDifference = ((
-      idListA: string[],
-      idListB: string[],
-    ): string[] => {
-      if (idListA.length === idListB.length) {
-        return idListA.filter((a) => idListB.every((b) => a !== b));
-      }
-      const [shorter, longer] =
-        idListA.length < idListB.length
-          ? [idListA, idListB]
-          : [idListB, idListA];
-
-      return longer.filter((l) => shorter.every((s) => l !== s));
-    })(currentMemberIDList, newMemberIDList);
-
-    if (memberIDListDifference.length > 1) {
-      throw new Error("Only 1 member can be added or removed at once");
-    }
-
-    if (memberIDListDifference.length === 1) {
-      if (newMemberIDList.includes(memberIDListDifference[0])) {
-        // 参加者の追加
-        const addedMember = team
-          .getMemberList()
-          .find((member) => member.id.value === memberIDListDifference[0]);
-        const targetPair = team.pairList.find((pair) =>
-          pair.memberList
-            .map((m) => m.id.value)
-            .includes(memberIDListDifference[0]),
-        );
-        if (addedMember === undefined || targetPair === undefined) {
-          throw new Error();
-        }
-        await this.prisma.memberOnPair.create({
-          data: {
-            memberId: addedMember.id.value,
-            pairId: targetPair.id.value,
-          },
-        });
-      } else {
-        // 参加者の削除
-        const removedMember = currentTeam
-          .getMemberList()
-          .find((member) => member.id.value === memberIDListDifference[0]);
-        const targetPair = currentTeam.pairList.find((pair) =>
-          pair.memberList
-            .map((m) => m.id.value)
-            .includes(memberIDListDifference[0]),
-        );
-        if (removedMember === undefined || targetPair === undefined) {
-          throw new Error();
-        }
-        await this.prisma.memberOnPair.delete({
-          where: {
-            memberId_pairId: {
-              memberId: removedMember.id.value,
-              pairId: targetPair.id.value,
-            },
-          },
-        });
-      }
-    }
+    await this.updateTeam(newTeam, currentTeam);
+    await this.updatePair(newTeam, currentTeam);
+    await this.updateMemberOnPair(newTeam, currentTeam);
   };
 
   private getTeam = async (nestedTeamData: NestedTeamData): Promise<Team> => {
@@ -311,6 +127,197 @@ export class TeamRepository implements ITeamRepository {
     return memberDataList;
   };
 
+  private updateTeam = async (
+    newTeam: Team,
+    currentTeam: Team,
+  ): Promise<void> => {
+    if (currentTeam.name !== newTeam.name) {
+      await this.prisma.team.update({
+        where: {
+          id: currentTeam.id.value,
+        },
+        data: {
+          name: newTeam.name,
+        },
+      });
+    }
+  };
+
+  private updatePair = async (
+    newTeam: Team,
+    currentTeam: Team,
+  ): Promise<void> => {
+    const currentPairIDList = currentTeam.pairList.map((pair) => pair.id.value);
+    const newPairIDList = newTeam.pairList.map((pair) => pair.id.value);
+    const pairIDListDifference = TeamRepository.extractDifference(
+      currentPairIDList,
+      newPairIDList,
+    );
+
+    if (pairIDListDifference.length > 1) {
+      throw new Error("Only 1 pair can be added or removed at once");
+    }
+
+    if (pairIDListDifference.length === 1) {
+      if (newPairIDList.includes(pairIDListDifference[0])) {
+        await this.addPair(newTeam, pairIDListDifference[0]);
+      } else {
+        await this.removePair(currentTeam, pairIDListDifference[0]);
+      }
+    } else {
+      await this.renamePair(newTeam, currentTeam);
+    }
+  };
+
+  private addPair = async (newTeam: Team, pairID: string): Promise<void> => {
+    const addedPair = newTeam.pairList.find((pair) => pair.id.value === pairID);
+
+    if (addedPair === undefined) {
+      throw new Error();
+    }
+
+    await this.prisma.pair.create({
+      data: {
+        id: addedPair.id.value,
+        name: addedPair.name,
+        teamId: newTeam.id.value,
+      },
+    });
+    await Promise.all(
+      addedPair.memberList.map((member) =>
+        this.prisma.memberOnPair.create({
+          data: {
+            memberId: member.id.value,
+            pairId: addedPair.id.value,
+          },
+        }),
+      ),
+    );
+  };
+
+  private removePair = async (
+    currentTeam: Team,
+    pairID: string,
+  ): Promise<void> => {
+    const removedPair = currentTeam.pairList.find(
+      (pair) => pair.id.value === pairID,
+    );
+
+    if (removedPair === undefined) {
+      throw new Error();
+    }
+
+    await this.prisma.pair.delete({
+      where: {
+        id: removedPair.id.value,
+      },
+    });
+    await this.prisma.memberOnPair.deleteMany({
+      where: {
+        pairId: removedPair.id.value,
+      },
+    });
+  };
+
+  private renamePair = async (
+    newTeam: Team,
+    currentTeam: Team,
+  ): Promise<void> => {
+    const renamedPairList = newTeam.pairList.filter((newPair) => {
+      const currentPair = currentTeam.pairList.find((p) => p.equals(newPair));
+      if (currentPair === undefined) {
+        throw new Error();
+      }
+
+      return newPair.name !== currentPair.name;
+    });
+
+    await Promise.all(
+      renamedPairList.map((pair) =>
+        this.prisma.pair.update({
+          where: {
+            id: pair.id.value,
+          },
+          data: {
+            name: pair.name,
+            teamId: newTeam.id.value,
+          },
+        }),
+      ),
+    );
+  };
+
+  private updateMemberOnPair = async (
+    newTeam: Team,
+    currentTeam: Team,
+  ): Promise<void> => {
+    const currentMemberIDList = currentTeam
+      .getMemberList()
+      .map((m) => m.id.value);
+    const newMemberIDList = newTeam.getMemberList().map((m) => m.id.value);
+    const memberIDListDifference = TeamRepository.extractDifference(
+      currentMemberIDList,
+      newMemberIDList,
+    );
+
+    if (memberIDListDifference.length > 1) {
+      throw new Error("Only 1 member can be added or removed at once");
+    }
+
+    if (memberIDListDifference.length === 1) {
+      if (newMemberIDList.includes(memberIDListDifference[0])) {
+        await this.addMember(newTeam, memberIDListDifference[0]);
+      } else {
+        await this.removeMember(currentTeam, memberIDListDifference[0]);
+      }
+    }
+  };
+
+  private addMember = async (
+    newTeam: Team,
+    memberID: string,
+  ): Promise<void> => {
+    const addedMember = newTeam
+      .getMemberList()
+      .find((member) => member.id.value === memberID);
+    const targetPair = newTeam.pairList.find((pair) =>
+      pair.memberList.map((m) => m.id.value).includes(memberID),
+    );
+
+    if (addedMember === undefined || targetPair === undefined) {
+      throw new Error();
+    }
+
+    await this.prisma.memberOnPair.create({
+      data: {
+        memberId: addedMember.id.value,
+        pairId: targetPair.id.value,
+      },
+    });
+  };
+
+  private removeMember = async (currentTeam: Team, memberID: string) => {
+    const removedMember = currentTeam
+      .getMemberList()
+      .find((member) => member.id.value === memberID);
+    const targetPair = currentTeam.pairList.find((pair) =>
+      pair.memberList.map((m) => m.id.value).includes(memberID),
+    );
+
+    if (removedMember === undefined || targetPair === undefined) {
+      throw new Error();
+    }
+
+    await this.prisma.memberOnPair.delete({
+      where: {
+        memberId_pairId: {
+          memberId: removedMember.id.value,
+          pairId: targetPair.id.value,
+        },
+      },
+    });
+  };
+
   private static makePairList = (
     nestedTeamData: NestedTeamData,
     memberDataList: MemberData[],
@@ -330,4 +337,17 @@ export class TeamRepository implements ITeamRepository {
 
       return PairFactory.execute({ id, name, memberList });
     });
+
+  private static extractDifference = (
+    listA: string[],
+    listB: string[],
+  ): string[] => {
+    if (listA.length === listB.length) {
+      return listA.filter((a) => listB.every((b) => a !== b));
+    }
+    const [shorter, longer] =
+      listA.length < listB.length ? [listA, listB] : [listB, listA];
+
+    return longer.filter((l) => shorter.every((s) => l !== s));
+  };
 }
