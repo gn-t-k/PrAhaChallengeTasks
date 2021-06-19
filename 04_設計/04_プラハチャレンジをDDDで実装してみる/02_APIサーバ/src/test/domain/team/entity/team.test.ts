@@ -1,5 +1,8 @@
 import { Identifier } from "domain/shared/identifier";
+import { PairFactory } from "domain/team/domain-service/pair-factory";
+import { TeamFactory } from "domain/team/domain-service/team-factory";
 import { Team } from "domain/team/entity/team";
+import { makeDummyMember } from "test/util/dummy/member";
 import { makeDummyPair } from "test/util/dummy/pair";
 import { makeDummyTeam, makeDummyTeamProps } from "test/util/dummy/team";
 
@@ -85,5 +88,39 @@ describe("Team", () => {
 
       expect(team1.equals(team2)).toBe(false);
     });
+  });
+
+  test("参加者一覧が取得できる", () => {
+    const memberList = [
+      makeDummyMember(),
+      makeDummyMember(),
+      makeDummyMember(),
+      makeDummyMember(),
+    ];
+    const pairList = [
+      PairFactory.execute({
+        id: "testID1",
+        name: "a",
+        memberList: [memberList[0], memberList[1]],
+      }),
+      PairFactory.execute({
+        id: "testID2",
+        name: "b",
+        memberList: [memberList[2], memberList[3]],
+      }),
+    ];
+    const team = TeamFactory.execute({
+      id: "testID3",
+      name: "1",
+      pairList,
+    });
+
+    const isAllMemberExists =
+      team.getMemberList().length === memberList.length &&
+      team
+        .getMemberList()
+        .every((member) => memberList.some((m) => m.equals(member)));
+
+    expect(isAllMemberExists).toBe(true);
   });
 });
