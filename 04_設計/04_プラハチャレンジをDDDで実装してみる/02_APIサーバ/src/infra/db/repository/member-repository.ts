@@ -1,10 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { Member } from "domain/member/entity/member";
-import {
-  IMemberRepository,
-  IGetMemberByID,
-} from "domain/member/member-repository-interface";
+import { IMemberRepository } from "domain/member/member-repository-interface";
 import { MemberFactory } from "domain/member/service/member-factory";
+import { Identifier } from "domain/shared/identifier";
 import { Context } from "infra/db/context";
 
 export class MemberRepository implements IMemberRepository {
@@ -24,10 +22,10 @@ export class MemberRepository implements IMemberRepository {
     });
   };
 
-  public getByID = async (props: IGetMemberByID): Promise<Member> => {
+  public getByID = async (id: Identifier): Promise<Member> => {
     const memberData = await this.prisma.member.findUnique({
       where: {
-        id: props.id,
+        id: id.value,
       },
     });
 

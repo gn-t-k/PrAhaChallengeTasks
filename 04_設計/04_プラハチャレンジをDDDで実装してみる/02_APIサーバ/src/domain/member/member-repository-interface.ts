@@ -1,11 +1,8 @@
 import { Member } from "domain/member/entity/member";
-
-export interface IGetMemberByID {
-  id: string;
-}
+import { Identifier } from "domain/shared/identifier";
 
 export interface IMemberRepository {
   register(member: Member): Promise<void>;
-  getByID(props: IGetMemberByID): Promise<Member>;
+  getByID(id: Identifier): Promise<Member>;
   getAll(): Promise<Member[]>;
 }

@@ -20,7 +20,7 @@ export class AddMemberToPair {
   public execute = async (memberID: string, pairID: string): Promise<void> => {
     const [targetTeam, targetMember] = await Promise.all([
       this.teamRepository.getByPairID({ pairID }),
-      this.memberRepository.getByID({ id: memberID }),
+      this.memberRepository.getByID(new Identifier(memberID)),
     ]);
 
     if (AddMemberToPair.isMemberExistsInTeam(targetMember, targetTeam)) {
