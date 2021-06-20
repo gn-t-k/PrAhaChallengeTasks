@@ -1,4 +1,5 @@
 import { Member } from "domain/member/entity/member";
+import { activityStatusValue } from "domain/member/value-object/activity-status";
 import { Entity } from "domain/shared/entity";
 import { Identifier } from "domain/shared/identifier";
 
@@ -35,6 +36,7 @@ export class Pair extends Entity<IPair> {
     const memberList = this.props.memberList.concat(member);
 
     Pair.validateMemberList(memberList);
+    Pair.validateMember(member);
 
     this.props.memberList = memberList;
 
@@ -50,6 +52,12 @@ export class Pair extends Entity<IPair> {
   private static validateMemberList = (memberList: Member[]): void => {
     if (memberList.length < 2 || memberList.length > 3) {
       throw new Error("2 or more and 3 or less member belong to pair.");
+    }
+  };
+
+  private static validateMember = (member: Member): void => {
+    if (member.status.value !== activityStatusValue.active) {
+      throw new Error("Only active member can join pair");
     }
   };
 }

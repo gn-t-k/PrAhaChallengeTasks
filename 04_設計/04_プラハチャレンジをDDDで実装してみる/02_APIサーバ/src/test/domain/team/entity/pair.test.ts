@@ -1,7 +1,11 @@
+import {
+  ActivityStatus,
+  activityStatusValue,
+} from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
 import { Pair } from "domain/team/entity/pair";
 import { makeDummyMember } from "test/util/dummy/member";
-import { makeDummyPairProps } from "test/util/dummy/pair";
+import { makeDummyPair, makeDummyPairProps } from "test/util/dummy/pair";
 
 describe("pair", () => {
   describe("ペアを作成できる", () => {
@@ -161,6 +165,17 @@ describe("pair", () => {
       expect(() => {
         pair.addMember(makeDummyMember());
       }).toThrowError("2 or more and 3 or less member belong to pair.");
+    });
+
+    test("在籍中ではない参加者を追加しようとした場合エラーになる", () => {
+      const pair = makeDummyPair();
+      const member = makeDummyMember().changeActivityStatus(
+        ActivityStatus.create({ status: activityStatusValue.inRecess }),
+      );
+
+      expect(() => {
+        pair.addMember(member);
+      }).toThrowError("Only active member can join pair");
     });
   });
 });
