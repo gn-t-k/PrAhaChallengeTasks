@@ -17,13 +17,15 @@ export class Team extends AggregateRoot<ITeam> {
   }
 
   public static create = (props: ITeam): Team => {
-    Team.checkProps(props);
+    Team.validateName(props.name);
+    Team.validatePairList(props.pairList);
 
     return new Team(props);
   };
 
   public static rebuild = (id: Identifier, props: ITeam): Team => {
-    Team.checkProps(props);
+    Team.validateName(props.name);
+    Team.validatePairList(props.pairList);
 
     return new Team(props, id);
   };
@@ -36,11 +38,22 @@ export class Team extends AggregateRoot<ITeam> {
 
   public equals = (team: Team): boolean => team.id.equals(this.id);
 
-  private static checkProps = (props: ITeam): void => {
-    if (!new RegExp("^[1-9]+$").test(props.name)) {
+  public updatePairList = (pairList: Pair[]): Team => {
+    Team.validatePairList(pairList);
+
+    this.props.pairList = pairList;
+
+    return this;
+  };
+
+  private static validateName = (name: string): void => {
+    if (!new RegExp("^[1-9]+$").test(name)) {
       throw new Error("Team name can be set with numeric character.");
     }
-    if (!(Team.numberOfMember(props.pairList) >= 3)) {
+  };
+
+  private static validatePairList = (pairList: Pair[]): void => {
+    if (!(Team.numberOfMember(pairList) >= 3)) {
       throw new Error("Team requires 3 or more members");
     }
   };

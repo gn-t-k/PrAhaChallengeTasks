@@ -1,7 +1,6 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { Identifier } from "domain/shared/identifier";
-import { Pair } from "domain/team/entity/pair";
 import { Team } from "domain/team/entity/team";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
@@ -30,15 +29,14 @@ export class AddMemberToPair {
     const replacedPairList = targetTeam.pairList.map((pair) => {
       if (pair.id.value !== pairID) return pair;
 
-      return Pair.rebuild(new Identifier(pairID), {
-        name: pair.name,
-        memberList: pair.memberList.concat(targetMember),
-      });
+      return pair.addMember(targetMember);
     });
-    const replacedTeam = Team.rebuild(targetTeam.id, {
-      name: targetTeam.name,
-      pairList: replacedPairList,
-    });
+
+    const { id, name, pairList } = targetTeam;
+    const replacedTeam = Team.rebuild(id, {
+      name,
+      pairList,
+    }).updatePairList(replacedPairList);
 
     await this.teamRepository.update(replacedTeam);
   };
