@@ -209,14 +209,14 @@ export class TeamRepository implements ITeamRepository {
       throw new Error();
     }
 
-    await this.prisma.pair.delete({
-      where: {
-        id: removedPair.id.value,
-      },
-    });
     await this.prisma.memberOnPair.deleteMany({
       where: {
         pairId: removedPair.id.value,
+      },
+    });
+    await this.prisma.pair.delete({
+      where: {
+        id: removedPair.id.value,
       },
     });
   };
