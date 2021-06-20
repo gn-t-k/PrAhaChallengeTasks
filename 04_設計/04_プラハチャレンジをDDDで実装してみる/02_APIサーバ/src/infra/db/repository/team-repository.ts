@@ -31,21 +31,23 @@ export class TeamRepository implements ITeamRepository {
   }
 
   public getByID = async (props: IGetTeamByID): Promise<Team> => {
-    const nestedTeamData = await this.getNestedTeamData(props.id);
+    const nestedTeamData = await this.getNestedTeamData(props.id.value);
     const team = await this.getTeam(nestedTeamData);
 
     return team;
   };
 
   public getByPairID = async (props: IGetTeamByPairID): Promise<Team> => {
-    const nestedTeamData = await this.getNestedTeamDataByPairID(props.pairID);
+    const nestedTeamData = await this.getNestedTeamDataByPairID(
+      props.pairID.value,
+    );
     const team = await this.getTeam(nestedTeamData);
 
     return team;
   };
 
   public update = async (newTeam: Team): Promise<void> => {
-    const currentTeam = await this.getByID({ id: newTeam.id.value });
+    const currentTeam = await this.getByID({ id: newTeam.id });
 
     await this.updateTeam(newTeam, currentTeam);
     await this.updatePair(newTeam, currentTeam);

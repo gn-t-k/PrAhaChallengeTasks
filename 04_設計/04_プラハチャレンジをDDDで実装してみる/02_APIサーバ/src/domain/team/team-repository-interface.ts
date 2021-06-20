@@ -1,10 +1,11 @@
+import { Identifier } from "domain/shared/identifier";
 import { Team } from "domain/team//entity/team";
 
 export interface IGetTeamByID {
-  id: string;
+  id: Identifier;
 }
 export interface IGetTeamByPairID {
-  pairID: string;
+  pairID: Identifier;
 }
 
 export interface ITeamRepository {
