@@ -137,4 +137,30 @@ describe("pair", () => {
       expect(pair1.equals(pair2)).toBe(false);
     });
   });
+
+  describe("参加者を追加できる", () => {
+    test("追加した参加者がmemberListに含まれている", () => {
+      const { name, memberList } = makeDummyPairProps();
+      const pair = Pair.create({ name, memberList });
+      const addedMember = makeDummyMember();
+      pair.addMember(addedMember);
+
+      const isMemberAdded = memberList
+        .concat(addedMember)
+        .every((member) => pair.memberList.some((m) => m.equals(member)));
+
+      expect(isMemberAdded).toBe(true);
+    });
+
+    test("ペアに所属する参加者が4人以上になる場合、エラーになる", () => {
+      const pair = Pair.create({
+        name: "a",
+        memberList: [makeDummyMember(), makeDummyMember(), makeDummyMember()],
+      });
+
+      expect(() => {
+        pair.addMember(makeDummyMember());
+      }).toThrowError("2 or more and 3 or less member belong to pair.");
+    });
+  });
 });

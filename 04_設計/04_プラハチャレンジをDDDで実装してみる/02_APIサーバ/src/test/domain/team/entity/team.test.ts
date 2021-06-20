@@ -123,4 +123,16 @@ describe("Team", () => {
 
     expect(isAllMemberExists).toBe(true);
   });
+
+  test("ペアを更新できる", () => {
+    const team = makeDummyTeam();
+    const newPairList = [makeDummyPair(), makeDummyPair()];
+    team.updatePairList(newPairList);
+
+    const isPairListReplaced = team.pairList.every((pair) =>
+      newPairList.some((p) => p.equals(pair)),
+    );
+
+    expect(isPairListReplaced).toBe(true);
+  });
 });
