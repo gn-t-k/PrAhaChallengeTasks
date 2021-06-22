@@ -43,4 +43,21 @@ export class MemberRepository implements IMemberRepository {
       MemberFactory.execute(memberData),
     );
   };
+
+  public update = async (member: Member): Promise<void> => {
+    const id = member.id.value;
+    const { name, email } = member;
+    const activityStatus = member.status.value;
+
+    await this.prisma.member.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        email,
+        activityStatus,
+      },
+    });
+  };
 }

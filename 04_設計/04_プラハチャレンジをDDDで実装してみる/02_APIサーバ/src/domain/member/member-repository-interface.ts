@@ -5,4 +5,5 @@ export interface IMemberRepository {
   register(member: Member): Promise<void>;
   getByID(id: Identifier): Promise<Member>;
   getAll(): Promise<Member[]>;
+  update(member: Member): Promise<void>;
 }
