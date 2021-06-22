@@ -16,12 +16,21 @@ const inRecessMemberData = {
 
 const id = new Identifier(inRecessMemberData.id);
 const { name, email } = inRecessMemberData;
-const activityStatus = ActivityStatus.create({
+const inRecess = ActivityStatus.create({
   status: inRecessMemberData.activityStatus,
+});
+const active = ActivityStatus.create({
+  status: "在籍中",
 });
 
 export const inRecessMember = Member.rebuild(id, {
   name,
   email,
-  activityStatus,
+  activityStatus: inRecess,
+});
+
+export const activeMember = Member.rebuild(id, {
+  name,
+  email,
+  activityStatus: active,
 });

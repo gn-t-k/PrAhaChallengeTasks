@@ -21,7 +21,7 @@ export abstract class ChangeActivityStatus {
 
     if (member.status.equals(this.activityStatus)) {
       throw new Error(
-        `Member's activity status is already ${this.activityStatus.value}`,
+        `Member's activity status is already 「${this.activityStatus.value}」`,
       );
     }
 

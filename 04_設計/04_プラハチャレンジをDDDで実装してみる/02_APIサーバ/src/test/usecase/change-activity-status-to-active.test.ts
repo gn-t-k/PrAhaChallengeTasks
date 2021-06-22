@@ -2,7 +2,10 @@
 import { mocked } from "ts-jest/utils";
 import { MockContext, Context, createMockContext } from "infra/db/context";
 import { MemberRepository } from "infra/db/repository/member-repository";
-import { inRecessMember } from "test/stub/use-case/change-activity-status-to-active";
+import {
+  activeMember,
+  inRecessMember,
+} from "test/stub/use-case/change-activity-status-to-active";
 import { ChangeActivityStatusToActive } from "usecase/change-activity-status-to-active";
 
 let mockContext: MockContext;
@@ -32,5 +35,16 @@ describe("ChangeActivityStatusToActive", () => {
     await instance.execute(inRecessMember.id.value);
 
     expect(memberRepositoryUpdateSpy).toBeCalledWith(expectedMember);
+  });
+
+  test("すでに在籍中の参加者を変更しようとするとエラーになる", async () => {
+    const memberRepository = new MemberRepository(context);
+    const instance = new ChangeActivityStatusToActive(memberRepository);
+
+    const promise = instance.execute(activeMember.id.value);
+
+    await expect(promise).rejects.toThrowError(
+      "Member's activity status is already 「在籍中」",
+    );
   });
 });
