@@ -22,6 +22,12 @@ export class AddMemberToPair {
       this.memberRepository.getByID(new Identifier(memberID)),
     ]);
 
+    if (targetMember === null) {
+      throw new Error("Member is not exists");
+    }
+    if (targetTeam === null) {
+      throw new Error("Team is not exists");
+    }
     if (AddMemberToPair.isMemberExistsInTeam(targetMember, targetTeam)) {
       throw new Error(`${targetMember.name} is already exists in another pair`);
     }
