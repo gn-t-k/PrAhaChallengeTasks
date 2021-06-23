@@ -5,6 +5,7 @@ import {
 } from "domain/member/value-object/activity-status";
 import { MockContext, Context, createMockContext } from "infra/db/context";
 import { MemberRepository } from "infra/db/repository/member-repository";
+import { TeamRepository } from "infra/db/repository/team-repository";
 import {
   activeMemberData,
   inRecessMemberData,
@@ -23,8 +24,12 @@ describe("ChangeActivityStatusToActive", () => {
   test.skip("参加者の在籍ステータスを「在籍中」に変更できる", async () => {
     mockContext.prisma.member.findUnique.mockResolvedValue(inRecessMemberData);
 
+    const teamRepository = new TeamRepository(context);
     const memberRepository = new MemberRepository(context);
-    const instance = new ChangeActivityStatusToActive(memberRepository);
+    const instance = new ChangeActivityStatusToActive(
+      memberRepository,
+      teamRepository,
+    );
 
     const memberRepositoryUpdateSpy = jest.spyOn(memberRepository, "update");
     const { id, name, email } = inRecessMemberData;
@@ -47,8 +52,12 @@ describe("ChangeActivityStatusToActive", () => {
   test("すでに在籍中の参加者を変更しようとするとエラーになる", async () => {
     mockContext.prisma.member.findUnique.mockResolvedValue(activeMemberData);
 
+    const teamRepository = new TeamRepository(context);
     const memberRepository = new MemberRepository(context);
-    const instance = new ChangeActivityStatusToActive(memberRepository);
+    const instance = new ChangeActivityStatusToActive(
+      memberRepository,
+      teamRepository,
+    );
 
     const promise = instance.execute(activeMemberData.id);
 

@@ -1,10 +1,11 @@
+import { Member } from "domain/member/entity/member";
 import {
   ActivityStatus,
   activityStatusValue,
 } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
 import { Pair } from "domain/team/entity/pair";
-import { makeDummyMember } from "test/util/dummy/member";
+import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 import { makeDummyPair, makeDummyPairProps } from "test/util/dummy/pair";
 
 describe("pair", () => {
@@ -169,9 +170,15 @@ describe("pair", () => {
 
     test("在籍中ではない参加者を追加しようとした場合エラーになる", () => {
       const pair = makeDummyPair();
-      const member = makeDummyMember().changeActivityStatus(
-        ActivityStatus.create({ status: activityStatusValue.inRecess }),
-      );
+      const { name, email } = makeDummyMemberProps();
+      const activityStatus = ActivityStatus.create({
+        status: activityStatusValue.inRecess,
+      });
+      const member = Member.rebuild(new Identifier(), {
+        name,
+        email,
+        activityStatus,
+      });
 
       expect(() => {
         pair.addMember(member);

@@ -5,7 +5,7 @@ import { Identifier } from "domain/shared/identifier";
 export interface IMember {
   name: string;
   email: string;
-  activityStatus: ActivityStatus;
+  readonly activityStatus: ActivityStatus;
 }
 
 export class Member extends Entity<IMember> {
@@ -51,23 +51,7 @@ export class Member extends Entity<IMember> {
     return this;
   };
 
-  public changeActivityStatus = (activityStatus: ActivityStatus): Member => {
-    this.validateActivityStatus(activityStatus);
-
-    this.props.activityStatus = activityStatus;
-
-    return this;
-  };
-
   public equals = (member: Member): boolean => member.id.equals(this.id);
-
-  private validateActivityStatus = (activityStatus: ActivityStatus): void => {
-    if (activityStatus.equals(this.props.activityStatus)) {
-      throw new Error(
-        `Member's activity status is already 「${this.props.activityStatus.value}」`,
-      );
-    }
-  };
 
   private static validateName = (name: string): void => {
     if (name !== undefined ? name === "" : false) {

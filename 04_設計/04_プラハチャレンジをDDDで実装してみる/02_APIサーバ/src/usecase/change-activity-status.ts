@@ -1,7 +1,7 @@
 import { IMemberRepository } from "domain/member/member-repository-interface";
+import { ChangeActivityStatusService } from "domain/member/service/change-activity-status-service";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
-import { IsMemberExistsInTeam } from "domain/team/domain-service/is-member-exists-in-team";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export abstract class ChangeActivityStatus {
@@ -9,9 +9,9 @@ export abstract class ChangeActivityStatus {
   private readonly teamRepository: ITeamRepository;
   private readonly activityStatus: ActivityStatus;
 
-  constructor(
-    teamRepository: ITeamRepository,
+  public constructor(
     memberRepository: IMemberRepository,
+    teamRepository: ITeamRepository,
     activityStatus: ActivityStatus,
   ) {
     this.memberRepository = memberRepository;
@@ -28,18 +28,9 @@ export abstract class ChangeActivityStatus {
       throw new Error("Member is not exists");
     }
 
-    if (
-      !this.activityStatus.isAbleToJoinPair() &&
-      new IsMemberExistsInTeam(this.teamRepository)
-    ) {
-      // TODO: これはユースケースに書くべきではない
-      throw new Error(
-        "Cannnot change activity status because member is belongs to pair",
-      );
-    }
-
-    member.changeActivityStatus(this.activityStatus);
-
-    await this.memberRepository.update(member);
+    await new ChangeActivityStatusService(
+      this.teamRepository,
+      this.memberRepository,
+    ).execute(member, this.activityStatus);
   };
 }
