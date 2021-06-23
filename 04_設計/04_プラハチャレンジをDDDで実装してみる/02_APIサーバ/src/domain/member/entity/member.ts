@@ -22,19 +22,21 @@ export class Member extends Entity<IMember> {
   }
 
   public static create = (props: IMember): Member => {
-    Member.checkProps(props);
+    Member.validateName(props.name);
+    Member.validateEmail(props.email);
 
     return new Member(props);
   };
 
   public static rebuild = (id: Identifier, props: IMember): Member => {
-    Member.checkProps(props);
+    Member.validateName(props.name);
+    Member.validateEmail(props.email);
 
     return new Member(props, id);
   };
 
   public changeName = (name: string): Member => {
-    Member.checkProps({ name });
+    Member.validateName(name);
 
     this.props.name = name;
 
@@ -42,7 +44,7 @@ export class Member extends Entity<IMember> {
   };
 
   public changeEmail = (email: string): Member => {
-    Member.checkProps({ email });
+    Member.validateEmail(email);
 
     this.props.email = email;
 
@@ -50,6 +52,8 @@ export class Member extends Entity<IMember> {
   };
 
   public changeActivityStatus = (activityStatus: ActivityStatus): Member => {
+    this.validateActivityStatus(activityStatus);
+
     this.props.activityStatus = activityStatus;
 
     return this;
@@ -57,11 +61,22 @@ export class Member extends Entity<IMember> {
 
   public equals = (member: Member): boolean => member.id.equals(this.id);
 
-  private static checkProps = (props: Partial<IMember>): void => {
-    if (props.name !== undefined ? props.name === "" : false) {
+  private validateActivityStatus = (activityStatus: ActivityStatus): void => {
+    if (activityStatus.equals(this.props.activityStatus)) {
+      throw new Error(
+        `Member's activity status is already 「${this.props.activityStatus.value}」`,
+      );
+    }
+  };
+
+  private static validateName = (name: string): void => {
+    if (name !== undefined ? name === "" : false) {
       throw new Error("Illegal name value.");
     }
-    if (props.email !== undefined ? props.email === "" : false) {
+  };
+
+  private static validateEmail = (email: string): void => {
+    if (email !== undefined ? email === "" : false) {
       throw new Error("Illegal email value.");
     }
   };

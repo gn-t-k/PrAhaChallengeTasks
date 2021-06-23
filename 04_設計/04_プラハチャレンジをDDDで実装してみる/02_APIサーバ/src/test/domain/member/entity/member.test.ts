@@ -1,5 +1,8 @@
 import { Member } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
+import {
+  ActivityStatus,
+  activityStatusValue,
+} from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
 import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
@@ -143,17 +146,20 @@ describe("Member", () => {
   });
 
   describe("Memberの在籍ステータスを変更できる", () => {
-    const activityStatusInRecess = ActivityStatus.create({ status: "休会中" });
+    const active = ActivityStatus.create({
+      status: activityStatusValue.active,
+    });
+    const inRecess = ActivityStatus.create({
+      status: activityStatusValue.inRecess,
+    });
     const member = Member.create({
       name,
       email,
-      activityStatus: activityStatusInRecess,
+      activityStatus: active,
     });
 
     test("changeActivityStatus", () => {
-      expect(
-        member.changeActivityStatus(activityStatusInRecess).status,
-      ).toEqual(activityStatusInRecess);
+      expect(member.changeActivityStatus(inRecess).status).toEqual(inRecess);
     });
   });
 });

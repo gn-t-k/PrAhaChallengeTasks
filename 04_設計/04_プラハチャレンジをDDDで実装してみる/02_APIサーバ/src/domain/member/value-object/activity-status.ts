@@ -29,4 +29,7 @@ export class ActivityStatus extends ValueObject<IActivityStatus> {
 
   public equals = (props: ActivityStatus): boolean =>
     this.props.status === props.value;
+
+  public isAbleToJoinPair = (): boolean =>
+    this.props.status === activityStatusValue.active;
 }
