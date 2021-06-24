@@ -9,8 +9,8 @@ export class ChangeActivityStatusService {
   private readonly teamRepository: ITeamRepository;
 
   public constructor(
-    teamRepository: ITeamRepository,
     memberRepository: IMemberRepository,
+    teamRepository: ITeamRepository,
   ) {
     this.memberRepository = memberRepository;
     this.teamRepository = teamRepository;

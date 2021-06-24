@@ -1,19 +1,19 @@
 import { IMemberRepository } from "domain/member/member-repository-interface";
+import { ChangeActivityStatusService } from "domain/member/service/change-activity-status-service";
 import {
   ActivityStatus,
   activityStatusValue,
 } from "domain/member/value-object/activity-status";
-import { TeamRepository } from "infra/db/repository/team-repository";
 import { ChangeActivityStatus } from "usecase/change-activity-status";
 
 export class ChangeActivityStatusToInRecess extends ChangeActivityStatus {
   constructor(
     memberRepository: IMemberRepository,
-    teamRepository: TeamRepository,
+    chageActivityStatusService: ChangeActivityStatusService,
   ) {
     super(
       memberRepository,
-      teamRepository,
+      chageActivityStatusService,
       new ActivityStatus({ status: activityStatusValue.inRecess }),
     );
   }
