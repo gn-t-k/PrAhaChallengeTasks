@@ -153,6 +153,10 @@ export class TeamRepository implements ITeamRepository {
       },
     });
 
+    if (memberOnPairData.length === 0) {
+      return null;
+    }
+
     if (
       memberOnPairData.some((mop) => memberOnPairData[0].pairId !== mop.pairId)
     ) {

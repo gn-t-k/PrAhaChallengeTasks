@@ -26,10 +26,10 @@ export class ChangeActivityStatusService {
       );
     }
 
-    if (
-      !activityStatus.isAbleToJoinPair() &&
-      new IsMemberExistsInTeam(this.teamRepository)
-    ) {
+    const isMemberExistsInTeam = await new IsMemberExistsInTeam(
+      this.teamRepository,
+    ).execute(currentMember.id);
+    if (!activityStatus.isAbleToJoinPair() && isMemberExistsInTeam) {
       throw new Error(
         "Cannnot change activity status because member is belongs to pair",
       );

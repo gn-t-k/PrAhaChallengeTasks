@@ -21,8 +21,9 @@ beforeEach(() => {
 });
 
 describe("ChangeActivityStatusToActive", () => {
-  test.skip("参加者の在籍ステータスを「在籍中」に変更できる", async () => {
+  test("参加者の在籍ステータスを「在籍中」に変更できる", async () => {
     mockContext.prisma.member.findUnique.mockResolvedValue(inRecessMemberData);
+    mockContext.prisma.memberOnPair.findMany.mockResolvedValue([]);
 
     const teamRepository = new TeamRepository(context);
     const memberRepository = new MemberRepository(context);
