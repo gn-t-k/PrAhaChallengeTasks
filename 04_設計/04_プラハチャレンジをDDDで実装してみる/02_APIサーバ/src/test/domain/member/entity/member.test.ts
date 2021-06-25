@@ -1,5 +1,4 @@
 import { Member } from "domain/member/entity/member";
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Identifier } from "domain/shared/identifier";
 import { makeDummyMember, makeDummyMemberProps } from "test/util/dummy/member";
 
@@ -139,21 +138,6 @@ describe("Member", () => {
       expect(() => {
         member.changeEmail("");
       }).toThrowError("Illegal email value.");
-    });
-  });
-
-  describe("Memberの在籍ステータスを変更できる", () => {
-    const activityStatusInRecess = ActivityStatus.create({ status: "休会中" });
-    const member = Member.create({
-      name,
-      email,
-      activityStatus: activityStatusInRecess,
-    });
-
-    test("changeActivityStatus", () => {
-      expect(
-        member.changeActivityStatus(activityStatusInRecess).status,
-      ).toEqual(activityStatusInRecess);
     });
   });
 });

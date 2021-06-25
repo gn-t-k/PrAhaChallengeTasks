@@ -18,10 +18,16 @@ export class AddMemberToPair {
 
   public execute = async (memberID: string, pairID: string): Promise<void> => {
     const [targetTeam, targetMember] = await Promise.all([
-      this.teamRepository.getByPairID({ pairID }),
+      this.teamRepository.getByPairID({ pairID: new Identifier(pairID) }),
       this.memberRepository.getByID(new Identifier(memberID)),
     ]);
 
+    if (targetMember === null) {
+      throw new Error("Member is not exists");
+    }
+    if (targetTeam === null) {
+      throw new Error("Team is not exists");
+    }
     if (AddMemberToPair.isMemberExistsInTeam(targetMember, targetTeam)) {
       throw new Error(`${targetMember.name} is already exists in another pair`);
     }

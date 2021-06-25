@@ -3,6 +3,7 @@ import { Identifier } from "domain/shared/identifier";
 
 export interface IMemberRepository {
   register(member: Member): Promise<void>;
-  getByID(id: Identifier): Promise<Member>;
+  getByID(id: Identifier): Promise<Member | null>;
   getAll(): Promise<Member[]>;
+  update(member: Member): Promise<void>;
 }

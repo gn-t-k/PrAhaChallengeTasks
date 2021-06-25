@@ -22,7 +22,7 @@ export class MemberRepository implements IMemberRepository {
     });
   };
 
-  public getByID = async (id: Identifier): Promise<Member> => {
+  public getByID = async (id: Identifier): Promise<Member | null> => {
     const memberData = await this.prisma.member.findUnique({
       where: {
         id: id.value,
@@ -30,7 +30,7 @@ export class MemberRepository implements IMemberRepository {
     });
 
     if (memberData === null) {
-      throw new Error("Member not exists");
+      return null;
     }
 
     return MemberFactory.execute(memberData);
@@ -42,5 +42,22 @@ export class MemberRepository implements IMemberRepository {
     return memberDataList.map((memberData) =>
       MemberFactory.execute(memberData),
     );
+  };
+
+  public update = async (member: Member): Promise<void> => {
+    const id = member.id.value;
+    const { name, email } = member;
+    const activityStatus = member.status.value;
+
+    await this.prisma.member.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        email,
+        activityStatus,
+      },
+    });
   };
 }

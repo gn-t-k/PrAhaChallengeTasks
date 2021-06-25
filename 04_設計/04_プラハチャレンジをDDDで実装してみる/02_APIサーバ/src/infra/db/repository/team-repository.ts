@@ -13,6 +13,7 @@ import {
   ITeamRepository,
   IGetTeamByPairID,
   IGetTeamByID,
+  IGetTeamByMemberID,
 } from "domain/team/team-repository-interface";
 import { Context } from "infra/db/context";
 
@@ -30,17 +31,45 @@ export class TeamRepository implements ITeamRepository {
     this.prisma = context.prisma;
   }
 
-  public getByID = async (props: IGetTeamByID): Promise<Team> => {
+  public getByID = async (props: IGetTeamByID): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamData(props.id.value);
+
+    if (nestedTeamData === null) {
+      return null;
+    }
+
     const team = await this.getTeam(nestedTeamData);
 
     return team;
   };
 
-  public getByPairID = async (props: IGetTeamByPairID): Promise<Team> => {
+  public getByPairID = async (
+    props: IGetTeamByPairID,
+  ): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamDataByPairID(
       props.pairID.value,
     );
+
+    if (nestedTeamData === null) {
+      return null;
+    }
+
+    const team = await this.getTeam(nestedTeamData);
+
+    return team;
+  };
+
+  public getByMemberID = async (
+    props: IGetTeamByMemberID,
+  ): Promise<Team | null> => {
+    const nestedTeamData = await this.getNestedTeamDataByMemberID(
+      props.memberID.value,
+    );
+
+    if (nestedTeamData === null) {
+      return null;
+    }
+
     const team = await this.getTeam(nestedTeamData);
 
     return team;
@@ -48,6 +77,10 @@ export class TeamRepository implements ITeamRepository {
 
   public update = async (newTeam: Team): Promise<void> => {
     const currentTeam = await this.getByID({ id: newTeam.id });
+
+    if (currentTeam === null) {
+      throw new Error("Team not exists");
+    }
 
     await this.updateTeam(newTeam, currentTeam);
     await this.updatePair(newTeam, currentTeam);
@@ -69,7 +102,9 @@ export class TeamRepository implements ITeamRepository {
     });
   };
 
-  private getNestedTeamData = async (id: string) => {
+  private getNestedTeamData = async (
+    id: string,
+  ): Promise<NestedTeamData | null> => {
     const nestedTeamData = await this.prisma.team.findUnique({
       where: {
         id,
@@ -83,14 +118,12 @@ export class TeamRepository implements ITeamRepository {
       },
     });
 
-    if (nestedTeamData === null) {
-      throw new Error("Team not exists");
-    }
-
     return nestedTeamData;
   };
 
-  private getNestedTeamDataByPairID = async (pairID: string) => {
+  private getNestedTeamDataByPairID = async (
+    pairID: string,
+  ): Promise<NestedTeamData | null> => {
     const pairDataForTeamID = await this.prisma.pair.findUnique({
       where: {
         id: pairID,
@@ -101,7 +134,7 @@ export class TeamRepository implements ITeamRepository {
     });
 
     if (pairDataForTeamID === null) {
-      throw new Error("Pair not exists");
+      return null;
     }
 
     const nestedTeamData = await this.getNestedTeamData(
@@ -109,6 +142,30 @@ export class TeamRepository implements ITeamRepository {
     );
 
     return nestedTeamData;
+  };
+
+  private getNestedTeamDataByMemberID = async (
+    memberID: string,
+  ): Promise<NestedTeamData | null> => {
+    const memberOnPairData = await this.prisma.memberOnPair.findMany({
+      where: {
+        memberId: memberID,
+      },
+    });
+
+    if (memberOnPairData.length === 0) {
+      return null;
+    }
+
+    if (
+      memberOnPairData.some((mop) => memberOnPairData[0].pairId !== mop.pairId)
+    ) {
+      throw new Error();
+    }
+
+    const pairID = memberOnPairData[0].pairId;
+
+    return this.getNestedTeamDataByPairID(pairID);
   };
 
   private getMemberDataList = async (nestedTeamData: NestedTeamData) => {
