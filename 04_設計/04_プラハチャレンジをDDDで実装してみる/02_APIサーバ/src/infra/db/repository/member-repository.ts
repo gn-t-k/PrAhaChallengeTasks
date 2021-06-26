@@ -60,4 +60,20 @@ export class MemberRepository implements IMemberRepository {
       },
     });
   };
+
+  public delete = async (member: Member): Promise<void> => {
+    const id = member.id.value;
+
+    await this.prisma.exerciseOnMember.deleteMany({
+      where: {
+        memberId: id,
+      },
+    });
+
+    await this.prisma.member.delete({
+      where: {
+        id,
+      },
+    });
+  };
 }
