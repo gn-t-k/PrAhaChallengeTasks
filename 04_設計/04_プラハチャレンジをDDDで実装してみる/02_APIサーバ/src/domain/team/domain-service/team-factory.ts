@@ -1,4 +1,4 @@
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 import { Pair } from "domain/team/entity/pair";
 import { Team } from "domain/team/entity/team";
 

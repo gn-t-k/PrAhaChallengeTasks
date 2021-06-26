@@ -1,4 +1,4 @@
-import { ValueObject } from "domain/shared/value-object";
+import { ValueObject } from "domain/__shared__/value-object";
 
 export const activityStatusValue = {
   active: "在籍中",

@@ -1,7 +1,7 @@
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { ChangeActivityStatusService } from "domain/member/service/change-activity-status-service";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 
 export abstract class ChangeActivityStatus {
   private readonly memberRepository: IMemberRepository;

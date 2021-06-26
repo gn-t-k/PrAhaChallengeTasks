@@ -1,4 +1,4 @@
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class IsMemberExistsInTeam {

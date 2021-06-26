@@ -3,7 +3,7 @@ import {
   ActivityStatus,
   activityStatusValue,
 } from "domain/member/value-object/activity-status";
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 
 interface IProps {
   name: string;

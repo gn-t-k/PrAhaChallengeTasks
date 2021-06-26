@@ -1,4 +1,4 @@
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 import { Team } from "domain/team//entity/team";
 
 export interface IGetTeamByID {

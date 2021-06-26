@@ -1,5 +1,5 @@
-import { Entity } from "domain/shared/entity";
-import { Identifier } from "domain/shared/identifier";
+import { Entity } from "domain/__shared__/entity";
+import { Identifier } from "domain/__shared__/identifier";
 
 export interface IExerciseGroup {
   name: string;
