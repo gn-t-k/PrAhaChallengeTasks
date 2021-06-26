@@ -1,16 +1,18 @@
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
-import { IsMemberExist } from "domain/member/service/is-member-exist";
+import { IsMemberExistService } from "domain/member/service/is-member-exist-service";
 import { MemberFactory } from "domain/member/service/member-factory";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
-import { IsProgressExist } from "domain/progress/service/is-progress-exist";
+import { IsProgressExistService } from "domain/progress/service/is-progress-exist-service";
 import { ProgressFactory } from "domain/progress/service/progress-factory";
 
 interface IRegisterMemberProps {
   memberRepository: IMemberRepository;
   exerciseRepository: IExerciseRepository;
   progressRepository: IProgressRepository;
+  isMemberExistService: IsMemberExistService;
+  isProgressExistService: IsProgressExistService;
 }
 
 interface IExecuteProps {
@@ -22,11 +24,15 @@ export class RegisterMember {
   private readonly memberRepository: IMemberRepository;
   private readonly exerciseRepository: IExerciseRepository;
   private readonly progressRepository: IProgressRepository;
+  private readonly isMemberExistService: IsMemberExistService;
+  private readonly isProgressExistService: IsProgressExistService;
 
   public constructor(props: IRegisterMemberProps) {
     this.memberRepository = props.memberRepository;
     this.exerciseRepository = props.exerciseRepository;
     this.progressRepository = props.progressRepository;
+    this.isMemberExistService = props.isMemberExistService;
+    this.isProgressExistService = props.isProgressExistService;
   }
 
   public execute = async (props: IExecuteProps): Promise<void> => {
@@ -34,8 +40,8 @@ export class RegisterMember {
     const member = MemberFactory.execute({ name, email });
 
     await Promise.all([
-      this.checkMemberExist(member),
-      this.checkProgressExist(member),
+      this.validateMember(member),
+      this.validateProgress(member),
     ]);
 
     const exerciseList = await this.exerciseRepository.getAll();
@@ -47,20 +53,16 @@ export class RegisterMember {
     ]);
   };
 
-  private checkMemberExist = async (member: Member): Promise<void> => {
-    const isMemberExist = await new IsMemberExist(
-      this.memberRepository,
-    ).execute(member);
+  private validateMember = async (member: Member): Promise<void> => {
+    const isMemberExist = await this.isMemberExistService.execute(member);
 
     if (isMemberExist) {
       throw new Error("Member already exists");
     }
   };
 
-  private checkProgressExist = async (member: Member): Promise<void> => {
-    const isProgressExist = await new IsProgressExist(
-      this.progressRepository,
-    ).execute(member);
+  private validateProgress = async (member: Member): Promise<void> => {
+    const isProgressExist = await this.isProgressExistService.execute(member);
 
     if (isProgressExist) {
       throw new Error("Progress already exists");

@@ -1,7 +1,7 @@
 import { Member } from "domain/member/entity/member";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 
-export class IsProgressExist {
+export class IsProgressExistService {
   private readonly repository: IProgressRepository;
 
   public constructor(repository: IProgressRepository) {

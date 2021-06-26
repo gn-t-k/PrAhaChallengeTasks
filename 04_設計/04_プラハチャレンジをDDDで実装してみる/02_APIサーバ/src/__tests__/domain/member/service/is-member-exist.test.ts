@@ -1,12 +1,12 @@
 import { allMemberDataList } from "__tests__/__stubs__/infrastructure/db/query-service/get-all-member-query-service";
 import { makeDummyMember } from "__tests__/__utils__/dummy/member";
+import { Identifier } from "domain/__shared__/identifier";
 import { Member } from "domain/member/entity/member";
-import { IsMemberExist } from "domain/member/service/is-member-exist";
+import { IsMemberExistService } from "domain/member/service/is-member-exist-service";
 import {
   ActivityStatus,
   activityStatusValue,
 } from "domain/member/value-object/activity-status";
-import { Identifier } from "domain/__shared__/identifier";
 import {
   MockContext,
   Context,
@@ -28,7 +28,7 @@ describe("IsMemberExist", () => {
     mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
 
     const repository = new MemberRepository(context);
-    const isMemberExist = new IsMemberExist(repository);
+    const isMemberExist = new IsMemberExistService(repository);
 
     const isExistPromise = isMemberExist.execute(member);
 
@@ -47,7 +47,7 @@ describe("IsMemberExist", () => {
     mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
 
     const repository = new MemberRepository(context);
-    const isMemberExist = new IsMemberExist(repository);
+    const isMemberExist = new IsMemberExistService(repository);
 
     const isExistPromise = isMemberExist.execute(member);
 

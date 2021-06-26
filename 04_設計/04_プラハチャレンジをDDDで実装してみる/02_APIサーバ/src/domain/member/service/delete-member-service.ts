@@ -1,6 +1,6 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
-import { IsMemberExistsInTeam } from "domain/team/service/is-member-exists-in-team";
+import { IsMemberExistsInTeamService } from "domain/team/service/is-member-exists-in-team-service";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class DeleteMemberService {
@@ -17,7 +17,9 @@ export class DeleteMemberService {
 
   public execute = async (member: Member): Promise<void> => {
     if (
-      await new IsMemberExistsInTeam(this.teamRepository).execute(member.id)
+      await new IsMemberExistsInTeamService(this.teamRepository).execute(
+        member.id,
+      )
     ) {
       throw new Error(
         "Cannnot delete member because member is belongs to pair",

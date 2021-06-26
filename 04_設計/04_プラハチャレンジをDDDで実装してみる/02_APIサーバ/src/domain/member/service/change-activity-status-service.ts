@@ -1,7 +1,7 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { IsMemberExistsInTeam } from "domain/team/service/is-member-exists-in-team";
+import { IsMemberExistsInTeamService } from "domain/team/service/is-member-exists-in-team-service";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class ChangeActivityStatusService {
@@ -26,7 +26,7 @@ export class ChangeActivityStatusService {
       );
     }
 
-    const isMemberExistsInTeam = await new IsMemberExistsInTeam(
+    const isMemberExistsInTeam = await new IsMemberExistsInTeamService(
       this.teamRepository,
     ).execute(currentMember.id);
     if (!activityStatus.isAbleToJoinPair() && isMemberExistsInTeam) {

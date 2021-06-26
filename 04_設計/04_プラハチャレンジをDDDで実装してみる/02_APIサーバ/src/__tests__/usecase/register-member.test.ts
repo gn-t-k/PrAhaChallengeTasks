@@ -8,6 +8,8 @@ import {
   progressDataList,
 } from "__tests__/__stubs__/infrastructure/db/repository/progress-repository";
 import { Member } from "domain/member/entity/member";
+import { IsMemberExistService } from "domain/member/service/is-member-exist-service";
+import { IsProgressExistService } from "domain/progress/service/is-progress-exist-service";
 import {
   MockContext,
   Context,
@@ -57,10 +59,16 @@ describe("RegisterMember", () => {
       const memberRepository = new MemberRepository(context);
       const exerciseRepository = new ExerciseRepository(context);
       const progressRepository = new ProgressRepository(context);
+      const isMemberExistService = new IsMemberExistService(memberRepository);
+      const isProgressExistService = new IsProgressExistService(
+        progressRepository,
+      );
       const registerMember = new RegisterMember({
         memberRepository,
         exerciseRepository,
         progressRepository,
+        isMemberExistService,
+        isProgressExistService,
       });
       jest.spyOn(memberRepository, "register");
 
@@ -90,10 +98,16 @@ describe("RegisterMember", () => {
       const memberRepository = new MemberRepository(context);
       const exerciseRepository = new ExerciseRepository(context);
       const progressRepository = new ProgressRepository(context);
+      const isMemberExistService = new IsMemberExistService(memberRepository);
+      const isProgressExistService = new IsProgressExistService(
+        progressRepository,
+      );
       const registerMember = new RegisterMember({
         memberRepository,
         exerciseRepository,
         progressRepository,
+        isMemberExistService,
+        isProgressExistService,
       });
 
       const promise = registerMember.execute({
