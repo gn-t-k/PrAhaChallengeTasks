@@ -3,9 +3,9 @@ import {
   makeDummyMember,
   makeDummyMemberProps,
 } from "__tests__/__utils__/dummy/member";
-import { Member } from "domain/member/entity/member";
-import { IsProgressExist } from "domain/progress/service/is-progress-exist";
 import { Identifier } from "domain/__shared__/identifier";
+import { Member } from "domain/member/entity/member";
+import { IsProgressExistService } from "domain/progress/service/is-progress-exist-service";
 import {
   MockContext,
   Context,
@@ -29,7 +29,7 @@ describe("IsProgressExist", () => {
 
     const member = makeDummyMember();
     const progressRepository = new ProgressRepository(context);
-    const isProgressExist = new IsProgressExist(progressRepository);
+    const isProgressExist = new IsProgressExistService(progressRepository);
 
     const isExistPromise = isProgressExist.execute(member);
 
@@ -51,7 +51,7 @@ describe("IsProgressExist", () => {
       },
     );
     const progressRepository = new ProgressRepository(context);
-    const isProgressExist = new IsProgressExist(progressRepository);
+    const isProgressExist = new IsProgressExistService(progressRepository);
 
     const isExistPromise = isProgressExist.execute(member);
 

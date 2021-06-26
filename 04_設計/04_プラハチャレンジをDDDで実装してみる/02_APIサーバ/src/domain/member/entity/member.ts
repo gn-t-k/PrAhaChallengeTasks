@@ -1,6 +1,6 @@
-import { ActivityStatus } from "domain/member/value-object/activity-status";
 import { Entity } from "domain/__shared__/entity";
 import { Identifier } from "domain/__shared__/identifier";
+import { ActivityStatus } from "domain/member/value-object/activity-status";
 
 export interface IMember {
   name: string;

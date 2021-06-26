@@ -1,6 +1,6 @@
-import { Member } from "domain/member/entity/member";
 import { AggregateRoot } from "domain/__shared__/aggregate-root";
 import { Identifier } from "domain/__shared__/identifier";
+import { Member } from "domain/member/entity/member";
 import { Pair } from "domain/team/entity/pair";
 
 export interface ITeam {

@@ -1,9 +1,9 @@
+import { Identifier } from "domain/__shared__/identifier";
 import { Member } from "domain/member/entity/member";
 import {
   ActivityStatus,
   activityStatusValue,
 } from "domain/member/value-object/activity-status";
-import { Identifier } from "domain/__shared__/identifier";
 
 interface IProps {
   name: string;

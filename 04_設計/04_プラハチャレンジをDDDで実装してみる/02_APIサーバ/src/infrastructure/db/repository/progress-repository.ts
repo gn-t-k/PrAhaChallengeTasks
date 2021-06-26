@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { Identifier } from "domain/__shared__/identifier";
 import { Progress } from "domain/progress/entity/progress";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 import { ProgressStatus } from "domain/progress/value-object/progress-status";
-import { Identifier } from "domain/__shared__/identifier";
 import { Context } from "infrastructure/db/context";
 
 export class ProgressRepository implements IProgressRepository {

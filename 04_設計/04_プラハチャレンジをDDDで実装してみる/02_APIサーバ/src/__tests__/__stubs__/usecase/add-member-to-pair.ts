@@ -1,6 +1,6 @@
 import { MemberFactory } from "domain/member/service/member-factory";
-import { PairFactory } from "domain/team/domain-service/pair-factory";
-import { TeamFactory } from "domain/team/domain-service/team-factory";
+import { PairFactory } from "domain/team/service/pair-factory";
+import { TeamFactory } from "domain/team/service/team-factory";
 
 const createdAt = new Date();
 const updatedAt = new Date();

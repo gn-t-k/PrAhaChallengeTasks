@@ -5,9 +5,9 @@ import {
   makeDummyTeamProps,
 } from "__tests__/__utils__/dummy/team";
 import { Identifier } from "domain/__shared__/identifier";
-import { PairFactory } from "domain/team/domain-service/pair-factory";
-import { TeamFactory } from "domain/team/domain-service/team-factory";
 import { Team } from "domain/team/entity/team";
+import { PairFactory } from "domain/team/service/pair-factory";
+import { TeamFactory } from "domain/team/service/team-factory";
 
 describe("Team", () => {
   describe("チームを作成できる", () => {

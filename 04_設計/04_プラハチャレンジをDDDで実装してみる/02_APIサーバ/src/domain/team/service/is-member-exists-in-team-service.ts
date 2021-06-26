@@ -1,7 +1,7 @@
 import { Identifier } from "domain/__shared__/identifier";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
-export class IsMemberExistsInTeam {
+export class IsMemberExistsInTeamService {
   private readonly repository: ITeamRepository;
 
   public constructor(repository: ITeamRepository) {

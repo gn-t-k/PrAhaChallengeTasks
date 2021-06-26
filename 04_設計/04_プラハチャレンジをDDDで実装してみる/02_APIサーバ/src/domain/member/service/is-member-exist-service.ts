@@ -1,7 +1,7 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 
-export class IsMemberExist {
+export class IsMemberExistService {
   private readonly repository: IMemberRepository;
 
   public constructor(repository: IMemberRepository) {
