@@ -1,5 +1,5 @@
-import { Member } from "domain/member/entity/member";
 import { Identifier } from "domain/__shared__/identifier";
+import { Member } from "domain/member/entity/member";
 
 export interface IMemberRepository {
   register(member: Member): Promise<void>;

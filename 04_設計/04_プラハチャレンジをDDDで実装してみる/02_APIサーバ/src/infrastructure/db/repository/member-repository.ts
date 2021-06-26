@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { Identifier } from "domain/__shared__/identifier";
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { MemberFactory } from "domain/member/service/member-factory";
-import { Identifier } from "domain/__shared__/identifier";
 import { Context } from "infrastructure/db/context";
 
 export class MemberRepository implements IMemberRepository {

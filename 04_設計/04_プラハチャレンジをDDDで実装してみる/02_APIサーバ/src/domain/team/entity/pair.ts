@@ -1,7 +1,7 @@
-import { Member } from "domain/member/entity/member";
-import { activityStatusValue } from "domain/member/value-object/activity-status";
 import { Entity } from "domain/__shared__/entity";
 import { Identifier } from "domain/__shared__/identifier";
+import { Member } from "domain/member/entity/member";
+import { activityStatusValue } from "domain/member/value-object/activity-status";
 
 export interface IPair {
   name: string;

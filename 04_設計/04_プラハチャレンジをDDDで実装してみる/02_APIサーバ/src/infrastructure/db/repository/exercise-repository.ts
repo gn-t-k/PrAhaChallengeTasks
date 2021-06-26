@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { Identifier } from "domain/__shared__/identifier";
 import { Exercise } from "domain/exercise/entity/exercise";
 import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";
-import { Identifier } from "domain/__shared__/identifier";
 import { Context } from "infrastructure/db/context";
 
 export class ExerciseRepository implements IExerciseRepository {
