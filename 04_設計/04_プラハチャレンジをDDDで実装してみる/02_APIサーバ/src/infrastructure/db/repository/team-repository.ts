@@ -6,9 +6,9 @@ import {
   PrismaClient,
 } from "@prisma/client";
 import { MemberFactory } from "domain/member/service/member-factory";
-import { PairFactory } from "domain/team/domain-service/pair-factory";
-import { TeamFactory } from "domain/team/domain-service/team-factory";
 import { Team } from "domain/team/entity/team";
+import { PairFactory } from "domain/team/service/pair-factory";
+import { TeamFactory } from "domain/team/service/team-factory";
 import {
   ITeamRepository,
   IGetTeamByPairID,

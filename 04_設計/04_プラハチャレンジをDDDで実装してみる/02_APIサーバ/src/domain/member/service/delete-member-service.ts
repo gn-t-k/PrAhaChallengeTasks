@@ -1,6 +1,6 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
-import { IsMemberExistsInTeam } from "domain/team/domain-service/is-member-exists-in-team";
+import { IsMemberExistsInTeam } from "domain/team/service/is-member-exists-in-team";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class DeleteMemberService {

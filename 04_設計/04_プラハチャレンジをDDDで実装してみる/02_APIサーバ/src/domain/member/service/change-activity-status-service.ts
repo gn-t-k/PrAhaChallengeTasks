@@ -1,7 +1,7 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { ActivityStatus } from "domain/member/value-object/activity-status";
-import { IsMemberExistsInTeam } from "domain/team/domain-service/is-member-exists-in-team";
+import { IsMemberExistsInTeam } from "domain/team/service/is-member-exists-in-team";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class ChangeActivityStatusService {
