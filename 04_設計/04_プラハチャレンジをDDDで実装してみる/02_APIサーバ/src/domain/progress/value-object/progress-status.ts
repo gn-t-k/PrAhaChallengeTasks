@@ -1,4 +1,4 @@
-import { ValueObject } from "domain/shared/value-object";
+import { ValueObject } from "domain/__shared__/value-object";
 
 const progressStatusValue = {
   notStartedYet: "未着手",

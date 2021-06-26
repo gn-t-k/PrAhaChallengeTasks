@@ -1,6 +1,6 @@
 import { ExerciseGroup } from "domain/exercise/entity/exercise-group";
-import { AggregateRoot } from "domain/shared/aggregate-root";
-import { Identifier } from "domain/shared/identifier";
+import { AggregateRoot } from "domain/__shared__/aggregate-root";
+import { Identifier } from "domain/__shared__/identifier";
 
 export interface IExercise {
   title: string;

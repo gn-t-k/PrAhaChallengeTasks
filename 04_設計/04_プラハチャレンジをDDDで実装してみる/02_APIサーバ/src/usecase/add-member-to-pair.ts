@@ -1,6 +1,6 @@
 import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 import { Team } from "domain/team/entity/team";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 

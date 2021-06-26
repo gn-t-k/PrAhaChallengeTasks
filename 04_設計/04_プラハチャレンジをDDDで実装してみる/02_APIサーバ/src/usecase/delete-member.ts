@@ -1,6 +1,6 @@
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { DeleteMemberService } from "domain/member/service/delete-member-service";
-import { Identifier } from "domain/shared/identifier";
+import { Identifier } from "domain/__shared__/identifier";
 
 export class DeleteMember {
   private readonly memberRepository: IMemberRepository;

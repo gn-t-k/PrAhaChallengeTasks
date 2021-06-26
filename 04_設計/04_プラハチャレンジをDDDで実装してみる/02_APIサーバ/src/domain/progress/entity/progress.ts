@@ -1,6 +1,6 @@
 import { ProgressStatus } from "domain/progress/value-object/progress-status";
-import { AggregateRoot } from "domain/shared/aggregate-root";
-import { Identifier } from "domain/shared/identifier";
+import { AggregateRoot } from "domain/__shared__/aggregate-root";
+import { Identifier } from "domain/__shared__/identifier";
 
 interface IProgress {
   memberID: Identifier;
