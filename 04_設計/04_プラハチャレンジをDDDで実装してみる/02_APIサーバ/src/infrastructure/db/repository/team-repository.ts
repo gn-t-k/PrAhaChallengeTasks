@@ -11,9 +11,9 @@ import { PairFactory } from "domain/team/service/pair-factory";
 import { TeamFactory } from "domain/team/service/team-factory";
 import {
   ITeamRepository,
-  IGetTeamByPairID,
-  IGetTeamByID,
-  IGetTeamByMemberID,
+  IGetByPairID,
+  IGetByID,
+  IGetByMemberID,
 } from "domain/team/team-repository-interface";
 import { Context } from "infrastructure/db/context";
 
@@ -31,7 +31,7 @@ export class TeamRepository implements ITeamRepository {
     this.prisma = context.prisma;
   }
 
-  public getByID = async (props: IGetTeamByID): Promise<Team | null> => {
+  public getByID = async (props: IGetByID): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamData(props.id.value);
 
     if (nestedTeamData === null) {
@@ -43,9 +43,7 @@ export class TeamRepository implements ITeamRepository {
     return team;
   };
 
-  public getByPairID = async (
-    props: IGetTeamByPairID,
-  ): Promise<Team | null> => {
+  public getByPairID = async (props: IGetByPairID): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamDataByPairID(
       props.pairID.value,
     );
@@ -60,7 +58,7 @@ export class TeamRepository implements ITeamRepository {
   };
 
   public getByMemberID = async (
-    props: IGetTeamByMemberID,
+    props: IGetByMemberID,
   ): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamDataByMemberID(
       props.memberID.value,
@@ -164,8 +162,9 @@ export class TeamRepository implements ITeamRepository {
     }
 
     const pairID = memberOnPairData[0].pairId;
+    const nestedTeamData = await this.getNestedTeamDataByPairID(pairID);
 
-    return this.getNestedTeamDataByPairID(pairID);
+    return nestedTeamData;
   };
 
   private getMemberDataList = async (nestedTeamData: NestedTeamData) => {
