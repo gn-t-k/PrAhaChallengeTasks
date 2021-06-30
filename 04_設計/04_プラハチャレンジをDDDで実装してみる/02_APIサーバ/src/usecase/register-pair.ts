@@ -1,7 +1,11 @@
 import { Identifier } from "domain/__shared__/identifier";
+import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
+import { Team } from "domain/team/entity/team";
 import { IsMemberExistsInTeamService } from "domain/team/service/is-member-exists-in-team-service";
 import { IsPairExistsService } from "domain/team/service/is-pair-exists-service";
+import { PairFactory } from "domain/team/service/pair-factory";
+import { TeamFactory } from "domain/team/service/team-factory";
 import { ITeamRepository } from "domain/team/team-repository-interface";
 
 export class RegisterPair {
@@ -27,6 +31,62 @@ export class RegisterPair {
     pairName: string,
     memberIDList: string[],
   ): Promise<void> => {
+    const [memberList, currentTeam] = await Promise.all([
+      this.getMemberList(memberIDList),
+      this.getTeam(teamID),
+    ]);
+
+    await Promise.all([
+      this.validatePairName(pairName, teamID),
+      this.validateMemberFree(memberList),
+    ]);
+
+    const pair = PairFactory.execute({
+      id: new Identifier().value,
+      name: pairName,
+      memberList,
+    });
+    const team = TeamFactory.execute({
+      id: currentTeam.id.value,
+      name: currentTeam.name,
+      pairList: currentTeam.pairList.concat(pair),
+    });
+
+    await this.teamRepository.update(team);
+  };
+
+  private getMemberList = async (memberIDList: string[]): Promise<Member[]> => {
+    const memberList = await Promise.all(
+      memberIDList.map((memberID) =>
+        this.memberRepository.getByID(new Identifier(memberID)),
+      ),
+    );
+
+    return memberList.map((member) => {
+      if (member === null) {
+        throw new Error("Some or all member is not exists");
+      }
+
+      return member;
+    });
+  };
+
+  private getTeam = async (teamID: string): Promise<Team> => {
+    const team = await this.teamRepository.getByID({
+      id: new Identifier(teamID),
+    });
+
+    if (team === null) {
+      throw new Error("Team is not exists");
+    }
+
+    return team;
+  };
+
+  private validatePairName = async (
+    pairName: string,
+    teamID: string,
+  ): Promise<void> => {
     const isPairExists = await this.isPairExistsService.execute(
       pairName,
       teamID,
@@ -35,22 +95,13 @@ export class RegisterPair {
     if (isPairExists) {
       throw new Error(`Pair ${pairName} is already exists in specified team`);
     }
+  };
 
-    const getMemberPromiseList = memberIDList.map((memberID) =>
-      this.memberRepository.getByID(new Identifier(memberID)),
-    );
-    const memberList = await Promise.all(getMemberPromiseList);
-    const isAllMemberExist = memberList.every((member) => member !== null);
-
-    if (!isAllMemberExist) {
-      throw new Error("Some or all member is not exists");
-    }
-
-    const isMemberExistsInTeamPromiseList = memberIDList.map((memberID) =>
-      this.isMemberExistsInTeamService.execute(new Identifier(memberID)),
-    );
+  private validateMemberFree = async (memberList: Member[]): Promise<void> => {
     const isMemberExistsInTeamList = await Promise.all(
-      isMemberExistsInTeamPromiseList,
+      memberList.map((member) =>
+        this.isMemberExistsInTeamService.execute(member.id),
+      ),
     );
     const isAllMemberFree = isMemberExistsInTeamList.every(
       (isMemberExistsInTeam) => isMemberExistsInTeam === false,
@@ -59,7 +110,5 @@ export class RegisterPair {
     if (!isAllMemberFree) {
       throw new Error("Some or all member is already exists in team");
     }
-
-    // TODO: Pairオブジェクトの作成、登録
   };
 }
