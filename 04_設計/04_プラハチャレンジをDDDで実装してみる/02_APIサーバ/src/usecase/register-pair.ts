@@ -28,7 +28,7 @@ export class RegisterPair {
     memberIDList: string[],
   ): Promise<void> => {
     const [memberList, currentTeam] = await Promise.all([
-      this.getMemberList(memberIDList),
+      this.getMemberList(memberIDList.map((id) => new Identifier(id))),
       this.getTeam(teamID),
     ]);
 
@@ -49,12 +49,10 @@ export class RegisterPair {
     await this.teamRepository.update(team);
   };
 
-  private getMemberList = async (memberIDList: string[]): Promise<Member[]> => {
-    const memberList = await Promise.all(
-      memberIDList.map((memberID) =>
-        this.memberRepository.getByID(new Identifier(memberID)),
-      ),
-    );
+  private getMemberList = async (
+    memberIDList: Identifier[],
+  ): Promise<Member[]> => {
+    const memberList = await this.memberRepository.getByIDList(memberIDList);
 
     return memberList.map((member) => {
       if (member === null) {
