@@ -87,6 +87,7 @@ export class RegisterPair {
   };
 
   private validateMemberFree = async (memberList: Member[]): Promise<void> => {
+    // TODO: パフォーマンス悪い。1発で取得したい
     const isMemberExistsInTeamList = await Promise.all(
       memberList.map((member) =>
         this.isMemberExistsInTeamService.execute(member.id),
