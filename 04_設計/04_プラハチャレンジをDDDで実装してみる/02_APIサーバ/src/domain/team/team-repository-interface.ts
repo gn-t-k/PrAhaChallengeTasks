@@ -1,20 +1,25 @@
 import { Identifier } from "domain/__shared__/identifier";
 import { Team } from "domain/team//entity/team";
 
-export interface IGetTeamByID {
+export interface IGetByID {
   id: Identifier;
 }
-export interface IGetTeamByPairID {
+export interface IGetByPairID {
   pairID: Identifier;
 }
 
-export interface IGetTeamByMemberID {
+export interface IGetByMemberID {
   memberID: Identifier;
 }
 
+export interface IGetByPairName {
+  pairName: string;
+  teamID: Identifier;
+}
+
 export interface ITeamRepository {
-  getByID(props: IGetTeamByID): Promise<Team | null>;
-  getByPairID(props: IGetTeamByPairID): Promise<Team | null>;
-  getByMemberID(props: IGetTeamByMemberID): Promise<Team | null>;
+  getByID(props: IGetByID): Promise<Team | null>;
+  getByPairID(props: IGetByPairID): Promise<Team | null>;
+  getByMemberID(props: IGetByMemberID): Promise<Team | null>;
   update(team: Team): Promise<void>;
 }

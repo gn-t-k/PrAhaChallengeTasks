@@ -36,6 +36,20 @@ export class MemberRepository implements IMemberRepository {
     return MemberFactory.execute(memberData);
   };
 
+  public getByIDList = async (idList: Identifier[]): Promise<Member[]> => {
+    const memberDataList = await this.prisma.member.findMany({
+      where: {
+        id: {
+          in: idList.map((id) => id.value),
+        },
+      },
+    });
+
+    return memberDataList.map((memberData) =>
+      MemberFactory.execute(memberData),
+    );
+  };
+
   public getAll = async (): Promise<Member[]> => {
     const memberDataList = await this.prisma.member.findMany();
 
