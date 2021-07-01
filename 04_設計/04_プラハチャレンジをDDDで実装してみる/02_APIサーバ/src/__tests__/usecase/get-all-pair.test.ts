@@ -1,13 +1,10 @@
-import {
-  allMemberDataList,
-  nestedTeamDataList,
-} from "__tests__/__stubs__/usecase/get-all-pair";
+import { nestedPairData } from "__tests__/__stubs__/usecase/get-all-pair";
 import {
   MockContext,
   Context,
   createMockContext,
 } from "infrastructure/db/context";
-import { TeamRepository } from "infrastructure/db/repository/team-repository";
+import { GetAllPairQueryService } from "infrastructure/db/query-service/get-all-pair-query-service";
 import { GetAllPair } from "usecase/get-all-pair";
 
 let mockContext: MockContext;
@@ -20,13 +17,12 @@ beforeEach(() => {
 
 describe("GetAllPair", () => {
   test("すべてのペアが取得できる", async () => {
-    mockContext.prisma.team.findMany.mockResolvedValue(nestedTeamDataList);
-    mockContext.prisma.member.findMany.mockResolvedValue(allMemberDataList);
+    mockContext.prisma.pair.findMany.mockResolvedValue(nestedPairData);
 
-    const teamRepository = new TeamRepository(context);
-    const teamRepositoryGetAllSpy = jest.spyOn(teamRepository, "getAll");
-    const _result = await new GetAllPair(teamRepository).execute();
+    const getAllPairQueryService = new GetAllPairQueryService(context);
+    const executeSqy = jest.spyOn(getAllPairQueryService, "execute");
+    const _result = await new GetAllPair(getAllPairQueryService).execute();
 
-    expect(teamRepositoryGetAllSpy).toHaveBeenCalled();
+    expect(executeSqy).toHaveBeenCalled();
   });
 });

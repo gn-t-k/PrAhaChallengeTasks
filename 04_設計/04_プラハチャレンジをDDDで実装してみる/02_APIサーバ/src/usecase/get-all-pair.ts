@@ -1,20 +1,18 @@
-import { Pair } from "domain/team/entity/pair";
-import { Team } from "domain/team/entity/team";
-import { ITeamRepository } from "domain/team/team-repository-interface";
+import {
+  GetAllPairDTO,
+  IGetAllPairQueryService,
+} from "usecase/query-service-interface/get-all-pair-query-service";
 
 export class GetAllPair {
-  private readonly repository: ITeamRepository;
+  private readonly queryService: IGetAllPairQueryService;
 
-  public constructor(repository: ITeamRepository) {
-    this.repository = repository;
+  public constructor(queryService: IGetAllPairQueryService) {
+    this.queryService = queryService;
   }
 
-  public execute = async (): Promise<Pair[]> => {
-    const teamList = await this.repository.getAll();
+  public execute = async (): Promise<GetAllPairDTO> => {
+    const result = await this.queryService.execute();
 
-    return teamList.reduce(
-      (pairList: Pair[], team: Team) => pairList.concat(team.pairList),
-      [],
-    );
+    return result;
   };
 }
