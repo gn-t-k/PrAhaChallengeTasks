@@ -3,7 +3,6 @@ import { Member } from "domain/member/entity/member";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { Team } from "domain/team/entity/team";
 import { IsMemberExistsInTeamService } from "domain/team/service/is-member-exists-in-team-service";
-import { IsPairExistsService } from "domain/team/service/is-pair-exists-service";
 import { PairFactory } from "domain/team/service/pair-factory";
 import { TeamFactory } from "domain/team/service/team-factory";
 import { ITeamRepository } from "domain/team/team-repository-interface";
@@ -11,18 +10,15 @@ import { ITeamRepository } from "domain/team/team-repository-interface";
 export class RegisterPair {
   private readonly teamRepository: ITeamRepository;
   private readonly memberRepository: IMemberRepository;
-  private readonly isPairExistsService: IsPairExistsService;
   private readonly isMemberExistsInTeamService: IsMemberExistsInTeamService;
 
   public constructor(
     teamRepository: ITeamRepository,
     memberRepository: IMemberRepository,
-    isPairExistsService: IsPairExistsService,
     isMemberExistsInTeamService: IsMemberExistsInTeamService,
   ) {
     this.teamRepository = teamRepository;
     this.memberRepository = memberRepository;
-    this.isPairExistsService = isPairExistsService;
     this.isMemberExistsInTeamService = isMemberExistsInTeamService;
   }
 
@@ -36,10 +32,8 @@ export class RegisterPair {
       this.getTeam(teamID),
     ]);
 
-    await Promise.all([
-      this.validatePairName(pairName, teamID),
-      this.validateMemberFree(memberList),
-    ]);
+    this.validatePairName(pairName, currentTeam);
+    await this.validateMemberFree(memberList);
 
     const pair = PairFactory.execute({
       id: new Identifier().value,
@@ -83,13 +77,10 @@ export class RegisterPair {
     return team;
   };
 
-  private validatePairName = async (
-    pairName: string,
-    teamID: string,
-  ): Promise<void> => {
-    const isPairExists = await this.isPairExistsService.execute(
-      pairName,
-      teamID,
+  private validatePairName = (pairName: string, currentTeam: Team): void => {
+    const currentPairNameList = currentTeam.pairList.map((pair) => pair.name);
+    const isPairExists = currentPairNameList.some(
+      (currentPairName) => currentPairName === pairName,
     );
 
     if (isPairExists) {
