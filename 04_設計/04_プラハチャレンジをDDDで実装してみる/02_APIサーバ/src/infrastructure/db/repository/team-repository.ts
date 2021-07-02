@@ -31,6 +31,23 @@ export class TeamRepository implements ITeamRepository {
     this.prisma = context.prisma;
   }
 
+  public getAll = async (): Promise<Team[]> => {
+    const nestedTeamDataList = await this.prisma.team.findMany({
+      include: {
+        pair: {
+          include: {
+            member: true,
+          },
+        },
+      },
+    });
+    const teamList = await Promise.all(
+      nestedTeamDataList.map((nestedTeamData) => this.getTeam(nestedTeamData)),
+    );
+
+    return teamList;
+  };
+
   public getByID = async (props: IGetByID): Promise<Team | null> => {
     const nestedTeamData = await this.getNestedTeamData(props.id.value);
 

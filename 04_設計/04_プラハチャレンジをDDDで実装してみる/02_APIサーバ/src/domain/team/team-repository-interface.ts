@@ -18,6 +18,7 @@ export interface IGetByPairName {
 }
 
 export interface ITeamRepository {
+  getAll(): Promise<Team[]>;
   getByID(props: IGetByID): Promise<Team | null>;
   getByPairID(props: IGetByPairID): Promise<Team | null>;
   getByMemberID(props: IGetByMemberID): Promise<Team | null>;
