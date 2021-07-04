@@ -1,16 +1,14 @@
 import {
   expectedTeam,
-  member,
   team,
-} from "__tests__/__stubs__/usecase/add-member-to-pair";
+} from "__tests__/__stubs__/usecase/remove-member-from-pair";
 import {
   MockContext,
   Context,
   createMockContext,
 } from "infrastructure/db/context";
-import { MemberRepository } from "infrastructure/db/repository/member-repository";
 import { TeamRepository } from "infrastructure/db/repository/team-repository";
-import { AddMemberToPair } from "usecase/add-member-to-pair";
+import { RemoveMemberFromPair } from "usecase/remove-member-from-pair";
 
 let mockContext: MockContext;
 let context: Context;
@@ -26,27 +24,18 @@ jest.mock("infrastructure/db/repository/team-repository", () => ({
     update: jest.fn(),
   })),
 }));
-jest.mock("infrastructure/db/repository/member-repository", () => ({
-  MemberRepository: jest.fn().mockImplementation(() => ({
-    getByID: () => member,
-  })),
-}));
 
-describe("AddMemberToPair", () => {
+describe("RemoveMemberFromPair", () => {
   test("チームリポジトリに適切なチームオブジェクトを渡して更新メソッドを実行する", async () => {
     const teamRepository = new TeamRepository(context);
-    const memberRepository = new MemberRepository(context);
-    const addMemberToPairInstance = new AddMemberToPair(
-      teamRepository,
-      memberRepository,
-    );
+    const removeMemberFromPair = new RemoveMemberFromPair(teamRepository);
     const [memberID, pairID] = [
-      "a5294443-5945-4a74-aac0-593671ed166b",
-      "9da36d6e-c4a2-4215-bfb1-fa62acebd725",
+      "9d553bbf-1840-49bf-8d4a-9c9deb39b31e",
+      "e9ffd5ef-ebdb-4198-b510-261bc34903f4",
     ];
     const teamRepositoryUpdateSpy = jest.spyOn(teamRepository, "update");
 
-    await addMemberToPairInstance.execute(memberID, pairID);
+    await removeMemberFromPair.execute({ memberID, pairID });
 
     // TODO: ダサいので代替手段考える
     expect(JSON.stringify(teamRepositoryUpdateSpy.mock.calls[0][0])).toEqual(
