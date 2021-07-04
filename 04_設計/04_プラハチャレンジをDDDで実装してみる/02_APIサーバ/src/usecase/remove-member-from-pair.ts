@@ -24,14 +24,14 @@ export class RemoveMemberFromPair {
     }
 
     const replacedPairList = currentTeam.pairList.map((currentPair) =>
-      currentPair.memberList.some(
-        (member) => member.id.value === props.memberID,
+      currentPair.memberList.some((member) =>
+        member.id.equals(new Identifier(props.memberID)),
       )
         ? PairFactory.execute({
             id: currentPair.id.value,
             name: currentPair.name,
             memberList: currentPair.memberList.filter(
-              (member) => member.id.value !== props.memberID,
+              (member) => !member.id.equals(new Identifier(props.memberID)),
             ),
           })
         : currentPair,
