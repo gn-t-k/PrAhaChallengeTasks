@@ -48,9 +48,11 @@ describe("AddMemberToPair", () => {
 
     await addMemberToPairInstance.execute(memberID, pairID);
 
-    // TODO: ダサいので代替手段考える
-    expect(JSON.stringify(teamRepositoryUpdateSpy.mock.calls[0][0])).toEqual(
-      JSON.stringify(expectedTeam),
+    const argsPassedToSpy = teamRepositoryUpdateSpy.mock.calls[0][0];
+    const allPairEquals = argsPassedToSpy.pairList.every((pair) =>
+      expectedTeam.pairList.some((expectedPair) => expectedPair.equals(pair)),
     );
+
+    expect(allPairEquals).toBe(true);
   });
 });
