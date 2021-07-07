@@ -40,4 +40,15 @@ export class ExerciseRepository implements IExerciseRepository {
       return exercise;
     });
   };
+
+  public register = async (exercise: Exercise): Promise<void> => {
+    await this.prisma.exercise.create({
+      data: {
+        id: exercise.id.value,
+        title: exercise.title,
+        description: exercise.details,
+        exerciseGroupId: exercise.group.id.value,
+      },
+    });
+  };
 }
