@@ -11,9 +11,7 @@ export class ExerciseGroup extends Entity<IExerciseGroup> {
   }
 
   public static create = (props: IExerciseGroup): ExerciseGroup => {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
+    ExerciseGroup.validateName(props.name);
 
     return new ExerciseGroup(props);
   };
@@ -22,13 +20,17 @@ export class ExerciseGroup extends Entity<IExerciseGroup> {
     id: Identifier,
     props: IExerciseGroup,
   ): ExerciseGroup => {
-    if (props.name === "") {
-      throw new Error("Illegal name value.");
-    }
+    ExerciseGroup.validateName(props.name);
 
     return new ExerciseGroup(props, id);
   };
 
   public equals = (exerciseGroup: ExerciseGroup): boolean =>
     exerciseGroup.id.equals(this.id);
+
+  private static validateName = (name: string) => {
+    if (name === "") {
+      throw new Error("Illegal name value.");
+    }
+  };
 }
