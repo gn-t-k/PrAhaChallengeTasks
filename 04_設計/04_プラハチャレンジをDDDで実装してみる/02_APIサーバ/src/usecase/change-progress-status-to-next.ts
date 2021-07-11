@@ -1,7 +1,7 @@
 import { Identifier } from "domain/__shared__/identifier";
 import { IProgressRepository } from "domain/progress/progress-repository-interface";
 
-export abstract class ChangeProgressStatus {
+export class ChangeProgressStatusNext {
   private readonly progressRepository: IProgressRepository;
 
   public constructor(progressRepository: IProgressRepository) {
