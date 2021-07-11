@@ -11,4 +11,5 @@ export interface IProgressRepository {
   getOne(props: IGetOne): Promise<Progress>;
   getAll(): Promise<Progress[]>;
   update(progress: Progress): Promise<void>;
+  deleteByExerciseID(exerciseID: Identifier): Promise<void>;
 }

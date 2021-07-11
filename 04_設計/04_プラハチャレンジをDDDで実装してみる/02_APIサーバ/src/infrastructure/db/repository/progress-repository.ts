@@ -79,4 +79,12 @@ export class ProgressRepository implements IProgressRepository {
       },
     });
   };
+
+  public deleteByExerciseID = async (exerciseID: Identifier): Promise<void> => {
+    await this.prisma.exerciseOnMember.deleteMany({
+      where: {
+        exerciseId: exerciseID.value,
+      },
+    });
+  };
 }
