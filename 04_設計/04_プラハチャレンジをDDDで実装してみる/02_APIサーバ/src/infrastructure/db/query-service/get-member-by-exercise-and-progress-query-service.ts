@@ -27,7 +27,7 @@ export class GetMemberByExerciseAndProgressQueryService
       },
       where: {
         exercise: {
-          every: {
+          some: {
             exerciseId: {
               in: exerciseIDList,
             },
