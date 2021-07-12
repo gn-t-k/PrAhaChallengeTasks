@@ -1,4 +1,7 @@
-import { mockMemberDataList } from "__tests__/__stubs__/infrastructure/db/query-service/get-member-by-exercise-and-progress-query-service";
+import {
+  mockExerciseDataList,
+  mockMemberDataList,
+} from "__tests__/__stubs__/infrastructure/db/query-service/get-member-by-exercise-and-progress-query-service";
 import { Member } from "domain/member/entity/member";
 import { MemberFactory } from "domain/member/service/member-factory";
 import {
@@ -20,6 +23,9 @@ describe("GetMemberByExerciseAndProgressQueryService", () => {
   describe("特定の課題が特定の進捗ステータスに鳴っている参加者の一覧を10人単位でページングして取得できる", () => {
     test("DTOの形に整形して返す", async () => {
       mockContext.prisma.member.findMany.mockResolvedValue(mockMemberDataList);
+      mockContext.prisma.exercise.findMany.mockResolvedValue(
+        mockExerciseDataList,
+      );
       const instance = new GetMemberByExerciseAndProgressQueryService(context);
 
       const exerciseID = ["0c38b747-891d-4ecf-8d95-55b29a9c75b8"];

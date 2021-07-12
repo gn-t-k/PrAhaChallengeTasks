@@ -1,4 +1,5 @@
 import { PrismaClient } from ".prisma/client";
+import { ProgressStatus } from "domain/progress/value-object/progress-status";
 import { Context } from "infrastructure/db/context";
 import {
   IGetMemberByExerciseAndProgressQueryService,
@@ -18,6 +19,8 @@ export class GetMemberByExerciseAndProgressQueryService
     progressStatus: string,
     page: number,
   ): Promise<GetMembeByExerciseAndProgressrDTO> => {
+    await this.validateProps(exerciseIDList, progressStatus, page);
+
     const take = 10;
     const skip = take * page;
 
@@ -49,5 +52,41 @@ export class GetMemberByExerciseAndProgressQueryService
         activityStatus,
       };
     });
+  };
+
+  private validateProps = async (
+    exerciseIDList: string[],
+    progressStatus: string,
+    page: number,
+  ) => {
+    await this.validateExerciseIDList(exerciseIDList);
+    this.validateProgressStatus(progressStatus);
+    this.validatePage(page);
+  };
+
+  private validateExerciseIDList = async (exerciseIDList: string[]) => {
+    const exerciseList = await this.prisma.exercise.findMany({
+      where: {
+        id: {
+          in: exerciseIDList,
+        },
+      },
+    });
+
+    const isAllExerciseExist = exerciseList.length === exerciseIDList.length;
+
+    return isAllExerciseExist;
+  };
+
+  private validateProgressStatus = (progressStatus: string) => {
+    if (!ProgressStatus.isValidString(progressStatus)) {
+      throw new Error("Invalid status value");
+    }
+  };
+
+  private validatePage = (page: number) => {
+    if (page < 0 || !Number.isInteger(page)) {
+      throw new Error("Invalid page value");
+    }
   };
 }
