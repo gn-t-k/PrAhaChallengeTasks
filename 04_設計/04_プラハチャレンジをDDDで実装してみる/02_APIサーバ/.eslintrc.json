@@ -68,6 +68,15 @@
           "order": "asc"
         }
       }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "./",
+          "../"
+        ]
+      }
     ]
   },
   "settings": {
