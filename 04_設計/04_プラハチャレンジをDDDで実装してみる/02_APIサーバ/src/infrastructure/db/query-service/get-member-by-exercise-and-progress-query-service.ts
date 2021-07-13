@@ -22,7 +22,7 @@ export class GetMemberByExerciseAndProgressQueryService
     await this.validateProps(exerciseIDList, progressStatus, page);
 
     const take = 10;
-    const skip = take * page;
+    const skip = take * (page - 1);
 
     const memberDataList = await this.prisma.member.findMany({
       include: {
@@ -85,7 +85,7 @@ export class GetMemberByExerciseAndProgressQueryService
   };
 
   private validatePage = (page: number) => {
-    if (page < 0 || !Number.isInteger(page)) {
+    if (page < 1 || !Number.isInteger(page)) {
       throw new Error("Invalid page value");
     }
   };

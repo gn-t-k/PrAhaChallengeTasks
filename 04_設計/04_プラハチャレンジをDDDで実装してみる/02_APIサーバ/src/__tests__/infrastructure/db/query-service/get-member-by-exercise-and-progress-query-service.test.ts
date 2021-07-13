@@ -30,7 +30,7 @@ describe("GetMemberByExerciseAndProgressQueryService", () => {
 
       const exerciseID = ["0c38b747-891d-4ecf-8d95-55b29a9c75b8"];
       const progressStatus = "レビュー待ち";
-      const page = 0;
+      const page = 1;
 
       const memberDataList = await instance.execute(
         exerciseID,
