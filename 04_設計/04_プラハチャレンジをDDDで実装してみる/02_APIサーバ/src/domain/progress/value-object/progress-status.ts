@@ -20,16 +20,15 @@ export class ProgressStatus extends ValueObject<IProgressStatus> {
     new ProgressStatus({ status: progressStatusValue.notStartedYet });
 
   public static rebuild = (props: IProgressStatus): ProgressStatus => {
-    if (
-      !Object.values(progressStatusValue).includes(
-        props.status as ProgressStatusType,
-      )
-    ) {
+    if (!ProgressStatus.isValidString(props.status)) {
       throw new Error("Invalid status value");
     }
 
     return new ProgressStatus(props);
   };
+
+  public static isValidString = (status: string): boolean =>
+    Object.values(progressStatusValue).includes(status as ProgressStatusType);
 
   public getNext = (): ProgressStatus => {
     switch (this.props.status) {
