@@ -17,11 +17,11 @@ export class GetMemberByExerciseAndProgressQueryService
   public execute = async (
     exerciseIDList: string[],
     progressStatus: string,
+    take: number,
     page: number,
   ): Promise<GetMembeByExerciseAndProgressrDTO> => {
     await this.validateProps(exerciseIDList, progressStatus, page);
 
-    const take = 10;
     const skip = take * (page - 1);
 
     const memberDataList = await this.prisma.member.findMany({

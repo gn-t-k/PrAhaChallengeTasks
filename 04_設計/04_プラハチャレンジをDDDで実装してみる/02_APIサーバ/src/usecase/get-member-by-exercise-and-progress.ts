@@ -15,12 +15,14 @@ export class GetMemberByExerciseAndProgress {
   public execute = async (
     exerciseIDList: string[],
     progressStatus: string,
-    page: number,
+    take?: number,
+    page?: number,
   ): Promise<GetMembeByExerciseAndProgressrDTO> => {
     const memberList = await this.queryService.execute(
       exerciseIDList,
       progressStatus,
-      page,
+      take ?? 10,
+      page ?? 1,
     );
 
     return memberList;

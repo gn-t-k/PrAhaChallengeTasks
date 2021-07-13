@@ -28,13 +28,15 @@ describe("GetMemberByExerciseAndProgressQueryService", () => {
       );
       const instance = new GetMemberByExerciseAndProgressQueryService(context);
 
-      const exerciseID = ["0c38b747-891d-4ecf-8d95-55b29a9c75b8"];
+      const exerciseIDList = ["0c38b747-891d-4ecf-8d95-55b29a9c75b8"];
       const progressStatus = "レビュー待ち";
+      const take = 10;
       const page = 1;
 
       const memberDataList = await instance.execute(
-        exerciseID,
+        exerciseIDList,
         progressStatus,
+        take,
         page,
       );
 

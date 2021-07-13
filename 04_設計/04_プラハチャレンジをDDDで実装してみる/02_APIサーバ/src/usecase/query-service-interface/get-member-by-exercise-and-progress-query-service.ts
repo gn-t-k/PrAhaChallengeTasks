@@ -11,6 +11,7 @@ export interface IGetMemberByExerciseAndProgressQueryService {
   execute(
     exerciseIDList: string[],
     progressStatus: string,
+    take: number,
     page: number,
   ): Promise<GetMembeByExerciseAndProgressrDTO>;
 }
