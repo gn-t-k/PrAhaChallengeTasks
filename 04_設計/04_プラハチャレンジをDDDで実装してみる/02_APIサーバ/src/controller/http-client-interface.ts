@@ -1,8 +1,8 @@
 export interface IGetPathParams {
-  execute: () => { [key: string]: unknown };
+  execute: () => { [key: string]: string };
 }
 export interface IGetQueryParams {
-  execute: () => { [key: string]: unknown };
+  execute: () => { [key: string]: string };
 }
 export interface ISetResponseStatus {
   execute: (statusCode: number) => void;

@@ -1,9 +1,9 @@
 import { Handler, Services } from "controller/http-client-interface";
 import * as Usecase from "usecase";
 
-export class GetMemberByPairNameHandler implements Handler {
+export class GetMemberByTeamNameHandler implements Handler {
   public constructor(
-    private readonly getMemberByPairNameUsecase: Usecase.GetMemberByPairName,
+    private readonly getMemberByTeamNameUsecase: Usecase.GetMemberByTeamName,
   ) {}
 
   public execute = async (servises: Services): Promise<void> => {
@@ -14,12 +14,8 @@ export class GetMemberByPairNameHandler implements Handler {
       nextFunction,
     } = servises;
     const teamName = getQueryParams.execute()["team-name"];
-    const pairName = getQueryParams.execute()["pair-name"];
     try {
-      const member = await this.getMemberByPairNameUsecase.execute(
-        teamName,
-        pairName,
-      );
+      const member = await this.getMemberByTeamNameUsecase.execute(teamName);
       setResponseStatus.execute(200);
       sendResponse.execute(member);
     } catch (error) {
