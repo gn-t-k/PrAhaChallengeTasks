@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import {
   Handler,
   IClient,
-  PathAndQuery,
+  RequestParams,
   Services,
 } from "controller/http-client-interface";
 import * as Service from "infrastructure/http/service";
@@ -12,11 +12,25 @@ export class Client implements IClient {
   public constructor(private readonly router: Router) {}
 
   public registerGetRoute = (
-    pathAndQuery: PathAndQuery,
+    requestParams: RequestParams,
     handler: Handler,
   ): void => {
     this.router.get(
-      pathAndQuery.path,
+      requestParams.path,
+      async (req: Request, res: Response, next: NextFunction) => {
+        const services = this.getServices(req, res, next);
+
+        await handler.execute(services);
+      },
+    );
+  };
+
+  public registerPostRoute = (
+    requestParams: RequestParams,
+    handler: Handler,
+  ): void => {
+    this.router.post(
+      requestParams.path,
       async (req: Request, res: Response, next: NextFunction) => {
         const services = this.getServices(req, res, next);
 

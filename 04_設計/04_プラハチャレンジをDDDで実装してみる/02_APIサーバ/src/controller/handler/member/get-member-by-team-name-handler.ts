@@ -13,8 +13,9 @@ export class GetMemberByTeamNameHandler implements Handler {
       sendResponse,
       nextFunction,
     } = servises;
-    const teamName = getQueryParams.execute()["team-name"];
+
     try {
+      const teamName = getQueryParams.execute()["team-name"];
       const member = await this.getMemberByTeamNameUsecase.execute(teamName);
       setResponseStatus.execute(200);
       sendResponse.execute(member);
