@@ -26,8 +26,11 @@ export class GetMemberByExerciseAndProgressHandler implements Handler {
       setResponseStatus.execute(200);
       sendResponse.execute(member);
     } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+      // TODO: なんでも500にしてしまっているので、例外クラスを作って出し分けできるようにする
       setResponseStatus.execute(500);
-      sendResponse.execute(error);
+      sendResponse.execute({ message });
     } finally {
       nextFunction.execute();
     }

@@ -41,8 +41,11 @@ export class ChangeActivityStatusHandler implements Handler {
           throw new Error("Invalid request");
       }
     } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+      // TODO: なんでも500にしてしまっているので、例外クラスを作って出し分けできるようにする
       setResponseStatus.execute(500);
-      sendResponse.execute();
+      sendResponse.execute({ message });
     } finally {
       nextFunction.execute();
     }
