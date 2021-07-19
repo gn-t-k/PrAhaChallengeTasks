@@ -53,6 +53,20 @@ export class Client implements IClient {
     );
   };
 
+  public registerDeleteRoute = (
+    requestParams: RequestParams,
+    handler: Handler,
+  ): void => {
+    this.router.delete(
+      requestParams.path,
+      async (req: Request, res: Response, next: NextFunction) => {
+        const services = this.getServices(req, res, next);
+
+        await handler.execute(services);
+      },
+    );
+  };
+
   private getServices = (
     req: Request,
     res: Response,

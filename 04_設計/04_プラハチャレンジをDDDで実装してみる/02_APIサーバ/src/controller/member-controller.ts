@@ -9,6 +9,9 @@ export class MemberController {
     private readonly getMemberByExerciseAndProgressHandler: Handler.Member.GetMemberByExerciseAndProgressHandler,
     private readonly registerMemberHandler: Handler.Member.RegisterMemberHandler,
     private readonly changeActivityStatusHandler: Handler.Member.ChangeActivityStatusHandler,
+    private readonly changeProgressStatusToNextHandler: Handler.Member.ChangeProgressStatusToNextHandler,
+    private readonly changeProgressStatusToPreviousHandler: Handler.Member.ChangeProgressStatusToPreviousHandler,
+    private readonly deleteMemberHandler: Handler.Member.DeleteMemberHandler,
     private readonly client: IClient,
   ) {}
 
@@ -33,6 +36,18 @@ export class MemberController {
     this.client.registerPutRoute(
       { path: "/member/:memberID/status" },
       this.changeActivityStatusHandler,
+    );
+    this.client.registerPutRoute(
+      { path: "/member/:memberID/exercise/:exerciseID/status/next" },
+      this.changeProgressStatusToNextHandler,
+    );
+    this.client.registerPutRoute(
+      { path: "/member/:memberID/exercise/:exerciseID/status/previous" },
+      this.changeProgressStatusToPreviousHandler,
+    );
+    this.client.registerDeleteRoute(
+      { path: "/member/:memberID" },
+      this.deleteMemberHandler,
     );
   };
 }

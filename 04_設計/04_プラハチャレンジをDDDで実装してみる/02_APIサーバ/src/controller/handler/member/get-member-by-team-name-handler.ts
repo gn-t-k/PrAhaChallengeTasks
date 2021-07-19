@@ -6,13 +6,13 @@ export class GetMemberByTeamNameHandler implements Handler {
     private readonly getMemberByTeamNameUsecase: Usecase.GetMemberByTeamName,
   ) {}
 
-  public execute = async (servises: Services): Promise<void> => {
+  public execute = async (services: Services): Promise<void> => {
     const {
       getQueryParams,
       setResponseStatus,
       sendResponse,
       nextFunction,
-    } = servises;
+    } = services;
 
     try {
       const teamName = getQueryParams.execute()["team-name"];
