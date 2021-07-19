@@ -39,6 +39,20 @@ export class Client implements IClient {
     );
   };
 
+  public registerPutRoute = (
+    requestParams: RequestParams,
+    handler: Handler,
+  ): void => {
+    this.router.put(
+      requestParams.path,
+      async (req: Request, res: Response, next: NextFunction) => {
+        const services = this.getServices(req, res, next);
+
+        await handler.execute(services);
+      },
+    );
+  };
+
   private getServices = (
     req: Request,
     res: Response,
@@ -46,6 +60,7 @@ export class Client implements IClient {
   ): Services => {
     const getPathParams = new Service.GetPathParamsService(req);
     const getQueryParams = new Service.GetQueryParamsService(req);
+    const getRequestBody = new Service.GetRequestBody(req);
     const setResponseStatus = new Service.SetResponseStatusService(res);
     const sendResponse = new Service.SendResponseService(res);
     const nextFunction = new Service.NextFunctionService(next);
@@ -53,6 +68,7 @@ export class Client implements IClient {
     return {
       getPathParams,
       getQueryParams,
+      getRequestBody,
       setResponseStatus,
       sendResponse,
       nextFunction,

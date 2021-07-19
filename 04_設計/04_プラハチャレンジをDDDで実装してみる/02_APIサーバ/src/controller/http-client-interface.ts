@@ -43,4 +43,5 @@ export type RequestParams = {
 export interface IClient {
   registerGetRoute: (requestParams: RequestParams, handler: Handler) => void;
   registerPostRoute: (requestParams: RequestParams, handler: Handler) => void;
+  registerPutRoute: (requestParams: RequestParams, handler: Handler) => void;
 }

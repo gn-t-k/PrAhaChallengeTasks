@@ -7,6 +7,8 @@ export class MemberController {
     private readonly getMemberByPairNameHandler: Handler.Member.GetMemberByPairNameHandler,
     private readonly getMemberByTeamNameHandler: Handler.Member.GetMemberByTeamNameHandler,
     private readonly getMemberByExerciseAndProgressHandler: Handler.Member.GetMemberByExerciseAndProgressHandler,
+    private readonly registerMemberHandler: Handler.Member.RegisterMemberHandler,
+    private readonly changeActivityStatusHandler: Handler.Member.ChangeActivityStatusHandler,
     private readonly client: IClient,
   ) {}
 
@@ -23,6 +25,14 @@ export class MemberController {
     this.client.registerGetRoute(
       { path: "/member", query: ["exercise-id", "progress-status"] },
       this.getMemberByExerciseAndProgressHandler,
+    );
+    this.client.registerPostRoute(
+      { path: "/member" },
+      this.registerMemberHandler,
+    );
+    this.client.registerPutRoute(
+      { path: "/member/:memberID/status" },
+      this.changeActivityStatusHandler,
     );
   };
 }
