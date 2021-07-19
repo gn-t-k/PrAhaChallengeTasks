@@ -1,5 +1,5 @@
 import * as Handler from "controller/handler";
-import { IClient } from "controller/http-client-interface";
+import { IClient } from "controller/interface/http-client-interface";
 
 export class MemberController {
   public constructor(

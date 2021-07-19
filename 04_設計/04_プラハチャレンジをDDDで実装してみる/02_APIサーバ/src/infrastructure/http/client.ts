@@ -5,7 +5,7 @@ import {
   IClient,
   RequestParams,
   Services,
-} from "controller/http-client-interface";
+} from "controller/interface/http-client-interface";
 import * as Service from "infrastructure/http/service";
 
 export class Client implements IClient {

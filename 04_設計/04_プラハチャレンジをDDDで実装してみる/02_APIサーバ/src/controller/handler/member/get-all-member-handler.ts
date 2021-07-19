@@ -1,4 +1,4 @@
-import { Handler, Services } from "controller/http-client-interface";
+import { Handler, Services } from "controller/interface/http-client-interface";
 import * as Usecase from "usecase";
 
 export class GetAllMemberHandler implements Handler {
