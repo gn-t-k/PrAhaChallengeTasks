@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetPathParams } from "controller/interface/http-client-interface";
+import { IGetPathParams } from "presentation/interface/http-client-interface";
 
 export class GetPathParamsService implements IGetPathParams {
   public constructor(private readonly req: Request) {}
