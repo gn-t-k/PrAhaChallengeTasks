@@ -17,39 +17,39 @@ export class MemberRegistrar {
 
   public register = (): void => {
     this.client.registerGetRoute(
-      { path: "/member" },
+      { path: "/members" },
       this.getAllMemberController,
     );
     this.client.registerGetRoute(
-      { path: "/member", query: ["team-name", "pair-name"] },
+      { path: "/members", query: ["team-name", "pair-name"] },
       this.getMemberByPairNameController,
     );
     this.client.registerGetRoute(
-      { path: "/member", query: ["team-name"] },
+      { path: "/members", query: ["team-name"] },
       this.getMemberByTeamNameController,
     );
     this.client.registerGetRoute(
-      { path: "/member", query: ["exercise-id", "progress-status"] },
+      { path: "/members", query: ["exercise-id", "progress-status"] },
       this.getMemberByExerciseAndProgressController,
     );
     this.client.registerPostRoute(
-      { path: "/member" },
+      { path: "/members" },
       this.registerMemberController,
     );
     this.client.registerPutRoute(
-      { path: "/member/:memberID/status" },
+      { path: "/members/:memberID/status" },
       this.changeActivityStatusController,
     );
     this.client.registerPutRoute(
-      { path: "/member/:memberID/exercise/:exerciseID/status/next" },
+      { path: "/members/:memberID/exercises/:exerciseID/status/next" },
       this.changeProgressStatusToNextController,
     );
     this.client.registerPutRoute(
-      { path: "/member/:memberID/exercise/:exerciseID/status/previous" },
+      { path: "/members/:memberID/exercises/:exerciseID/status/previous" },
       this.changeProgressStatusToPreviousController,
     );
     this.client.registerDeleteRoute(
-      { path: "/member/:memberID" },
+      { path: "/members/:memberID" },
       this.deleteMemberController,
     );
   };
