@@ -1,24 +1,26 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class ChangeActivityStatusController implements Controller {
+export class ChangeActivityStatusController implements IController {
   public constructor(
     private readonly changeActivityStatusToActiveUsecase: Usecase.ChangeActivityStatusToActive,
     private readonly changeActivityStatusToInRecessUsecase: Usecase.ChangeActivityStatusToInRecess,
     private readonly changeActivityStatusToLeftUsecase: Usecase.ChangeActivityStatusToLeft,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const {
-      getRequestBody,
-      getPathParams,
-      setResponseStatus,
-      sendResponse,
-      nextFunction,
-    } = services;
+  public execute = async (
+    requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { getRequestBody, getPathParams } = requestServices;
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
 
     try {
       const { status } = getRequestBody.execute();

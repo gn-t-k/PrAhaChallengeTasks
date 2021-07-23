@@ -1,16 +1,24 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class GetAllMemberController implements Controller {
+export class GetAllMemberController implements IController {
   public constructor(
     private readonly getAllMemberUsecase: Usecase.GetAllMember,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const { sendResponse, setResponseStatus, nextFunction } = services;
+  public execute = async (
+    _requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
+
     try {
       const memberList = await this.getAllMemberUsecase.execute();
       setResponseStatus.execute(200);

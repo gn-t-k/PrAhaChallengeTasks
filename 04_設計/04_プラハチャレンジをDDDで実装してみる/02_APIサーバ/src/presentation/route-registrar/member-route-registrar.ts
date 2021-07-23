@@ -1,9 +1,17 @@
 import * as Controller from "presentation/controller";
-import { IClient } from "presentation/interface/http-client-interface";
+import {
+  IDeleteRouteRegistrar,
+  IGetRouteRegistrar,
+  IPostRouteRegistrar,
+  IPutRouteRegistrar,
+} from "presentation/interface/route-registrar";
 
-export class MemberRegistrar {
+export class MemberRouteRegistrar {
   public constructor(
-    private readonly client: IClient,
+    private readonly getRouteRegistrar: IGetRouteRegistrar,
+    private readonly postRouteRegistrar: IPostRouteRegistrar,
+    private readonly putRouteRegistrar: IPutRouteRegistrar,
+    private readonly deleteRouteRegistrar: IDeleteRouteRegistrar,
     private readonly getAllMemberController: Controller.Member.GetAllMemberController,
     private readonly getMemberByPairNameController: Controller.Member.GetMemberByPairNameController,
     private readonly getMemberByTeamNameController: Controller.Member.GetMemberByTeamNameController,
@@ -16,39 +24,39 @@ export class MemberRegistrar {
   ) {}
 
   public register = (): void => {
-    this.client.registerGetRoute(
+    this.getRouteRegistrar.execute(
       { path: "/members" },
       this.getAllMemberController,
     );
-    this.client.registerGetRoute(
+    this.getRouteRegistrar.execute(
       { path: "/members", query: ["team-name", "pair-name"] },
       this.getMemberByPairNameController,
     );
-    this.client.registerGetRoute(
+    this.getRouteRegistrar.execute(
       { path: "/members", query: ["team-name"] },
       this.getMemberByTeamNameController,
     );
-    this.client.registerGetRoute(
+    this.getRouteRegistrar.execute(
       { path: "/members", query: ["exercise-id", "progress-status"] },
       this.getMemberByExerciseAndProgressController,
     );
-    this.client.registerPostRoute(
+    this.postRouteRegistrar.execute(
       { path: "/members" },
       this.registerMemberController,
     );
-    this.client.registerPutRoute(
+    this.putRouteRegistrar.execute(
       { path: "/members/:memberID/status" },
       this.changeActivityStatusController,
     );
-    this.client.registerPutRoute(
+    this.putRouteRegistrar.execute(
       { path: "/members/:memberID/exercises/:exerciseID/status/next" },
       this.changeProgressStatusToNextController,
     );
-    this.client.registerPutRoute(
+    this.putRouteRegistrar.execute(
       { path: "/members/:memberID/exercises/:exerciseID/status/previous" },
       this.changeProgressStatusToPreviousController,
     );
-    this.client.registerDeleteRoute(
+    this.deleteRouteRegistrar.execute(
       { path: "/members/:memberID" },
       this.deleteMemberController,
     );

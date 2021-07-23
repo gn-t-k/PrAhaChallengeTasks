@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetRequstBody } from "presentation/interface/http-client-interface";
+import { IGetRequstBody } from "presentation/interface/controller";
 
 export class GetRequestBody implements IGetRequstBody {
   public constructor(private readonly req: Request) {}

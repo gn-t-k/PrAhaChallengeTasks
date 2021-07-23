@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ISendResponse } from "presentation/interface/http-client-interface";
+import { ISendResponse } from "presentation/interface/controller";
 
 export class SendResponseService implements ISendResponse {
   public constructor(private readonly res: Response) {}

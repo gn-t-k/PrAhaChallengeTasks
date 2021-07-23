@@ -1,21 +1,24 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class ChangeProgressStatusToNextController implements Controller {
+export class ChangeProgressStatusToNextController implements IController {
   public constructor(
     private readonly changeProgressStatusToNextUsecase: Usecase.ChangeProgressStatusNext,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const {
-      getPathParams,
-      setResponseStatus,
-      sendResponse,
-      nextFunction,
-    } = services;
+  public execute = async (
+    requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { getPathParams } = requestServices;
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
 
     try {
       const { memberID, exerciseID } = getPathParams.execute();

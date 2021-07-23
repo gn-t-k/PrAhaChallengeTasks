@@ -1,21 +1,24 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class GetMemberByTeamNameController implements Controller {
+export class GetMemberByTeamNameController implements IController {
   public constructor(
     private readonly getMemberByTeamNameUsecase: Usecase.GetMemberByTeamName,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const {
-      getQueryParams,
-      setResponseStatus,
-      sendResponse,
-      nextFunction,
-    } = services;
+  public execute = async (
+    requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { getQueryParams } = requestServices;
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
 
     try {
       const teamName = getQueryParams.execute()["team-name"];

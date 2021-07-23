@@ -1,21 +1,25 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class GetMemberByExerciseAndProgressController implements Controller {
+export class GetMemberByExerciseAndProgressController implements IController {
   public constructor(
     private readonly getMemberByExerciseAndProgress: Usecase.GetMemberByExerciseAndProgress,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const {
-      getQueryParams,
-      setResponseStatus,
-      sendResponse,
-      nextFunction,
-    } = services;
+  public execute = async (
+    requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { getQueryParams } = requestServices;
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
+
     const progressStatus = getQueryParams.execute()["progress-status"];
     const exerciseIDListString = getQueryParams.execute()["exercise-id"];
     const exerciseIDList = this.convertMultiItemStringToArray(

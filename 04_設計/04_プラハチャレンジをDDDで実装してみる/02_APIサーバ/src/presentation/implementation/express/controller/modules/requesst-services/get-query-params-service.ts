@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetQueryParams } from "presentation/interface/http-client-interface";
+import { IGetQueryParams } from "presentation/interface/controller";
 
 export class GetQueryParamsService implements IGetQueryParams {
   public constructor(private readonly req: Request) {}

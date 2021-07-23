@@ -1,3 +1,3 @@
-import { Controller } from "presentation/interface/http-client-interface";
+import { IController } from "presentation/interface/controller";
 
-export class RemoveMemberFromTeamController implements Controller {}
+export class RemoveMemberFromTeamController implements IController {}

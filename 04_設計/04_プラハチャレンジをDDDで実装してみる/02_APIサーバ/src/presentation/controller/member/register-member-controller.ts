@@ -1,21 +1,24 @@
 import {
-  Controller,
-  Services,
-} from "presentation/interface/http-client-interface";
+  IController,
+  MiddlewareServices,
+  RequestServices,
+  ResponseServices,
+} from "presentation/interface/controller";
 import * as Usecase from "usecase";
 
-export class RegisterMemberController implements Controller {
+export class RegisterMemberController implements IController {
   public constructor(
     private readonly registerMemberUsecase: Usecase.RegisterMember,
   ) {}
 
-  public execute = async (services: Services): Promise<void> => {
-    const {
-      getRequestBody,
-      setResponseStatus,
-      sendResponse,
-      nextFunction,
-    } = services;
+  public execute = async (
+    requestServices: RequestServices,
+    responseServices: ResponseServices,
+    middleWareServices: MiddlewareServices,
+  ): Promise<void> => {
+    const { getRequestBody } = requestServices;
+    const { setResponseStatus, sendResponse } = responseServices;
+    const { nextFunction } = middleWareServices;
 
     try {
       const { name, email } = getRequestBody.execute();
