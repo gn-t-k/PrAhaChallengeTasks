@@ -7,6 +7,11 @@ import {
 } from "presentation/interface/route-registrar";
 
 export class MemberRouteRegistrar {
+  public static readonly TEAM_NAME_QUERY = "team-name";
+  public static readonly PAIR_NAME_QUERY = "pair-name";
+  public static readonly EXERCISE_ID_QUERY = "exercise-id";
+  public static readonly PROGRESS_STATUS_QUERY = "progress-status";
+
   public constructor(
     private readonly getRouteRegistrar: IGetRouteRegistrar,
     private readonly postRouteRegistrar: IPostRouteRegistrar,
@@ -29,15 +34,27 @@ export class MemberRouteRegistrar {
       this.getAllMemberController,
     );
     this.getRouteRegistrar.execute(
-      { path: "/members", query: ["team-name", "pair-name"] },
+      {
+        path: "/members",
+        query: [
+          MemberRouteRegistrar.TEAM_NAME_QUERY,
+          MemberRouteRegistrar.PAIR_NAME_QUERY,
+        ],
+      },
       this.getMemberByPairNameController,
     );
     this.getRouteRegistrar.execute(
-      { path: "/members", query: ["team-name"] },
+      { path: "/members", query: [MemberRouteRegistrar.PAIR_NAME_QUERY] },
       this.getMemberByTeamNameController,
     );
     this.getRouteRegistrar.execute(
-      { path: "/members", query: ["exercise-id", "progress-status"] },
+      {
+        path: "/members",
+        query: [
+          MemberRouteRegistrar.EXERCISE_ID_QUERY,
+          MemberRouteRegistrar.PROGRESS_STATUS_QUERY,
+        ],
+      },
       this.getMemberByExerciseAndProgressController,
     );
     this.postRouteRegistrar.execute(
