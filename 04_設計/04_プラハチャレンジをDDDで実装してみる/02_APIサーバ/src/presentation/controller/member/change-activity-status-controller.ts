@@ -26,6 +26,10 @@ export class ChangeActivityStatusController implements IController {
       const { status } = getRequestBody.execute();
       const { memberID } = getPathParams.execute();
 
+      if (!memberID) {
+        throw new Error("Invalid request");
+      }
+
       switch (status) {
         case 0:
           await this.changeActivityStatusToActiveUsecase.execute(memberID);

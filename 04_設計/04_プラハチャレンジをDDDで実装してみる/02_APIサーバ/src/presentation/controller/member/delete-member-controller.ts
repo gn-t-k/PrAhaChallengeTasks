@@ -23,6 +23,10 @@ export class DeleteMemberController implements IController {
     try {
       const { memberID } = getPathParams.execute();
 
+      if (!memberID) {
+        throw new Error("Invalid request");
+      }
+
       await this.deleteMemberUsecase.execute(memberID);
 
       setResponseStatus.execute(200);

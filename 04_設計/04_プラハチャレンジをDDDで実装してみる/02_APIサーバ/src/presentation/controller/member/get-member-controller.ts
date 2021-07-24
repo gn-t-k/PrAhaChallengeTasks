@@ -30,33 +30,45 @@ export class GetMemberController implements IController {
       this.validateParams(params);
 
       if (this.isGetAllMemberUsecaseParamsPattern(params)) {
-        await this.getAllMemberUsecase.execute();
+        const memberList = await this.getAllMemberUsecase.execute();
+
+        setResponseStatus.execute(200);
+        sendResponse.execute(memberList);
 
         return;
       }
 
       if (this.isGetMemberByTeamNameUsecaseParamsPattern(params)) {
-        await this.getMemberByTeamNameUsecase.execute(
+        const memberList = await this.getMemberByTeamNameUsecase.execute(
           params[MemberRouteRegistrar.TEAM_NAME_QUERY],
         );
+
+        setResponseStatus.execute(200);
+        sendResponse.execute(memberList);
 
         return;
       }
 
       if (this.isGetMemberByPairNameUsecaseParamsPattern(params)) {
-        await this.getMemberByPairNameUsecase.execute(
+        const memberList = await this.getMemberByPairNameUsecase.execute(
           params[MemberRouteRegistrar.TEAM_NAME_QUERY],
           params[MemberRouteRegistrar.PAIR_NAME_QUERY],
         );
+
+        setResponseStatus.execute(200);
+        sendResponse.execute(memberList);
 
         return;
       }
 
       if (this.isGetMemberByExerciseAndProgressUsecaseParamsPattern(params)) {
-        await this.getMemberByExerciseAndProgressUsecase.execute(
+        const memberList = await this.getMemberByExerciseAndProgressUsecase.execute(
           params[MemberRouteRegistrar.EXERCISE_ID_QUERY].split(","),
           params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY],
         );
+
+        setResponseStatus.execute(200);
+        sendResponse.execute(memberList);
 
         return;
       }

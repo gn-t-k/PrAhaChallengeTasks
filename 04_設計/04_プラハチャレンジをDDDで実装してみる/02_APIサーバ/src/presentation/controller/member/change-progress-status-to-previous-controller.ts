@@ -23,6 +23,10 @@ export class ChangeProgressStatusToPreviousController implements IController {
     try {
       const { memberID, exerciseID } = getPathParams.execute();
 
+      if (!memberID || !exerciseID) {
+        throw new Error("Invalid request");
+      }
+
       await this.changeProgressStatusToPreviousUsecase.execute(
         memberID,
         exerciseID,
