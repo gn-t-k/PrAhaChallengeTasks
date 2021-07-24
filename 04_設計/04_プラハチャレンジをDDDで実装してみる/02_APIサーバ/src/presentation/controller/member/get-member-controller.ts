@@ -57,7 +57,11 @@ export class GetMemberController implements IController {
           params[MemberRouteRegistrar.EXERCISE_ID_QUERY].split(","),
           params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY],
         );
+
+        return;
       }
+
+      throw new Error("Invalid query params");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Something went wrong";
@@ -69,6 +73,9 @@ export class GetMemberController implements IController {
     }
   };
 
+  /**
+   * TODO: かなり無理矢理やっているので、もうちょっとスマートにやりたい
+   */
   private isGetAllMemberUsecaseParamsPattern = (params: {
     [key: string]: string;
   }) =>

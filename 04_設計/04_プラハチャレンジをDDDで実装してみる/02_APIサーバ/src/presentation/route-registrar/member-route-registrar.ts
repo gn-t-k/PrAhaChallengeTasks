@@ -17,10 +17,7 @@ export class MemberRouteRegistrar {
     private readonly postRouteRegistrar: IPostRouteRegistrar,
     private readonly putRouteRegistrar: IPutRouteRegistrar,
     private readonly deleteRouteRegistrar: IDeleteRouteRegistrar,
-    private readonly getAllMemberController: Controller.Member.GetAllMemberController,
-    private readonly getMemberByPairNameController: Controller.Member.GetMemberByPairNameController,
-    private readonly getMemberByTeamNameController: Controller.Member.GetMemberByTeamNameController,
-    private readonly getMemberByExerciseAndProgressController: Controller.Member.GetMemberByExerciseAndProgressController,
+    private readonly getMemberController: Controller.Member.GetMemberController,
     private readonly registerMemberController: Controller.Member.RegisterMemberController,
     private readonly changeActivityStatusController: Controller.Member.ChangeActivityStatusController,
     private readonly changeProgressStatusToNextController: Controller.Member.ChangeProgressStatusToNextController,
@@ -31,31 +28,7 @@ export class MemberRouteRegistrar {
   public register = (): void => {
     this.getRouteRegistrar.execute(
       { path: "/members" },
-      this.getAllMemberController,
-    );
-    this.getRouteRegistrar.execute(
-      {
-        path: "/members",
-        query: [
-          MemberRouteRegistrar.TEAM_NAME_QUERY,
-          MemberRouteRegistrar.PAIR_NAME_QUERY,
-        ],
-      },
-      this.getMemberByPairNameController,
-    );
-    this.getRouteRegistrar.execute(
-      { path: "/members", query: [MemberRouteRegistrar.PAIR_NAME_QUERY] },
-      this.getMemberByTeamNameController,
-    );
-    this.getRouteRegistrar.execute(
-      {
-        path: "/members",
-        query: [
-          MemberRouteRegistrar.EXERCISE_ID_QUERY,
-          MemberRouteRegistrar.PROGRESS_STATUS_QUERY,
-        ],
-      },
-      this.getMemberByExerciseAndProgressController,
+      this.getMemberController,
     );
     this.postRouteRegistrar.execute(
       { path: "/members" },
