@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ISetResponseStatus } from "presentation/interface/controller";
+import { ISetResponseStatus } from "presentation/interface/response-services";
 
 export class SetResponseStatusService implements ISetResponseStatus {
   public constructor(private readonly res: Response) {}

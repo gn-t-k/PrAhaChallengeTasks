@@ -1,5 +1,5 @@
 import { NextFunction } from "express";
-import { INextFunction } from "presentation/interface/controller";
+import { INextFunction } from "presentation/interface/middleware-services";
 
 export class NextFunctionService implements INextFunction {
   public constructor(private readonly next: NextFunction) {}

@@ -1,9 +1,7 @@
-import {
-  IController,
-  MiddlewareServices,
-  RequestServices,
-  ResponseServices,
-} from "presentation/interface/controller";
+import { IController } from "presentation/interface/controller";
+import { MiddlewareServices } from "presentation/interface/middleware-services";
+import { RequestServices } from "presentation/interface/request-services";
+import { ResponseServices } from "presentation/interface/response-services";
 import * as Usecase from "usecase";
 
 export class RegisterMemberController implements IController {
