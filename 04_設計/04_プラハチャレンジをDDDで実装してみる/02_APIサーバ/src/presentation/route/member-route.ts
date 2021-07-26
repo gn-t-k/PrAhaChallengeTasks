@@ -6,12 +6,7 @@ import {
   IPutRouteRegistrar,
 } from "presentation/interface/route-registrar/route-registrar";
 
-export class MemberRouteRegistrar {
-  public static readonly TEAM_NAME_QUERY = "team-name";
-  public static readonly PAIR_NAME_QUERY = "pair-name";
-  public static readonly EXERCISE_ID_QUERY = "exercise-id";
-  public static readonly PROGRESS_STATUS_QUERY = "progress-status";
-
+export class MemberRoute {
   public constructor(
     private readonly getRouteRegistrar: IGetRouteRegistrar,
     private readonly postRouteRegistrar: IPostRouteRegistrar,

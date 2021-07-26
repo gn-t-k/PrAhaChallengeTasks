@@ -2,10 +2,14 @@ import {
   ExecuteProps,
   IController,
 } from "presentation/interface/controller/controller";
-import { MemberRouteRegistrar } from "presentation/route-registrar";
 import * as Usecase from "usecase";
 
 export class GetMemberController implements IController {
+  public static readonly TEAM_NAME_QUERY = "team-name";
+  public static readonly PAIR_NAME_QUERY = "pair-name";
+  public static readonly EXERCISE_ID_QUERY = "exercise-id";
+  public static readonly PROGRESS_STATUS_QUERY = "progress-status";
+
   public constructor(
     private readonly getAllMemberUsecase: Usecase.GetAllMember,
     private readonly getMemberByTeamNameUsecase: Usecase.GetMemberByTeamName,
@@ -38,7 +42,7 @@ export class GetMemberController implements IController {
 
       if (this.isGetMemberByTeamNameUsecaseParamsPattern(params)) {
         const memberList = await this.getMemberByTeamNameUsecase.execute(
-          params[MemberRouteRegistrar.TEAM_NAME_QUERY],
+          params[GetMemberController.TEAM_NAME_QUERY],
         );
 
         setResponseStatus.execute(200);
@@ -49,8 +53,8 @@ export class GetMemberController implements IController {
 
       if (this.isGetMemberByPairNameUsecaseParamsPattern(params)) {
         const memberList = await this.getMemberByPairNameUsecase.execute(
-          params[MemberRouteRegistrar.TEAM_NAME_QUERY],
-          params[MemberRouteRegistrar.PAIR_NAME_QUERY],
+          params[GetMemberController.TEAM_NAME_QUERY],
+          params[GetMemberController.PAIR_NAME_QUERY],
         );
 
         setResponseStatus.execute(200);
@@ -61,8 +65,8 @@ export class GetMemberController implements IController {
 
       if (this.isGetMemberByExerciseAndProgressUsecaseParamsPattern(params)) {
         const memberList = await this.getMemberByExerciseAndProgressUsecase.execute(
-          params[MemberRouteRegistrar.EXERCISE_ID_QUERY].split(","),
-          params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY],
+          params[GetMemberController.EXERCISE_ID_QUERY].split(","),
+          params[GetMemberController.PROGRESS_STATUS_QUERY],
         );
 
         setResponseStatus.execute(200);
@@ -89,44 +93,44 @@ export class GetMemberController implements IController {
   private isGetAllMemberUsecaseParamsPattern = (params: {
     [key: string]: string;
   }) =>
-    params[MemberRouteRegistrar.TEAM_NAME_QUERY] === undefined &&
-    params[MemberRouteRegistrar.PAIR_NAME_QUERY] === undefined &&
-    params[MemberRouteRegistrar.EXERCISE_ID_QUERY] === undefined &&
-    params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY] === undefined;
+    params[GetMemberController.TEAM_NAME_QUERY] === undefined &&
+    params[GetMemberController.PAIR_NAME_QUERY] === undefined &&
+    params[GetMemberController.EXERCISE_ID_QUERY] === undefined &&
+    params[GetMemberController.PROGRESS_STATUS_QUERY] === undefined;
 
   private isGetMemberByTeamNameUsecaseParamsPattern = (params: {
     [key: string]: string;
   }) =>
-    params[MemberRouteRegistrar.TEAM_NAME_QUERY] !== undefined &&
-    params[MemberRouteRegistrar.PAIR_NAME_QUERY] === undefined &&
-    params[MemberRouteRegistrar.EXERCISE_ID_QUERY] === undefined &&
-    params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY] === undefined;
+    params[GetMemberController.TEAM_NAME_QUERY] !== undefined &&
+    params[GetMemberController.PAIR_NAME_QUERY] === undefined &&
+    params[GetMemberController.EXERCISE_ID_QUERY] === undefined &&
+    params[GetMemberController.PROGRESS_STATUS_QUERY] === undefined;
 
   private isGetMemberByPairNameUsecaseParamsPattern = (params: {
     [key: string]: string;
   }) =>
-    params[MemberRouteRegistrar.TEAM_NAME_QUERY] !== undefined &&
-    params[MemberRouteRegistrar.PAIR_NAME_QUERY] !== undefined &&
-    params[MemberRouteRegistrar.EXERCISE_ID_QUERY] === undefined &&
-    params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY] === undefined;
+    params[GetMemberController.TEAM_NAME_QUERY] !== undefined &&
+    params[GetMemberController.PAIR_NAME_QUERY] !== undefined &&
+    params[GetMemberController.EXERCISE_ID_QUERY] === undefined &&
+    params[GetMemberController.PROGRESS_STATUS_QUERY] === undefined;
 
   private isGetMemberByExerciseAndProgressUsecaseParamsPattern = (params: {
     [key: string]: string;
   }) =>
-    params[MemberRouteRegistrar.TEAM_NAME_QUERY] === undefined &&
-    params[MemberRouteRegistrar.PAIR_NAME_QUERY] === undefined &&
-    params[MemberRouteRegistrar.EXERCISE_ID_QUERY] !== undefined &&
-    params[MemberRouteRegistrar.PROGRESS_STATUS_QUERY] !== undefined;
+    params[GetMemberController.TEAM_NAME_QUERY] === undefined &&
+    params[GetMemberController.PAIR_NAME_QUERY] === undefined &&
+    params[GetMemberController.EXERCISE_ID_QUERY] !== undefined &&
+    params[GetMemberController.PROGRESS_STATUS_QUERY] !== undefined;
 
   private validateParams = (params: { [key: string]: string }) => {
     // paramsがObject型ではないため
     // eslint-disable-next-line no-restricted-syntax
     for (const property in params) {
       if (
-        property !== MemberRouteRegistrar.TEAM_NAME_QUERY &&
-        property !== MemberRouteRegistrar.PAIR_NAME_QUERY &&
-        property !== MemberRouteRegistrar.EXERCISE_ID_QUERY &&
-        property !== MemberRouteRegistrar.PROGRESS_STATUS_QUERY
+        property !== GetMemberController.TEAM_NAME_QUERY &&
+        property !== GetMemberController.PAIR_NAME_QUERY &&
+        property !== GetMemberController.EXERCISE_ID_QUERY &&
+        property !== GetMemberController.PROGRESS_STATUS_QUERY
       ) {
         throw new Error("Invalid query params");
       }
