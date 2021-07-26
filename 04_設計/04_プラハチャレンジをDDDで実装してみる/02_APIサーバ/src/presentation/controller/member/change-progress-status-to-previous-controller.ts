@@ -1,7 +1,7 @@
-import { IController } from "presentation/interface/controller";
-import { MiddlewareServices } from "presentation/interface/middleware-services";
-import { RequestServices } from "presentation/interface/request-services";
-import { ResponseServices } from "presentation/interface/response-services";
+import {
+  ExecuteProps,
+  IController,
+} from "presentation/interface/controller/controller";
 import * as Usecase from "usecase";
 
 export class ChangeProgressStatusToPreviousController implements IController {
@@ -9,14 +9,14 @@ export class ChangeProgressStatusToPreviousController implements IController {
     private readonly changeProgressStatusToPreviousUsecase: Usecase.ChangeProgressStatusPrevious,
   ) {}
 
-  public execute = async (
-    requestServices: RequestServices,
-    responseServices: ResponseServices,
-    middleWareServices: MiddlewareServices,
-  ): Promise<void> => {
+  public execute = async ({
+    requestServices,
+    responseServices,
+    middlewareServices,
+  }: ExecuteProps): Promise<void> => {
     const { getPathParams } = requestServices;
     const { setResponseStatus, sendResponse } = responseServices;
-    const { nextFunction } = middleWareServices;
+    const { nextFunction } = middlewareServices;
 
     try {
       const { memberID, exerciseID } = getPathParams.execute();

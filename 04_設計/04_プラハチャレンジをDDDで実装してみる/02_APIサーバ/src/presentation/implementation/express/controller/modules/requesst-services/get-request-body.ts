@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { IGetRequstBody } from "presentation/interface/request-services";
+import * as IRequest from "presentation/interface/controller/modules/request-service";
 
-export class GetRequestBody implements IGetRequstBody {
+export class GetRequestBody implements IRequest.IGetRequstBody {
   public constructor(private readonly req: Request) {}
 
   public execute = (): { [key: string]: unknown } =>

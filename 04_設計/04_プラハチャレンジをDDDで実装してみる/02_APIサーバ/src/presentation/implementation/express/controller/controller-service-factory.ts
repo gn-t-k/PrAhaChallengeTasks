@@ -1,22 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import * as Controller from "presentation/implementation/express/controller";
-import { MiddlewareServices } from "presentation/interface/middleware-services";
-import { RequestServices } from "presentation/interface/request-services";
-import { ResponseServices } from "presentation/interface/response-services";
-
-type Return = {
-  requestServices: RequestServices;
-  responseServices: ResponseServices;
-  middlewareServices: MiddlewareServices;
-};
+import { ExecuteProps } from "presentation/interface/controller/controller";
 
 export class ControllerServiceFactory {
   public static execute = (
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Return => {
-    const requestServices: RequestServices = {
+  ): ExecuteProps => {
+    const requestServices = {
       getPathParams: new Controller.Modules.RequestService.GetPathParamsService(
         req,
       ),
@@ -25,7 +17,7 @@ export class ControllerServiceFactory {
       ),
       getRequestBody: new Controller.Modules.RequestService.GetRequestBody(req),
     };
-    const responseServices: ResponseServices = {
+    const responseServices = {
       setResponseStatus: new Controller.Modules.ResponseService.SetResponseStatusService(
         res,
       ),
@@ -33,7 +25,7 @@ export class ControllerServiceFactory {
         res,
       ),
     };
-    const middlewareServices: MiddlewareServices = {
+    const middlewareServices = {
       nextFunction: new Controller.Modules.MiddlewareService.NextFunctionService(
         next,
       ),

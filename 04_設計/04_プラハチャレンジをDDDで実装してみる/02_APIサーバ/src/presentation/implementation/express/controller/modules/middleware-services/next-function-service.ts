@@ -1,7 +1,7 @@
 import { NextFunction } from "express";
-import { INextFunction } from "presentation/interface/middleware-services";
+import * as IMiddleware from "presentation/interface/controller/modules/middleware-service";
 
-export class NextFunctionService implements INextFunction {
+export class NextFunctionService implements IMiddleware.INextFunction {
   public constructor(private readonly next: NextFunction) {}
 
   public execute = (error?: unknown): void => {

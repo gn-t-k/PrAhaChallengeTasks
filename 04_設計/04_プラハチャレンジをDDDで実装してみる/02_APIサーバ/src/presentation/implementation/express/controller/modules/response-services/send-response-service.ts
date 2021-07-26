@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { ISendResponse } from "presentation/interface/response-services";
+import * as IResponse from "presentation/interface/controller/modules/response-service";
 
-export class SendResponseService implements ISendResponse {
+export class SendResponseService implements IResponse.ISendResponse {
   public constructor(private readonly res: Response) {}
 
   public execute = (data?: unknown): void => {

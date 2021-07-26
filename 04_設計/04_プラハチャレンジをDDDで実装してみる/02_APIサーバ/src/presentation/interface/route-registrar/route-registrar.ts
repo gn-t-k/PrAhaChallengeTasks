@@ -1,4 +1,5 @@
-import { IController } from "presentation/interface/controller";
+import { IController } from "presentation/interface/controller/controller";
+import { RequestParams } from "presentation/interface/route-registrar/request-params";
 
 export interface IGetRouteRegistrar {
   execute: (requestParams: RequestParams, controller: IController) => void;
@@ -15,8 +16,3 @@ export interface IPutRouteRegistrar {
 export interface IDeleteRouteRegistrar {
   execute: (requestParams: RequestParams, controller: IController) => void;
 }
-
-export type RequestParams = {
-  path: string;
-  query?: string[];
-};

@@ -1,7 +1,7 @@
-import { IController } from "presentation/interface/controller";
-import { MiddlewareServices } from "presentation/interface/middleware-services";
-import { RequestServices } from "presentation/interface/request-services";
-import { ResponseServices } from "presentation/interface/response-services";
+import {
+  ExecuteProps,
+  IController,
+} from "presentation/interface/controller/controller";
 import { MemberRouteRegistrar } from "presentation/route-registrar";
 import * as Usecase from "usecase";
 
@@ -13,14 +13,14 @@ export class GetMemberController implements IController {
     private readonly getMemberByExerciseAndProgressUsecase: Usecase.GetMemberByExerciseAndProgress,
   ) {}
 
-  public execute = async (
-    requestServices: RequestServices,
-    responseServices: ResponseServices,
-    middleWareServices: MiddlewareServices,
-  ): Promise<void> => {
+  public execute = async ({
+    requestServices,
+    responseServices,
+    middlewareServices,
+  }: ExecuteProps): Promise<void> => {
     const { getQueryParams } = requestServices;
     const { setResponseStatus, sendResponse } = responseServices;
-    const { nextFunction } = middleWareServices;
+    const { nextFunction } = middlewareServices;
 
     try {
       const params = getQueryParams.execute();

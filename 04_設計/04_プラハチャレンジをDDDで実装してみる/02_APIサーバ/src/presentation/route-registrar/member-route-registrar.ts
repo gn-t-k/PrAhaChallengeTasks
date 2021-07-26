@@ -4,7 +4,7 @@ import {
   IGetRouteRegistrar,
   IPostRouteRegistrar,
   IPutRouteRegistrar,
-} from "presentation/interface/route-registrar";
+} from "presentation/interface/route-registrar/route-registrar";
 
 export class MemberRouteRegistrar {
   public static readonly TEAM_NAME_QUERY = "team-name";

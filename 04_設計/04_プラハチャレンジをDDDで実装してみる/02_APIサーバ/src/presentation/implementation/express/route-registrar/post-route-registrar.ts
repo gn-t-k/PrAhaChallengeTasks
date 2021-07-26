@@ -2,11 +2,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { NextFunction, Request, Response, Router } from "express";
 import { ControllerServiceFactory } from "presentation/implementation/express/controller";
-import { IController } from "presentation/interface/controller";
-import {
-  IPostRouteRegistrar,
-  RequestParams,
-} from "presentation/interface/route-registrar";
+import { IController } from "presentation/interface/controller/controller";
+import { RequestParams } from "presentation/interface/route-registrar/request-params";
+import { IPostRouteRegistrar } from "presentation/interface/route-registrar/route-registrar";
 
 export class PostRouteRegistrar implements IPostRouteRegistrar {
   public constructor(private readonly router: Router) {}
@@ -24,11 +22,11 @@ export class PostRouteRegistrar implements IPostRouteRegistrar {
           middlewareServices,
         } = ControllerServiceFactory.execute(req, res, next);
 
-        await controller.execute(
+        await controller.execute({
           requestServices,
           responseServices,
           middlewareServices,
-        );
+        });
       },
     );
   };

@@ -1,7 +1,7 @@
 import { Request } from "express";
-import { IGetQueryParams } from "presentation/interface/request-services";
+import * as IRequest from "presentation/interface/controller/modules/request-service";
 
-export class GetQueryParamsService implements IGetQueryParams {
+export class GetQueryParamsService implements IRequest.IGetQueryParams {
   public constructor(private readonly req: Request) {}
 
   public execute = (): { [key: string]: string } =>
