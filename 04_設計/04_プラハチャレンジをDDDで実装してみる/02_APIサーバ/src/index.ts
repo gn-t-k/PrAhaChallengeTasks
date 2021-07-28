@@ -1,11 +1,14 @@
+/* eslint-disable no-console */
 import express from "express";
 
-const app = express();
+try {
+  const PORT = 3000;
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(router);
+  const app = express();
+  const router = express.Router();
+} catch (error) {
+  const message =
+    error instanceof Error ? error.message : "Something went wrong";
 
-const port = 8080;
-
-app.listen(port);
+  console.error(message);
+}
