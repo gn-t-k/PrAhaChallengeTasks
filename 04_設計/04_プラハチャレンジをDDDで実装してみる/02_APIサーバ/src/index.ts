@@ -12,8 +12,8 @@ try {
     prisma: new PrismaClient(),
   };
 
-  const memberRoute = new MemberRouteFactory(router, context);
-  memberRoute.execute();
+  const memberRoute = new MemberRouteFactory(router, context).execute();
+  memberRoute.register();
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
