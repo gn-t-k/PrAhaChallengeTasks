@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { PrismaClient } from "@prisma/client";
 import express from "express";
-import { MemberRouteFactory } from "presentation/implementation/express/service/member-route-factory";
+import { RouteInitializer } from "config/initializer/route-initializer";
 
 try {
   const PORT = 3000;
@@ -12,8 +12,7 @@ try {
     prisma: new PrismaClient(),
   };
 
-  const memberRoute = new MemberRouteFactory(router, context).execute();
-  memberRoute.register();
+  new RouteInitializer(router, context).execute();
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

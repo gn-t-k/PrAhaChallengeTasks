@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { RouteRegistrarsFactory } from "config/initializer/route/route-registrars-factory";
 import { IExerciseRepository } from "domain/exercise/exercise-repository-interface";
 import { IMemberRepository } from "domain/member/member-repository-interface";
 import { ChangeActivityStatusService } from "domain/member/service/change-activity-status-service";
@@ -11,7 +12,6 @@ import { Context } from "infrastructure/db/context";
 import * as QueryService from "infrastructure/db/query-service";
 import * as Repository from "infrastructure/db/repository";
 import * as MemberController from "presentation/controller/member";
-import { RouteRegistrarsFactory } from "presentation/implementation/express/service/route-registrars-factory";
 import { MemberRoute } from "presentation/route";
 import * as Usecase from "usecase";
 
