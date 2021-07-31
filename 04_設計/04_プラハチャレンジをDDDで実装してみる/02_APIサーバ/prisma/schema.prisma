@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Member {
+  id String @id
+  name String
+  email String @unique
+  activityStatus String
+  pair MemberOnPair[]
+  exercise ExerciseOnMember[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pair {
+  id String @id
+  name String
+  team Team @relation(fields: [teamId], references: [id])
+  teamId String
+  member MemberOnPair[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([name, teamId])
+}
+
+model Team {
+  id String @id
+  name String @unique
+  pair Pair[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exercise {
+  id String @id
+  title String @unique
+  description String
+  exerciseGroup ExerciseGroup @relation(fields: [exerciseGroupId], references: [id])
+  exerciseGroupId String
+  member ExerciseOnMember[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExerciseGroup {
+  id String @id
+  name String @unique
+  exercise Exercise[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExerciseOnMember {
+  memberId String
+  member Member @relation(fields: [memberId], references: [id])
+  exerciseId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  progressStatus String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([memberId, exerciseId])
+}
+
+model MemberOnPair {
+  memberId String
+  member Member @relation(fields: [memberId], references: [id])
+  pairId String
+  pair Pair @relation(fields: [pairId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([memberId, pairId])
+}
