@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Heading from "components/atom/heading";
+import ChangeColorLink from "components/atom/change-color-link";
 
 export default {
-  title: "Atom/Heading",
-  componet: Heading,
+  title: "Atom/ChangeColorLink",
+  componet: ChangeColorLink,
   argTypes: {
     text: {
       name: "text",
@@ -16,13 +16,14 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Heading>;
+} as ComponentMeta<typeof ChangeColorLink>;
 
-const Template: ComponentStory<typeof Heading> = (args) => (
-  <Heading {...args} />
+const Template: ComponentStory<typeof ChangeColorLink> = (args) => (
+  <ChangeColorLink {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  text: "title text",
+  text: "Home",
+  href: "#",
 };
