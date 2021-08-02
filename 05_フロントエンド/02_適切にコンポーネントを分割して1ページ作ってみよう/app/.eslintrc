@@ -35,7 +35,8 @@
       "ignorePackages",
       {
         "js": "never",
-        "ts": "never"
+        "ts": "never",
+        "tsx": "never"
       }
     ],
     "import/prefer-default-export": [
@@ -65,7 +66,8 @@
         ]
       }
     ],
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "import/no-extraneous-dependencies": "off"
   },
   "settings": {
     "import/resolver": {
