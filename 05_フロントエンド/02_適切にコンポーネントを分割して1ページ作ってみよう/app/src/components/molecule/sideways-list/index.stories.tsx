@@ -3,7 +3,7 @@ import ChangeColorLink from "components/atom/change-color-link";
 import SidewaysList from "components/molecule/sideways-list";
 
 export default {
-  title: "Atom/SidewaysList",
+  title: "Molecule/SidewaysList",
   componet: SidewaysList,
 } as ComponentMeta<typeof SidewaysList>;
 
