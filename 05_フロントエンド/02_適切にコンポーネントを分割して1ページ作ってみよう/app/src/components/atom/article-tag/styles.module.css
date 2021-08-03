@@ -1,0 +1,11 @@
+.tag {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: rgba(75, 85, 99, 1);
+}
+
+.tag a {
+  color: rgba(243, 244, 246, 1);
+  text-decoration: none;
+  font-weight: 700;
+}
