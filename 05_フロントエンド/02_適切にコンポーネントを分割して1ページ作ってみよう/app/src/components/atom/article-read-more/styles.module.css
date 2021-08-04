@@ -1,0 +1,8 @@
+.text {
+  color: rgba(59, 130, 246, 1);
+  text-decoration: none;
+}
+
+.text:hover {
+  text-decoration: underline;
+}
