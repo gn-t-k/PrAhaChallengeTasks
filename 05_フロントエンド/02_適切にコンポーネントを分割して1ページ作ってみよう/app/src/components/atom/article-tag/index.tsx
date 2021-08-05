@@ -9,7 +9,7 @@ type Props = {
 const ArticleTag = (props: Props): JSX.Element => (
   <span className={styles.tag}>
     <Link href={props.href}>
-      <a>props.label</a>
+      <a>{props.label}</a>
     </Link>
   </span>
 );
