@@ -1,12 +1,12 @@
 import Link from "next/link";
-import styles from "components/atom/article-tag/styles.module.css";
+import styles from "components/atom/post-tag/styles.module.css";
 
 type Props = {
   label: string;
   href: string;
 };
 
-const ArticleTag = (props: Props): JSX.Element => (
+const PostTag = (props: Props): JSX.Element => (
   <span className={styles.tag}>
     <Link href={props.href}>
       <a>{props.label}</a>
@@ -14,4 +14,4 @@ const ArticleTag = (props: Props): JSX.Element => (
   </span>
 );
 
-export default ArticleTag;
+export default PostTag;

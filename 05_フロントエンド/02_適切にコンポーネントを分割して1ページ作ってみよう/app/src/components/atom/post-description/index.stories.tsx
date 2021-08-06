@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ArticleDescription from "components/atom/article-description";
+import PostDescription from "components/atom/post-description";
 
 export default {
-  title: "Atom/ArticleDescription",
-  componet: ArticleDescription,
+  title: "Atom/PostDescription",
+  componet: PostDescription,
   argTypes: {
     text: {
       name: "text",
@@ -16,10 +16,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ArticleDescription>;
+} as ComponentMeta<typeof PostDescription>;
 
-const Template: ComponentStory<typeof ArticleDescription> = (args) => (
-  <ArticleDescription {...args} />
+const Template: ComponentStory<typeof PostDescription> = (args) => (
+  <PostDescription {...args} />
 );
 
 export const Default = Template.bind({});

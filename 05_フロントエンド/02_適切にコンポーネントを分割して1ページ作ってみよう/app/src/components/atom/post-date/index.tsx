@@ -1,10 +1,10 @@
-import styles from "components/atom/article-date/styles.module.css";
+import styles from "components/atom/post-date/styles.module.css";
 
 type Props = {
   date: Date;
 };
 
-const ArticleDate = (props: Props): JSX.Element => {
+const PostDate = (props: Props): JSX.Element => {
   const monthEnglishList = [
     "Jan",
     "Feb",
@@ -26,4 +26,4 @@ const ArticleDate = (props: Props): JSX.Element => {
   return <p className={styles.date}>{dateString}</p>;
 };
 
-export default ArticleDate;
+export default PostDate;

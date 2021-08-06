@@ -1,0 +1,20 @@
+.container {
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  padding: 1rem 1.5rem;
+  max-width: 24rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.list {
+  list-style: none;
+  margin: 0 -1rem;
+  padding: 0;
+}
+
+.list li:nth-of-type(n+2) {
+  margin-top: 1.5rem;
+}

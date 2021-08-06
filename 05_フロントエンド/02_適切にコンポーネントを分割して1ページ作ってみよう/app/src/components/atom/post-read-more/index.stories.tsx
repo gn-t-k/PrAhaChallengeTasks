@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import ArticleHeading from "components/atom/article-heading";
+import PostReadMore from "components/atom/post-read-more";
 
 export default {
-  title: "Atom/ArticleHeading",
-  componet: ArticleHeading,
+  title: "Atom/PostReadMore",
+  componet: PostReadMore,
   argTypes: {
     text: {
       name: "text",
@@ -16,14 +16,13 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof ArticleHeading>;
+} as ComponentMeta<typeof PostReadMore>;
 
-const Template: ComponentStory<typeof ArticleHeading> = (args) => (
-  <ArticleHeading {...args} />
+const Template: ComponentStory<typeof PostReadMore> = (args) => (
+  <PostReadMore {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  text: "Build Your New Idea with Laravel Freamwork.",
   href: "#",
 };

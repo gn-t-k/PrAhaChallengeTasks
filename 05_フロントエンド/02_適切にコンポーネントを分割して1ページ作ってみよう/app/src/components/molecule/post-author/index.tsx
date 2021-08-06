@@ -1,7 +1,7 @@
 import Link from "next/link";
 import AuthorName from "components/atom/author-name";
 import AuthorThumbnail from "components/atom/author-thumbnail";
-import styles from "components/molecule/article-author/styles.module.css";
+import styles from "components/molecule/post-author/styles.module.css";
 
 type Props = {
   authorName: string;
@@ -9,7 +9,7 @@ type Props = {
   thumbnailSrc: string;
 };
 
-const ArticleAuthor = (props: Props): JSX.Element => (
+const PostAuthor = (props: Props): JSX.Element => (
   <Link href={props.authorHref}>
     <a className={styles.container}>
       <AuthorThumbnail authorName={props.authorName} src={props.thumbnailSrc} />
@@ -18,4 +18,4 @@ const ArticleAuthor = (props: Props): JSX.Element => (
   </Link>
 );
 
-export default ArticleAuthor;
+export default PostAuthor;
