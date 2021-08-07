@@ -1,0 +1,9 @@
+.text {
+  color: rgba(55, 65, 81, 1);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.text:hover {
+  text-decoration: underline;
+}
