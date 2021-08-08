@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import ChangeColorLink from "components/atom/change-color-link";
-import SidewaysList from "components/molecule/sideways-list";
+import Navigation from "components/molecule/navigation";
 
 export default {
-  title: "Molecule/SidewaysList",
-  componet: SidewaysList,
-} as ComponentMeta<typeof SidewaysList>;
+  title: "Molecule/Navigation",
+  componet: Navigation,
+} as ComponentMeta<typeof Navigation>;
 
-const Template: ComponentStory<typeof SidewaysList> = (args) => (
-  <SidewaysList {...args} />
+const Template: ComponentStory<typeof Navigation> = (args) => (
+  <Navigation {...args} />
 );
 
 export const Default = Template.bind({});

@@ -5,7 +5,7 @@ type Props = {
 };
 
 const AuthorName = (props: Props): JSX.Element => (
-  <p className={styles.text}>{props.text}</p>
+  <span className={styles.text}>{props.text}</span>
 );
 
 export default AuthorName;

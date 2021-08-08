@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  align-items: center;
 }
 
 .thumbnail {
@@ -7,12 +8,14 @@
 }
 
 .text {
-  display: flex;;
-  align-items: center;
+  overflow-wrap: break-word;
 }
 
-.text .name {
+.text span {
+  display: inline;
+}
+
+.name {
   margin: 0 0.25rem;
 }
-
 

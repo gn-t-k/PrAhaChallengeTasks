@@ -1,4 +1,4 @@
-import styles from "components/molecule/sideways-list/styles.module.css";
+import styles from "components/molecule/navigation/styles.module.css";
 
 type Child = [id: string, component: JSX.Element];
 
@@ -6,7 +6,7 @@ type Props = {
   children: Child[];
 };
 
-const SidewaysList = (props: Props): JSX.Element => (
+const Navigation = (props: Props): JSX.Element => (
   <ul className={styles.list}>
     {props.children.map((child) => {
       const id = child[0];
@@ -21,4 +21,4 @@ const SidewaysList = (props: Props): JSX.Element => (
   </ul>
 );
 
-export default SidewaysList;
+export default Navigation;

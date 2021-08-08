@@ -14,12 +14,12 @@ const Author = (props: Props): JSX.Element => (
     <div className={styles.thumbnail}>
       <AuthorThumbnail authorName={props.authorName} src={props.thumbnailSrc} />
     </div>
-    <div className={styles.text}>
+    <p className={styles.text}>
       <span className={styles.name}>
         <AuthorName text={props.authorName} />
       </span>
       <AuthorPosts amount={props.authorPostsAmount} />
-    </div>
+    </p>
   </div>
 );
 

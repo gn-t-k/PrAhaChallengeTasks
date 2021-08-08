@@ -5,7 +5,7 @@ type Props = {
 };
 
 const AuthorPosts = (props: Props): JSX.Element => (
-  <p className={styles.text}>Created {props.amount} Posts</p>
+  <span className={styles.text}>Created {props.amount} Posts</span>
 );
 
 export default AuthorPosts;
