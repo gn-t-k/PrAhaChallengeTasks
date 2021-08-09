@@ -4,18 +4,6 @@ import PostDescription from "components/atom/post-description";
 export default {
   title: "Atom/PostDescription",
   componet: PostDescription,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof PostDescription>;
 
 const Template: ComponentStory<typeof PostDescription> = (args) => (

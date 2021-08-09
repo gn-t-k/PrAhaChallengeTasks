@@ -4,18 +4,6 @@ import RecentPost from "components/organism/recent-post";
 export default {
   title: "Organism/RecentPost",
   componet: RecentPost,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof RecentPost>;
 
 const Template: ComponentStory<typeof RecentPost> = (args) => (

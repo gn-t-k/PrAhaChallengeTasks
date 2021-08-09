@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.mainHeading h2 p {
+  font-size: 1.5rem;
+}
+
 .container main {
   width: calc(100% * 8/12);
 }

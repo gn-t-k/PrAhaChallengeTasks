@@ -4,18 +4,6 @@ import AuthorThumbnail from "components/atom/author-thumbnail";
 export default {
   title: "Atom/AuthorThumbnail",
   componet: AuthorThumbnail,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof AuthorThumbnail>;
 
 const Template: ComponentStory<typeof AuthorThumbnail> = (args) => (

@@ -4,18 +4,6 @@ import PostAuthor from "components/molecule/post-author";
 export default {
   title: "Molecule/PostAuthor",
   componet: PostAuthor,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof PostAuthor>;
 
 const Template: ComponentStory<typeof PostAuthor> = (args) => (

@@ -4,18 +4,6 @@ import Post from "components/organism/post";
 export default {
   title: "Organism/Post",
   componet: Post,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof Post>;
 
 const Template: ComponentStory<typeof Post> = (args) => <Post {...args} />;

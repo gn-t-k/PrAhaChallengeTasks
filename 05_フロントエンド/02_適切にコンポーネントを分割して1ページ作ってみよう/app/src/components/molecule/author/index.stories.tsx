@@ -4,18 +4,6 @@ import Author from "components/molecule/author";
 export default {
   title: "Molecule/Author",
   componet: Author,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof Author>;
 
 const Template: ComponentStory<typeof Author> = (args) => <Author {...args} />;

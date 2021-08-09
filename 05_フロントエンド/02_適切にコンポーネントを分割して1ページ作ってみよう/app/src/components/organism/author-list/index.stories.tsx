@@ -4,18 +4,6 @@ import AuthorList from "components/organism/author-list";
 export default {
   title: "Organism/AuthorList",
   componet: AuthorList,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof AuthorList>;
 
 const Template: ComponentStory<typeof AuthorList> = (args) => (

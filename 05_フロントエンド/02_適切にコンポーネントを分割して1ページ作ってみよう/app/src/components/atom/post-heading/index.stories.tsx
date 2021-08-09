@@ -4,18 +4,6 @@ import PostHeading from "components/atom/post-heading";
 export default {
   title: "Atom/PostHeading",
   componet: PostHeading,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof PostHeading>;
 
 const Template: ComponentStory<typeof PostHeading> = (args) => (

@@ -4,18 +4,6 @@ import LinkHeading from "components/atom/link-heading";
 export default {
   title: "Atom/LinkHeading",
   componet: LinkHeading,
-  argTypes: {
-    text: {
-      name: "text",
-      type: {
-        name: "string",
-        required: true,
-      },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as ComponentMeta<typeof LinkHeading>;
 
 const Template: ComponentStory<typeof LinkHeading> = (args) => (
