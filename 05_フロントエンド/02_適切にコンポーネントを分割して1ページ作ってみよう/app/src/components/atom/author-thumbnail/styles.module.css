@@ -4,3 +4,9 @@
   object-fit: cover;
   border-radius: 9999px;
 }
+
+@media screen and (max-width: 1024px) {
+  .image {
+    display: none;
+  }
+}

@@ -10,3 +10,25 @@
   display: flex;
   align-items: center;
 }
+
+.button {
+  display: none;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .list {
+    display: none;
+  }
+
+  .button {
+    display: block;
+    color: rgba(31, 41, 55, 1);
+  }
+
+  .button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+  }
+}

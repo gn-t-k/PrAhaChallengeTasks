@@ -45,3 +45,13 @@
 .container aside section h2 {
   margin-bottom: 1rem;
 }
+
+@media screen and (max-width: 1024px) {
+  .container aside {
+    display: none
+  }
+
+  .container main {
+    width: 100%;
+  }
+}
