@@ -1,0 +1,36 @@
+button {
+  color: white;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
+
+button:disabled {
+  background-color: gray;
+}
+
+.small {
+  height: 2rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+.medium {
+  height: 2.5rem;
+  padding: 0 1.25rem;
+}
+
+.large {
+  height: 3rem;
+  padding: 0 1.5rem;
+  font-size: 1.125rem;
+}
