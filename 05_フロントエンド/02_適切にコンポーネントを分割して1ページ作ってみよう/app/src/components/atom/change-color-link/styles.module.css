@@ -1,0 +1,8 @@
+.text {
+  color: rgba(31, 41, 55, 1);
+  text-decoration: none;
+}
+
+.text:hover {
+  color: rgba(59, 130, 246, 1)
+}

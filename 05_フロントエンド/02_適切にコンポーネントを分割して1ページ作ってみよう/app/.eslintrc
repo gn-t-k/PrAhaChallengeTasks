@@ -1,0 +1,82 @@
+{
+  "extends": [
+    "airbnb-base",
+    "next",
+    "next/core-web-vitals",
+    "plugin:jest/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
+  "rules": {
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "argsIgnorePattern": "_",
+        "ignoreRestSiblings": false,
+        "varsIgnorePattern": "_"
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/prefer-default-export": [
+      "off"
+    ],
+    "no-underscore-dangle": [
+      "off"
+    ],
+    "no-use-before-define": [
+      "off"
+    ],
+    "sort-imports": 0,
+    "import/order": [
+      2,
+      {
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "./",
+          "../"
+        ]
+      }
+    ],
+    "no-useless-constructor": "off",
+    "import/no-extraneous-dependencies": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}

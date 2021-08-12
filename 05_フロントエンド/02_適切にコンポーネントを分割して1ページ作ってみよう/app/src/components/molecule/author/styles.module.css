@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.thumbnail {
+  margin: 0 1rem;;
+}
+
+.text {
+  overflow-wrap: break-word;
+}
+
+.text span {
+  display: inline;
+}
+
+.name {
+  margin: 0 0.25rem;
+}
+

@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+}
+
+.container:hover {
+  text-decoration: underline;
+}
+
+.container img {
+  margin: 0 1rem;
+}
