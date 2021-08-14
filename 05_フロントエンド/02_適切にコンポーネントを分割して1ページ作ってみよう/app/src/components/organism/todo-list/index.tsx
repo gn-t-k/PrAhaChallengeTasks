@@ -1,5 +1,5 @@
 import TodoItem from "components/molecule/todo-item";
-import { Data } from "domain/models/data";
+import { Data } from "domain/todo/models/data";
 
 const TodoList = (props: {
   data: Data[];

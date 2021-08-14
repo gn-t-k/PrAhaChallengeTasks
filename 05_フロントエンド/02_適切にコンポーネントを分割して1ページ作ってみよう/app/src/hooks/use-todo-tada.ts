@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Data } from "domain/models/data";
-import { generateID } from "domain/services/generate-id";
+import { Data } from "domain/todo/models/data";
+import { generateID } from "domain/todo/services/generate-id";
 
 type UseTodoData = () => {
   data: Data[];

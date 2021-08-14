@@ -1,5 +1,5 @@
 import styles from "components/molecule/todo-item/styles.module.css";
-import { Data } from "domain/models/data";
+import { Data } from "domain/todo/models/data";
 
 const TodoItem = (props: {
   data: Data;

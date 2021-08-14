@@ -1,6 +1,6 @@
 import TodoForm from "components/organism/todo-form";
 import TodoList from "components/organism/todo-list";
-import { Data } from "domain/models/data";
+import { Data } from "domain/todo/models/data";
 
 const TodoBox = (props: {
   data: Data[];
