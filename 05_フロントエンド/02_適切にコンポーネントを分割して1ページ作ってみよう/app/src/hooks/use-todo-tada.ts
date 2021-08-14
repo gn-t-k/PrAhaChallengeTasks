@@ -29,7 +29,7 @@ export const useTodoData: UseTodoData = () => {
     );
   };
   const removeData = (nodeID: string) => {
-    setData(data.filter((el) => el.id !== nodeID));
+    setData(data.filter((d) => d.id !== nodeID));
   };
 
   return { data, registerData, toggleComplete, removeData };
