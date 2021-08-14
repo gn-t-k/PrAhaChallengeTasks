@@ -3,12 +3,12 @@ import { Data } from "domain/todo/models/data";
 
 const TodoItem = (props: {
   data: Data;
-  removeNode: (nodeID: string) => void;
+  removeData: (nodeID: string) => void;
   toggleComplete: (nodeID: string) => void;
 }): JSX.Element => {
-  const removeNode = (event: React.MouseEvent<HTMLElement>) => {
+  const removeData = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    props.removeNode(props.data.id);
+    props.removeData(props.data.id);
   };
   const toggleComplete = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -23,7 +23,7 @@ const TodoItem = (props: {
         <button type="button" onClick={toggleComplete}>
           &#x2713;
         </button>
-        <button type="button" onClick={removeNode}>
+        <button type="button" onClick={removeData}>
           &#xff38;
         </button>
       </div>

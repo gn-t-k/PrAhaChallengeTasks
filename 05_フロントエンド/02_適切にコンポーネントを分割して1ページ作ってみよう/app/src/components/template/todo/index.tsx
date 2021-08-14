@@ -13,11 +13,7 @@ const TodoBox = (props: {
   return (
     <div>
       <h1>To do:</h1>
-      <TodoList
-        data={data}
-        removeNode={removeData}
-        toggleComplete={toggleComplete}
-      />
+      <TodoList {...{ data, removeData, toggleComplete }} />
       <TodoForm onTaskSubmit={registerData} />
     </div>
   );

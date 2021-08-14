@@ -3,20 +3,15 @@ import { Data } from "domain/todo/models/data";
 
 const TodoList = (props: {
   data: Data[];
-  removeNode: (nodeID: string) => void;
+  removeData: (nodeID: string) => void;
   toggleComplete: (nodeID: string) => void;
 }): JSX.Element => {
-  const { removeNode, toggleComplete } = props;
+  const { removeData, toggleComplete } = props;
 
   return (
     <ul>
-      {props.data.map((d) => (
-        <TodoItem
-          key={d.id}
-          data={d}
-          removeNode={removeNode}
-          toggleComplete={toggleComplete}
-        />
+      {props.data.map((data) => (
+        <TodoItem key={data.id} {...{ data, removeData, toggleComplete }} />
       ))}
     </ul>
   );
