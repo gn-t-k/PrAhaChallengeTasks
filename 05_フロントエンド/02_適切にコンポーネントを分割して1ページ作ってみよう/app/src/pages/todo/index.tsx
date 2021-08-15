@@ -1,5 +1,5 @@
 import TodoBox from "components/template/todo";
-import { useTodoData } from "hooks/use-todo-tada";
+import { useTodoData } from "hooks/use-todo-data";
 
 const Todo = (): JSX.Element => {
   const { data, registerData, toggleComplete, removeData } = useTodoData();
