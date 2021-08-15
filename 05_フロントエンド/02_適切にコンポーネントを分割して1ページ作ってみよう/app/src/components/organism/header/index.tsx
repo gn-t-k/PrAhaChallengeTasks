@@ -17,7 +17,7 @@ const Header = (props: Props): JSX.Element => (
   <header className={styles.container}>
     <section className={styles.content}>
       <h1>
-        <LinkHeading text={props.title.text} href={props.title.text} />
+        <LinkHeading text={props.title.text} href={props.title.href} />
       </h1>
       <nav>
         <Navigation>
