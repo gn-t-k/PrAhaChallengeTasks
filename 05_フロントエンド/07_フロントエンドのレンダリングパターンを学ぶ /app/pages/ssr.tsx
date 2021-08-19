@@ -1,11 +1,12 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import {
-  RepositoryData,
-  useGetRepository,
-} from "../../hooks/use-get-repository";
-import styles from "../../styles/Home.module.css";
+import styles from "../styles/Home.module.css";
+
+type RepositoryData = {
+  subscribers: number;
+  stars: number;
+};
 
 type Props = {
   repositoryData: RepositoryData;
@@ -74,21 +75,18 @@ const Home: NextPage<Props> = ({ repositoryData }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const request = new Request("https://api.github.com/repos/facebook/react");
 
   const response = await fetch(request);
-
   const responseJson = await response.json();
 
-  return {
-    props: {
-      repositoryData: {
-        subscribers: responseJson.subscribers_count,
-        stars: responseJson.stargazers_count,
-      },
-    },
+  const repositoryData: RepositoryData = {
+    subscribers: responseJson.subscribers_count,
+    stars: responseJson.stargazers_count,
   };
+
+  return { props: { repositoryData } };
 };
 
 export default Home;

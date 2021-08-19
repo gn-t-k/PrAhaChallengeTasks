@@ -1,35 +1,18 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
-  const [data, setData] = useState({
-    subscribers: 0,
-    stars: 0,
-  });
+type RepositoryData = {
+  subscribers: number;
+  stars: number;
+};
 
-  useEffect(() => {
-    const getRequest = async () => {
-      const request = new Request(
-        "https://api.github.com/repos/facebook/react"
-      );
+type Props = {
+  repositoryData: RepositoryData;
+};
 
-      const response = await fetch(request);
-      const responseJson = await response.json();
-
-      return responseJson;
-    };
-
-    getRequest().then((response) => {
-      setData({
-        subscribers: response.subscribers_count,
-        stars: response.stargazers_count,
-      });
-    });
-  }, []);
-
+const Home: NextPage<Props> = ({ repositoryData }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -43,7 +26,7 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>{data.stars} stars</p>
+        <p className={styles.description}>{repositoryData.stars} stars</p>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -90,6 +73,20 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const request = new Request("https://api.github.com/repos/facebook/react");
+
+  const response = await fetch(request);
+  const responseJson = await response.json();
+
+  const repositoryData: RepositoryData = {
+    subscribers: responseJson.subscribers_count,
+    stars: responseJson.stargazers_count,
+  };
+
+  return { props: { repositoryData } };
 };
 
 export default Home;
