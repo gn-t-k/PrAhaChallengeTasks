@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  praha-challenge-postgresql:
+  db:
     container_name: praha-challenge-postgresql
     image: postgres:12
     ports:
@@ -13,6 +13,19 @@ services:
       POSTGRES_DB: praha-challenge-postgresql
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
       TZ: "Asia/Tokyo"
+
+  app:
+    depends_on:
+      - db
+    container_name: praha-challenge-app
+    tty: true
+    ports:
+      - '3000:3000'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
 
 volumes:
   praha-challenge-postgresql:
